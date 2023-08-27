@@ -37,6 +37,9 @@ dependencies {
     implementation(AndroidX.core.ktx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.room.runtime)
+    implementation(AndroidX.room.ktx)
+    implementation(KotlinX.coroutines.android)
+
     annotationProcessor(AndroidX.room.compiler)
     ksp(AndroidX.room.compiler)
     testImplementation(Testing.junit4)
