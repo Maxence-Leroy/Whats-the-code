@@ -21,3 +21,4 @@ plugins {
 
 rootProject.name = "What's the code"
 include(":app")
+include(":library:libContact")
