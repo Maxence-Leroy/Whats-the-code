@@ -3,7 +3,6 @@ import de.fayard.refreshVersions.core.versionFor
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -62,9 +61,6 @@ dependencies {
     implementation(AndroidX.compose.ui.graphics)
     implementation(AndroidX.compose.ui.toolingPreview)
     implementation(AndroidX.compose.material3)
-    implementation(AndroidX.room.runtime)
-    annotationProcessor(AndroidX.room.compiler)
-    ksp(AndroidX.room.compiler)
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.espresso.core)

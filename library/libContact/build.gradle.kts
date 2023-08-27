@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -35,6 +36,9 @@ android {
 dependencies {
     implementation(AndroidX.core.ktx)
     implementation(AndroidX.appCompat)
+    implementation(AndroidX.room.runtime)
+    annotationProcessor(AndroidX.room.compiler)
+    ksp(AndroidX.room.compiler)
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.espresso.core)
