@@ -1,6 +1,8 @@
 # Commitizen
-
 node_modules/
+
+# MacOS
+.DS_Store
 
 # Gradle files
 .gradle/
