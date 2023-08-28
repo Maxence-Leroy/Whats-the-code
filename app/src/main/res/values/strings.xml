@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">What\'s the code</string>
+    <string name="contactList_noContactPlaceholder">No contact found. You can add some with the plus button at the bottom right.</string>
+    <string name="contactList_addButtonDescription">Add contact button</string>
 </resources>
