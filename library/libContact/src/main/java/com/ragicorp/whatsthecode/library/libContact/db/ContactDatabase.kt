@@ -5,5 +5,5 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [ContactDb::class], version = 1, exportSchema = false)
 internal abstract class ContactDatabase : RoomDatabase() {
-    abstract fun contactDao(): ContactDao
+    internal abstract fun contactDao(): ContactDao
 }

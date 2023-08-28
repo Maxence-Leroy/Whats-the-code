@@ -2,8 +2,8 @@ package com.ragicorp.whatsthecode.library.libContact
 
 import androidx.room.Room
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDatabase
-import org.koin.dsl.module
 import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
 val contactModule = module {
     single(createdAtStart = true) {
@@ -14,4 +14,6 @@ val contactModule = module {
     }
 
     factory { get<ContactDatabase>().contactDao() }
+
+    factory { ContactRepository() }
 }

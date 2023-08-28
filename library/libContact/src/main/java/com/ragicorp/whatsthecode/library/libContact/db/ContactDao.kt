@@ -8,9 +8,9 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ContactDao {
+internal interface ContactDao {
     @Query("SELECT * FROM contact")
-    fun getContacts(): Flow<ContactDb>
+    fun getContacts(): Flow<List<ContactDb>>
 
     @Insert
     suspend fun addContact(contact: ContactDb)
