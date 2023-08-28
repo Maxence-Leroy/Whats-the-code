@@ -70,4 +70,6 @@ dependencies {
     androidTestImplementation(AndroidX.compose.ui.testJunit4)
     debugImplementation(AndroidX.compose.ui.tooling)
     debugImplementation(AndroidX.compose.ui.testManifest)
+
+    implementation( project(":library:libContact"))
 }

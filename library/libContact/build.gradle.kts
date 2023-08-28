@@ -39,9 +39,10 @@ dependencies {
     implementation(AndroidX.room.runtime)
     implementation(AndroidX.room.ktx)
     implementation(KotlinX.coroutines.android)
-
     annotationProcessor(AndroidX.room.compiler)
     ksp(AndroidX.room.compiler)
+    implementation(Koin.core)
+    implementation(Koin.android)
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.espresso.core)
