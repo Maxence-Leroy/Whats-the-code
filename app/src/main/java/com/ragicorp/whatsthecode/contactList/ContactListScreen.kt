@@ -23,47 +23,51 @@ import com.ragicorp.whatsthecode.contactList.views.NoContactPlaceholder
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
 import org.koin.androidx.compose.getViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-internal fun ContactListScreen(
-    contactListViewModel: ContactListViewModel = getViewModel()
-) {
-    val contactList = contactListViewModel.contacts.collectAsState(emptyList())
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /*TODO*/ }) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = stringResource(R.string.contactList_addButtonDescription)
-                )
-            }
-        },
-        content = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-            ) {
-                if (contactList.value.isEmpty()) {
-                    NoContactPlaceholder()
-                } else {
-                    LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(contactList.value) { contact ->
-                            ContactItem(contact = contact)
+internal object ContactList {
+    const val Route = "contactList"
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun Screen(
+        contactListViewModel: ContactListViewModel = getViewModel()
+    ) {
+        val contactList = contactListViewModel.contacts.collectAsState(emptyList())
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { /*TODO*/ }) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = stringResource(R.string.contactList_addButtonDescription)
+                    )
+                }
+            },
+            content = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it)
+                ) {
+                    if (contactList.value.isEmpty()) {
+                        NoContactPlaceholder()
+                    } else {
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(contactList.value) { contact ->
+                                ContactItem(contact = contact)
+                            }
                         }
                     }
                 }
             }
-        }
-    )
+        )
+    }
 }
 
 @Composable
 @Preview(device = Devices.PIXEL_4, showSystemUi = true)
 private fun ContactListScreenPreview() {
     WhatsTheCodeTheme {
-        ContactListScreen()
+        ContactList.Screen()
     }
 }

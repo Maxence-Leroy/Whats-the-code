@@ -61,6 +61,7 @@ dependencies {
     implementation(AndroidX.compose.ui.graphics)
     implementation(AndroidX.compose.ui.toolingPreview)
     implementation(AndroidX.compose.material3)
+    implementation(AndroidX.navigation.compose)
     implementation(Koin.core)
     implementation(Koin.android)
     implementation(Koin.compose)
