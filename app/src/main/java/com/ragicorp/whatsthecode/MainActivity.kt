@@ -22,7 +22,12 @@ class MainActivity : ComponentActivity() {
                     startDestination = ContactList.Route
                 ) {
                     composable(ContactList.Route) {
-                        ContactList.Screen(contactListViewModel = getViewModel())
+                        ContactList.Screen(
+                            contactListViewModel = getViewModel(),
+                            navigateToAddContact = {
+                                navController.navigate(AddContact.Route)
+                            }
+                        )
                     }
 
                     composable(AddContact.Route) {

@@ -29,14 +29,15 @@ internal object ContactList {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Screen(
-        contactListViewModel: ContactListViewModel = getViewModel()
+        contactListViewModel: ContactListViewModel = getViewModel(),
+        navigateToAddContact: () -> Unit
     ) {
         val contactList = contactListViewModel.contacts.collectAsState(emptyList())
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { /*TODO*/ }) {
+                    onClick = { navigateToAddContact() }) {
                     Icon(
                         Icons.Default.Add,
                         contentDescription = stringResource(R.string.contactList_addButtonDescription)
@@ -68,6 +69,6 @@ internal object ContactList {
 @Preview(device = Devices.PIXEL_4, showSystemUi = true)
 private fun ContactListScreenPreview() {
     WhatsTheCodeTheme {
-        ContactList.Screen()
+        ContactList.Screen(navigateToAddContact = {})
     }
 }
