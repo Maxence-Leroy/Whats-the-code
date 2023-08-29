@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode
 
 import android.app.Application
+import com.ragicorp.whatsthecode.addContact.AddContactViewModel
 import com.ragicorp.whatsthecode.contactList.ContactListViewModel
 import com.ragicorp.whatsthecode.library.libContact.contactModule
 import org.koin.android.ext.koin.androidContext
@@ -15,6 +16,7 @@ class MainApplication: Application() {
 
         val contactScreenModule = module {
             viewModel { ContactListViewModel(get()) }
+            viewModel { AddContactViewModel(get()) }
         }
 
         startKoin {

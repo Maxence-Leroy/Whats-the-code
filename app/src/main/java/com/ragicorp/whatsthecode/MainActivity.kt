@@ -6,9 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ragicorp.whatsthecode.addContact.AddContact
 import com.ragicorp.whatsthecode.contactList.ContactList
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,10 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(ContactList.Route) {
                         ContactList.Screen(contactListViewModel = getViewModel())
+                    }
+
+                    composable(AddContact.Route) {
+                        AddContact.Screen(addContactViewModel = getViewModel())
                     }
                 }
             }
