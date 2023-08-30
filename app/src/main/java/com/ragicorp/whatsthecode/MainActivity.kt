@@ -11,7 +11,6 @@ import androidx.navigation.compose.rememberNavController
 import com.ragicorp.whatsthecode.addContact.AddContact
 import com.ragicorp.whatsthecode.contactList.ContactList
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(ContactList.Route) {
                         ContactList.Screen(
-                            contactListViewModel = getViewModel(),
                             navigateToAddContact = {
                                 navController.navigate(AddContact.Route)
                             }
@@ -38,7 +36,6 @@ class MainActivity : ComponentActivity() {
                         exitTransition = { slideOutHorizontally { it } }
                     ) {
                         AddContact.Screen(
-                            addContactViewModel = getViewModel(),
                             navigateBack = { navController.popBackStack() }
                         )
                     }
