@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.R
@@ -137,7 +138,8 @@ internal object AddContact {
                     WtcTextField(
                         value = addContactViewModel.name.collectAsStateWithLifecycle().value,
                         onValueChanged = addContactViewModel.setName,
-                        label = stringResource(R.string.contact_name)
+                        label = stringResource(R.string.contact_name),
+                        capitalization = KeyboardCapitalization.Words
                     )
                     WtcTextField(
                         value = addContactViewModel.phoneNumber.collectAsStateWithLifecycle().value,

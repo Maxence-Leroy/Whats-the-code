@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -26,6 +27,7 @@ fun WtcTextField(
     onValueChanged: (String) -> Unit,
     label: String,
     keyboardType: KeyboardType = KeyboardType.Text,
+    capitalization: KeyboardCapitalization = KeyboardCapitalization.Sentences,
     singleLine: Boolean = true,
     keyboardAction: WtcImeAction = WtcImeAction.Next
 ) {
@@ -42,7 +44,11 @@ fun WtcTextField(
             imeAction = ImeAction.None
         }
 
-        return KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction)
+        return KeyboardOptions(
+            keyboardType = keyboardType,
+            capitalization = capitalization,
+            imeAction = imeAction
+        )
     }
 
     OutlinedTextField(
