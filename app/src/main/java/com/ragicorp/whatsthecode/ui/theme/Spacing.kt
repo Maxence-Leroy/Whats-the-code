@@ -5,4 +5,5 @@ import androidx.compose.ui.unit.dp
 
 object Spacing {
     val screen = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    val single = 8.dp
 }
