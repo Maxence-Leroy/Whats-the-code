@@ -6,9 +6,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
@@ -25,7 +22,8 @@ sealed class WtcImeAction {
 @Composable
 fun WtcTextField(
     modifier: Modifier = Modifier,
-    value: MutableState<String>,
+    value: String,
+    onValueChanged: (String) -> Unit,
     label: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     singleLine: Boolean = true,
@@ -49,8 +47,8 @@ fun WtcTextField(
 
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
-        value = value.value,
-        onValueChange = { value.value = it },
+        value = value,
+        onValueChange = onValueChanged,
         label = { Text(text = label) },
         singleLine = singleLine,
         minLines = if (singleLine) 1 else 3,
@@ -68,6 +66,5 @@ fun WtcTextField(
 @Preview
 @Composable
 internal fun WtcTextFieldPreview() {
-    val state = remember { mutableStateOf("") }
-    WtcTextField(value = state, label = "Bonjour")
+    WtcTextField(value = "Initial value", onValueChanged = {}, label = "Bonjour")
 }

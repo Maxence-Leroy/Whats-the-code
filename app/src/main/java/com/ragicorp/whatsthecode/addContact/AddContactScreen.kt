@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.ui.WtcTextField
 import com.ragicorp.whatsthecode.ui.theme.Spacing
@@ -89,24 +90,29 @@ internal object AddContact {
                     verticalArrangement = Arrangement.spacedBy(Spacing.single)
                 ) {
                     WtcTextField(
-                        value = addContactViewModel.name,
+                        value = addContactViewModel.name.collectAsStateWithLifecycle().value,
+                        onValueChanged = addContactViewModel.setName,
                         label = stringResource(R.string.contact_name)
                     )
                     WtcTextField(
-                        value = addContactViewModel.phoneNumber,
+                        value = addContactViewModel.phoneNumber.collectAsStateWithLifecycle().value,
+                        onValueChanged = addContactViewModel.setPhoneNumber,
                         label = stringResource(R.string.contact_phoneNumber),
                         keyboardType = KeyboardType.Phone
                     )
                     WtcTextField(
-                        value = addContactViewModel.address,
+                        value = addContactViewModel.address.collectAsStateWithLifecycle().value,
+                        onValueChanged = addContactViewModel.setAddress,
                         label = stringResource(R.string.contact_address)
                     )
                     WtcTextField(
-                        value = addContactViewModel.apartmentDescription,
+                        value = addContactViewModel.apartmentDescription.collectAsStateWithLifecycle().value,
+                        onValueChanged = addContactViewModel.setApartmentDescription,
                         label = stringResource(R.string.contact_apartmentDescription)
                     )
                     WtcTextField(
-                        value = addContactViewModel.freeText,
+                        value = addContactViewModel.freeText.collectAsStateWithLifecycle().value,
+                        onValueChanged = addContactViewModel.setFreeText,
                         label = stringResource(R.string.contact_freeText),
                         singleLine = false
                     )
