@@ -14,7 +14,6 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 
 sealed class WtcImeAction {
@@ -26,7 +25,7 @@ sealed class WtcImeAction {
 @Composable
 fun WtcTextField(
     modifier: Modifier = Modifier,
-    value: MutableState<TextFieldValue>,
+    value: MutableState<String>,
     label: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     singleLine: Boolean = true,
@@ -69,6 +68,6 @@ fun WtcTextField(
 @Preview
 @Composable
 internal fun WtcTextFieldPreview() {
-    val state = remember { mutableStateOf(TextFieldValue("")) }
+    val state = remember { mutableStateOf("") }
     WtcTextField(value = state, label = "Bonjour")
 }
