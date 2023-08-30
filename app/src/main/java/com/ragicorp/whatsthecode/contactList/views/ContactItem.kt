@@ -27,7 +27,16 @@ internal fun ContactItem(contact: ContactDomain) {
 private fun ContactItemPreview() {
     WhatsTheCodeTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
-            ContactItem(contact = ContactDomain(id = UUID.randomUUID(), name = "Toto"))
+            ContactItem(
+                contact = ContactDomain(
+                    id = UUID.randomUUID(),
+                    name = "Toto",
+                    phoneNumber = "123",
+                    address = "Trifouilli-les-Oies",
+                    apartmentDescription = "Down the corridor",
+                    freeText = "I love free texts!"
+                )
+            )
         }
     }
 }

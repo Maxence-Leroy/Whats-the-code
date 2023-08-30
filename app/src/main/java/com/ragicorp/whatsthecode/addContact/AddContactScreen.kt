@@ -100,7 +100,10 @@ internal object AddContact {
                     actions = {
                         val isButtonEnabled: Boolean by addContactViewModel.isButtonSaveEnabled.collectAsStateWithLifecycle()
                         FilledIconButton(
-                            onClick = { /*TODO*/ },
+                            onClick = {
+                                addContactViewModel.save()
+                                navigateBack()
+                            },
                             enabled = isButtonEnabled
                         ) {
                             Icon(
