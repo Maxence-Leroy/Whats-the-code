@@ -38,7 +38,10 @@ internal object AddContact {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Screen(addContactViewModel: AddContactViewModel = getViewModel()) {
+    fun Screen(
+        addContactViewModel: AddContactViewModel = getViewModel(),
+        navigateBack: () -> Unit
+    ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
@@ -51,7 +54,7 @@ internal object AddContact {
                         Text(text = stringResource(R.string.addContact_titleScreen))
                     },
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = { navigateBack() }) {
                             Icon(
                                 Icons.Default.Close,
                                 contentDescription = stringResource(R.string.addContact_leaveButtonDescription)

@@ -37,7 +37,10 @@ class MainActivity : ComponentActivity() {
                         enterTransition = { slideInHorizontally { it } },
                         exitTransition = { slideOutHorizontally { it } }
                     ) {
-                        AddContact.Screen(addContactViewModel = getViewModel())
+                        AddContact.Screen(
+                            addContactViewModel = getViewModel(),
+                            navigateBack = { navController.popBackStack() }
+                        )
                     }
                 }
             }
