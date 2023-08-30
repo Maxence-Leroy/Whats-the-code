@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.library.libContact.ContactRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class AddContactViewModel(contactRepository: ContactRepository) : ViewModel() {
@@ -28,4 +31,10 @@ class AddContactViewModel(contactRepository: ContactRepository) : ViewModel() {
     private val _freeText = MutableStateFlow("")
     val freeText = _freeText.asStateFlow()
     val setFreeText: (String) -> Unit = { viewModelScope.launch { _freeText.emit(it) } }
+
+    val isButtonSaveEnabled =
+        combine(name, address) { mName, mAddress ->
+            mName.isNotBlank() || mAddress.isNotBlank()
+        }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 }
