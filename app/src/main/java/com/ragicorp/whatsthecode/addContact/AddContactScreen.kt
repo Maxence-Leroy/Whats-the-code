@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.addContact
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
@@ -23,7 +26,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,6 +47,37 @@ internal object AddContact {
         addContactViewModel: AddContactViewModel = getViewModel(),
         navigateBack: () -> Unit
     ) {
+        val hasSomethingBeenFilled: Boolean by addContactViewModel.hasSomethingChanged.collectAsStateWithLifecycle()
+        var showAlertDialog: Boolean by remember { mutableStateOf(false) }
+        fun onBack() {
+            if (hasSomethingBeenFilled) {
+                showAlertDialog = true
+            } else {
+                navigateBack()
+            }
+        }
+
+        if (showAlertDialog) {
+            AlertDialog(
+                onDismissRequest = { showAlertDialog = false },
+                title = { Text(text = stringResource(R.string.unsavedChangesDialog_title)) },
+                text = { Text(text = stringResource(R.string.unsavedChangesDialog_text)) },
+                confirmButton = {
+                    Button(onClick = {
+                        showAlertDialog = false
+                        navigateBack()
+                    }) {
+                        Text(text = stringResource(R.string.unsavedChangesDialog_confirmButton))
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = { showAlertDialog = false }) {
+                        Text(text = stringResource(R.string.unsavedChangesDialog_dismissButton))
+                    }
+                },
+            )
+        }
+
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
@@ -54,7 +90,7 @@ internal object AddContact {
                         Text(text = stringResource(R.string.addContact_titleScreen))
                     },
                     navigationIcon = {
-                        IconButton(onClick = { navigateBack() }) {
+                        IconButton(onClick = { onBack() }) {
                             Icon(
                                 Icons.Default.Close,
                                 contentDescription = stringResource(R.string.addContact_leaveButtonDescription)
@@ -125,5 +161,9 @@ internal object AddContact {
                 }
             }
         )
+
+        BackHandler {
+            onBack()
+        }
     }
 }

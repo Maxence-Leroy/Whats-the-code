@@ -37,4 +37,10 @@ class AddContactViewModel(contactRepository: ContactRepository) : ViewModel() {
             mName.isNotBlank() || mAddress.isNotBlank()
         }
             .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val hasSomethingChanged =
+        combine(name, phoneNumber, address, apartmentDescription, freeText) { array ->
+            array.any { it.isNotBlank() }
+        }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 }

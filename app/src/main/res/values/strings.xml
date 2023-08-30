@@ -10,4 +10,8 @@
     <string name="contact_freeText">Other</string>
     <string name="addContact_saveButtonDescription">Save</string>
     <string name="addContact_leaveButtonDescription">Leave contact creation</string>
+    <string name="unsavedChangesDialog_title">Are you sure to leave?</string>
+    <string name="unsavedChangesDialog_text">There are unsaved changes. If you leave, the data will be lost.</string>
+    <string name="unsavedChangesDialog_confirmButton">Leave</string>
+    <string name="unsavedChangesDialog_dismissButton">Cancel</string>
 </resources>
