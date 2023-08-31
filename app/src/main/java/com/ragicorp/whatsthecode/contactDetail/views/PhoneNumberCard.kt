@@ -1,5 +1,7 @@
 package com.ragicorp.whatsthecode.contactDetail.views
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.core.content.ContextCompat
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.ui.theme.Spacing
 
@@ -65,7 +68,11 @@ fun PhoneNumberCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-                FilledIconButton(onClick = { /* TODO */ }) {
+                FilledIconButton(onClick = {
+                    val dialIntent = Intent(Intent.ACTION_DIAL)
+                    dialIntent.data = Uri.parse("tel:$phoneNumber")
+                    ContextCompat.startActivity(context, dialIntent, null)
+                }) {
                     Icon(
                         Icons.Default.Phone,
                         contentDescription = stringResource(R.string.contactDetail_phoneNumber_phoneButtonDescription)
