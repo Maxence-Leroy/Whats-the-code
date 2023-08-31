@@ -145,12 +145,14 @@ object ContactDetail {
                             .padding(Spacing.screen),
                         verticalArrangement = Arrangement.spacedBy(Spacing.single * 4)
                     ) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = contactValue.name,
-                            style = MaterialTheme.typography.headlineLarge,
-                            textAlign = TextAlign.Center
-                        )
+                        if (contactValue.name.isNotBlank()) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = contactValue.name,
+                                style = MaterialTheme.typography.headlineLarge,
+                                textAlign = TextAlign.Center
+                            )
+                        }
 
                         if (contactValue.phoneNumber.isNotBlank()) {
                             PhoneNumberCard(phoneNumber = contactValue.phoneNumber)
