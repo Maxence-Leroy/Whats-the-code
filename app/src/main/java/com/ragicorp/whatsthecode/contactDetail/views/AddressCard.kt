@@ -5,14 +5,10 @@ import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
@@ -40,60 +36,48 @@ fun AddressCard(
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
 
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer)
+    ContactCard(
+        title = stringResource(R.string.contactDetail_address_title)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = Spacing.single * 2, vertical = Spacing.single),
-            verticalArrangement = Arrangement.spacedBy(Spacing.single)
-        ) {
-            Text(
-                text = stringResource(R.string.contactDetail_address_title),
-                style = MaterialTheme.typography.titleSmall
-            )
-            if (address.isNotBlank()) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(Spacing.single * 2)
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .weight(1f, fill = true)
-                            .combinedClickable(
-                                onClick = {},
-                                onLongClick = { clipboardManager.setText(AnnotatedString(address)) }
-                            ),
-                        text = address,
-                        style = MaterialTheme.typography.headlineSmall,
-                        textAlign = TextAlign.Justify
-                    )
+        if (address.isNotBlank()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(Spacing.single * 2)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .weight(1f, fill = true)
+                        .combinedClickable(
+                            onClick = {},
+                            onLongClick = { clipboardManager.setText(AnnotatedString(address)) }
+                        ),
+                    text = address,
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Justify
+                )
 
-                    FilledIconButton(onClick = {
-                        val mapIntent = Intent(Intent.ACTION_VIEW)
-                        mapIntent.data = Uri.parse("geo:geo:0,0?q=$address")
-                        ContextCompat.startActivity(context, mapIntent, null)
-                    }) {
-                        Icon(
-                            Icons.Default.LocationOn,
-                            contentDescription = stringResource(R.string.contactDetail_address_mapDescription)
-                        )
-                    }
+                FilledIconButton(onClick = {
+                    val mapIntent = Intent(Intent.ACTION_VIEW)
+                    mapIntent.data = Uri.parse("geo:geo:0,0?q=$address")
+                    ContextCompat.startActivity(context, mapIntent, null)
+                }) {
+                    Icon(
+                        Icons.Default.LocationOn,
+                        contentDescription = stringResource(R.string.contactDetail_address_mapDescription)
+                    )
                 }
             }
-            if (address.isNotBlank() && apartmentDescription.isNotBlank()) {
-                Divider(color = MaterialTheme.colorScheme.onSecondaryContainer)
-            }
+        }
+        if (address.isNotBlank() && apartmentDescription.isNotBlank()) {
+            Divider(color = MaterialTheme.colorScheme.onSecondaryContainer)
+        }
 
-            if (apartmentDescription.isNotBlank()) {
-                Text(
-                    text = apartmentDescription,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
+        if (apartmentDescription.isNotBlank()) {
+            Text(
+                text = apartmentDescription,
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
     }
 }
