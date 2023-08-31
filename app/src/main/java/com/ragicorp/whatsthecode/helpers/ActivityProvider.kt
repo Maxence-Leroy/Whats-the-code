@@ -1,4 +1,4 @@
-package com.ragicorp.whatsthecode
+package com.ragicorp.whatsthecode.helpers
 
 import android.app.Activity
 import org.koin.core.scope.Scope

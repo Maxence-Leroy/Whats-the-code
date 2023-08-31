@@ -16,6 +16,8 @@ import com.ragicorp.whatsthecode.addContact.AddContact
 import com.ragicorp.whatsthecode.contactDetail.ContactDetail.contactDetailNavigationEntry
 import com.ragicorp.whatsthecode.contactDetail.ContactDetail.navigateToContactDetail
 import com.ragicorp.whatsthecode.contactList.ContactList
+import com.ragicorp.whatsthecode.helpers.ActivityProvider
+import com.ragicorp.whatsthecode.helpers.PermissionsManager
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

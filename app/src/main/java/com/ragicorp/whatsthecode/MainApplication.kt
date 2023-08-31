@@ -4,6 +4,9 @@ import android.app.Application
 import com.ragicorp.whatsthecode.addContact.AddContactViewModel
 import com.ragicorp.whatsthecode.contactDetail.ContactDetailViewModel
 import com.ragicorp.whatsthecode.contactList.ContactListViewModel
+import com.ragicorp.whatsthecode.helpers.ActivityProvider
+import com.ragicorp.whatsthecode.helpers.PermissionsManager
+import com.ragicorp.whatsthecode.helpers.getActivity
 import com.ragicorp.whatsthecode.library.libContact.contactModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

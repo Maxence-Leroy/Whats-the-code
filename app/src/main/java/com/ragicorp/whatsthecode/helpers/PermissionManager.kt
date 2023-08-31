@@ -1,4 +1,4 @@
-package com.ragicorp.whatsthecode
+package com.ragicorp.whatsthecode.helpers
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import androidx.core.content.ContextCompat.startActivity
+import com.ragicorp.whatsthecode.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.withContext
