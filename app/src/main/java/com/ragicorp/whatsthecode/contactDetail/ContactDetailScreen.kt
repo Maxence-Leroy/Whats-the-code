@@ -38,6 +38,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ragicorp.whatsthecode.R
+import com.ragicorp.whatsthecode.contactDetail.views.AddressCard
 import com.ragicorp.whatsthecode.contactDetail.views.DeleteContactConfirmationDialog
 import com.ragicorp.whatsthecode.contactDetail.views.PhoneNumberCard
 import com.ragicorp.whatsthecode.ui.theme.Spacing
@@ -158,6 +159,13 @@ object ContactDetail {
 
                         if (contactValue.phoneNumber.isNotBlank()) {
                             PhoneNumberCard(phoneNumber = contactValue.phoneNumber)
+                        }
+
+                        if (contactValue.address.isNotBlank() or contactValue.apartmentDescription.isNotBlank()) {
+                            AddressCard(
+                                address = contactValue.address,
+                                apartmentDescription = contactValue.apartmentDescription
+                            )
                         }
                     }
                 }
