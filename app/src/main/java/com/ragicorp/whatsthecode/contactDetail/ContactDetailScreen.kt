@@ -25,7 +25,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,6 +42,8 @@ import com.ragicorp.whatsthecode.contactDetail.views.AddressCard
 import com.ragicorp.whatsthecode.contactDetail.views.DeleteContactConfirmationDialog
 import com.ragicorp.whatsthecode.contactDetail.views.FreeTextCard
 import com.ragicorp.whatsthecode.contactDetail.views.PhoneNumberCard
+import com.ragicorp.whatsthecode.ui.InitialsView
+import com.ragicorp.whatsthecode.ui.InitialsViewSize
 import com.ragicorp.whatsthecode.ui.theme.Spacing
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -146,6 +150,13 @@ object ContactDetail {
                         verticalArrangement = Arrangement.spacedBy(Spacing.single * 4)
                     ) {
                         if (contactValue.name.isNotBlank()) {
+                            InitialsView(
+                                modifier = Modifier.align(CenterHorizontally),
+                                name = contactValue.name,
+                                color = Color(contactValue.color),
+                                size = InitialsViewSize.Big
+                            )
+
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = contactValue.name,
