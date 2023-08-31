@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.contactList
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -7,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -26,7 +26,7 @@ import org.koin.androidx.compose.getViewModel
 internal object ContactList {
     const val Route = "contactList"
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun Screen(
         contactListViewModel: ContactListViewModel = getViewModel(),
@@ -54,8 +54,14 @@ internal object ContactList {
                         NoContactPlaceholder()
                     } else {
                         LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            items(contactList.value) { contact ->
-                                ContactItem(contact = contact)
+                            items(
+                                contactList.value,
+                                key = { contact -> contact.id }
+                            ) { contact ->
+                                ContactItem(
+                                    modifier = Modifier.animateItemPlacement(),
+                                    contact = contact
+                                )
                             }
                         }
                     }

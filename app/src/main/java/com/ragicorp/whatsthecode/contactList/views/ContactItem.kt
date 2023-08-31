@@ -13,9 +13,12 @@ import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
 import java.util.UUID
 
 @Composable
-internal fun ContactItem(contact: ContactDomain) {
+internal fun ContactItem(
+    modifier: Modifier = Modifier,
+    contact: ContactDomain
+) {
     Text(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         text = contact.name,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onBackground
