@@ -4,17 +4,28 @@ import android.os.Bundle
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.ragicorp.whatsthecode.R
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
@@ -25,7 +36,9 @@ object ContactDetail {
     private const val Route = "$RouteBase?$ContactArgument={$ContactArgument}"
 
     // Wrapper for type-safety
-    fun NavGraphBuilder.contactDetailNavigationEntry() {
+    fun NavGraphBuilder.contactDetailNavigationEntry(
+        navigateBack: () -> Unit
+    ) {
         composable(
             Route,
             enterTransition = { slideInHorizontally { it } },
@@ -42,7 +55,8 @@ object ContactDetail {
             Screen(
                 contactDetailViewModel = getViewModel(
                     parameters = { parametersOf(UUID.fromString(contactId)) }
-                )
+                ),
+                navigateBack = navigateBack
             )
         }
     }
@@ -55,16 +69,42 @@ object ContactDetail {
         navigate("$RouteBase?$ContactArgument=$contactId")
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun Screen(
-        contactDetailViewModel: ContactDetailViewModel
+        contactDetailViewModel: ContactDetailViewModel,
+        navigateBack: () -> Unit
     ) {
         val contact = contactDetailViewModel.contact.collectAsStateWithLifecycle(null)
-        Surface(
+        Scaffold(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            topBar = {
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    ),
+                    navigationIcon = {
+                        IconButton(onClick = { navigateBack() }) {
+                            Icon(
+                                Icons.Default.ArrowBack,
+                                contentDescription = stringResource(R.string.contactDetail_leaveButtonDescription)
+                            )
+                        }
+                    },
+                    title = {},
+                    actions = {}
+                )
+            }
         ) {
-            Text(text = contact.value?.name ?: "")
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Text(text = contact.value?.name ?: "")
+            }
         }
     }
 }

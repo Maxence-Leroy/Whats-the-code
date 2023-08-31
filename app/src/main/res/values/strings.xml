@@ -14,4 +14,5 @@
     <string name="unsavedChangesDialog_text">There are unsaved changes. If you leave, the data will be lost.</string>
     <string name="unsavedChangesDialog_confirmButton">Leave</string>
     <string name="unsavedChangesDialog_dismissButton">Cancel</string>
+    <string name="contactDetail_leaveButtonDescription">Return to contact list</string>
 </resources>

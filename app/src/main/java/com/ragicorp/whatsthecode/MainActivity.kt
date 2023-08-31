@@ -45,7 +45,9 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    contactDetailNavigationEntry()
+                    contactDetailNavigationEntry(
+                        navigateBack = { navController.popBackStack() }
+                    )
                 }
             }
         }
