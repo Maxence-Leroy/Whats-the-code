@@ -12,11 +12,11 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.contactList.views.ContactItem
 import com.ragicorp.whatsthecode.contactList.views.NoContactPlaceholder
@@ -34,7 +34,7 @@ internal object ContactList {
         navigateToAddContact: () -> Unit,
         navigateToContactDetail: (ContactDomain) -> Unit
     ) {
-        val contactList = contactListViewModel.contacts.collectAsState(emptyList())
+        val contactList = contactListViewModel.contacts.collectAsStateWithLifecycle(emptyList())
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             floatingActionButton = {
