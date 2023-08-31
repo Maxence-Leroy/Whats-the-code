@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -48,7 +49,9 @@ object ContactDetail {
         composable(
             Route,
             enterTransition = { slideInHorizontally { it } },
-            exitTransition = { slideOutHorizontally { it } },
+            exitTransition = null,
+            popEnterTransition = null,
+            popExitTransition = { slideOutHorizontally { it } },
             arguments = listOf(
                 navArgument(ContactArgument) {
                     type = NavType.StringType

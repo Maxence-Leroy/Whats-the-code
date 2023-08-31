@@ -38,7 +38,9 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = AddContact.Route,
                         enterTransition = { slideInHorizontally { it } },
-                        exitTransition = { slideOutHorizontally { it } }
+                        exitTransition = null,
+                        popEnterTransition = null,
+                        popExitTransition = { slideOutHorizontally { it } }
                     ) {
                         AddContact.Screen(
                             navigateBack = { navController.popBackStack() },
