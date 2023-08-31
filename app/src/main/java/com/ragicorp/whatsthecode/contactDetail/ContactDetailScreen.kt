@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -58,11 +59,12 @@ object ContactDetail {
     private fun Screen(
         contactDetailViewModel: ContactDetailViewModel
     ) {
+        val contact = contactDetailViewModel.contact.collectAsStateWithLifecycle(null)
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Text(text = contactDetailViewModel.contactId.toString())
+            Text(text = contact.value?.name ?: "")
         }
     }
 }

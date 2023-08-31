@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import java.util.UUID
 
 class ContactRepository : KoinComponent {
     private val contactDao: ContactDao = get()
@@ -16,6 +17,12 @@ class ContactRepository : KoinComponent {
             .map { contactsDb ->
                 contactsDb.map { ContactDbDomainAdapter.contactFromDb(it) }
             }
+    }
+
+    fun getContactById(contactId: UUID): Flow<ContactDomain> {
+        return contactDao
+            .getContactById(contactId.toString())
+            .map { contactDb -> ContactDbDomainAdapter.contactFromDb(contactDb) }
     }
 
     suspend fun addContact(contact: ContactDomain) {

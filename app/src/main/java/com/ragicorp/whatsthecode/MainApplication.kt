@@ -19,7 +19,12 @@ class MainApplication: Application() {
         val contactScreenModule = module {
             viewModel { ContactListViewModel(get()) }
             viewModel { AddContactViewModel(get()) }
-            viewModel { (contactId: UUID) -> ContactDetailViewModel(contactId) }
+            viewModel { (contactId: UUID) ->
+                ContactDetailViewModel(
+                    contactId = contactId,
+                    contactRepository = get()
+                )
+            }
         }
 
         startKoin {
