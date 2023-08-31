@@ -36,4 +36,10 @@ class ContactRepository : KoinComponent {
             ContactDbDomainAdapter.contactDb(contact)
         )
     }
+
+    suspend fun deleteContact(contact: ContactDomain) {
+        contactDao.deleteContact(
+            ContactDbDomainAdapter.contactDb(contact)
+        )
+    }
 }
