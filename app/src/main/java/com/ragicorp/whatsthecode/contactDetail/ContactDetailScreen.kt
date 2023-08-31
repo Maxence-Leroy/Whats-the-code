@@ -3,8 +3,13 @@ package com.ragicorp.whatsthecode.contactDetail
 import android.os.Bundle
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -24,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -33,6 +39,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.contactDetail.views.DeleteContactConfirmationDialog
+import com.ragicorp.whatsthecode.contactDetail.views.PhoneNumberCard
+import com.ragicorp.whatsthecode.ui.theme.Spacing
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
@@ -126,13 +134,33 @@ object ContactDetail {
                 )
             }
         ) {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it),
-                color = MaterialTheme.colorScheme.background
-            ) {
-                Text(text = contact.value?.name ?: "")
+            val contactValue = contact.value
+            if (contactValue != null) {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(Spacing.screen)
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.single * 4)
+                    ) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = contactValue.name,
+                            style = MaterialTheme.typography.headlineLarge,
+                            textAlign = TextAlign.Center
+                        )
+
+                        if (contactValue.phoneNumber.isNotBlank()) {
+                            PhoneNumberCard(phoneNumber = contactValue.phoneNumber)
+                        }
+                    }
+                }
             }
         }
     }
