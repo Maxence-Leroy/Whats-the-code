@@ -78,7 +78,11 @@ fun PhoneNumberCard(
                         contentDescription = stringResource(R.string.contactDetail_phoneNumber_phoneButtonDescription)
                     )
                 }
-                FilledIconButton(onClick = { /*TODO*/ }) {
+                FilledIconButton(onClick = {
+                    val smsIntent = Intent(Intent.ACTION_SENDTO)
+                    smsIntent.data = Uri.parse("smsto:$phoneNumber")
+                    ContextCompat.startActivity(context, smsIntent, null)
+                }) {
                     Icon(
                         Icons.Default.Send,
                         contentDescription = stringResource(R.string.contactDetail_phoneNumber_sendButtonDescription)
