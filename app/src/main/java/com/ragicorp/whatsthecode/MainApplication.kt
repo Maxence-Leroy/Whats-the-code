@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode
 
 import android.app.Application
 import com.ragicorp.whatsthecode.addContact.AddContactViewModel
+import com.ragicorp.whatsthecode.contactDetail.ContactDetailViewModel
 import com.ragicorp.whatsthecode.contactList.ContactListViewModel
 import com.ragicorp.whatsthecode.library.libContact.contactModule
 import org.koin.android.ext.koin.androidContext
@@ -9,6 +10,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import java.util.UUID
 
 class MainApplication: Application() {
     override fun onCreate() {
@@ -17,6 +19,7 @@ class MainApplication: Application() {
         val contactScreenModule = module {
             viewModel { ContactListViewModel(get()) }
             viewModel { AddContactViewModel(get()) }
+            viewModel { (contactId: UUID) -> ContactDetailViewModel(contactId) }
         }
 
         startKoin {

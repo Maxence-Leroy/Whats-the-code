@@ -9,7 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ragicorp.whatsthecode.addContact.AddContact
-import com.ragicorp.whatsthecode.contactDetail.ContactDetail
+import com.ragicorp.whatsthecode.contactDetail.ContactDetail.contactDetailNavigationEntry
+import com.ragicorp.whatsthecode.contactDetail.ContactDetail.navigateToContactDetail
 import com.ragicorp.whatsthecode.contactList.ContactList
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
 
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate(AddContact.Route)
                             },
                             navigateToContactDetail = {
-                                navController.navigate(ContactDetail.Route)
+                                navController.navigateToContactDetail(it.id.toString())
                             }
                         )
                     }
@@ -44,13 +45,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    composable(
-                        route = ContactDetail.Route,
-                        enterTransition = { slideInHorizontally { it } },
-                        exitTransition = { slideOutHorizontally { it } }
-                    ) {
-                        ContactDetail.Screen()
-                    }
+                    contactDetailNavigationEntry()
                 }
             }
         }
