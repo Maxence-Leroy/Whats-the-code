@@ -22,4 +22,8 @@
     <string name="contactDetail_phoneNumber_title">Phone number</string>
     <string name="contactDetail_phoneNumber_phoneButtonDescription">Call the contact</string>
     <string name="contactDetail_phoneNumber_sendButtonDescription">Send a message to the contact</string>
+    <string name="permissionDeniedDialog_title">Permissions</string>
+    <string name="permissionDeniedDialog_message">Without the permissions, some features of the app can\'t work.\nYou can modify the permissions of the application in the settings of the app, in the \"Permissions\" sub-menu.</string>
+    <string name="permissionDeniedDialog_positive">Settings</string>
+    <string name="permissionDeniedDialog_negative">Later</string>
 </resources>

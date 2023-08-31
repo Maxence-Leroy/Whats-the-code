@@ -16,6 +16,11 @@ class MainApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        val helpersModule = module {
+            single { ActivityProvider() }
+            single { PermissionsManager(getActivity()) }
+        }
+
         val contactScreenModule = module {
             viewModel { ContactListViewModel(get()) }
             viewModel { AddContactViewModel(get()) }
@@ -33,7 +38,7 @@ class MainApplication: Application() {
             // Reference Android context
             androidContext(this@MainApplication)
             // Load modules
-            modules(contactModule, contactScreenModule)
+            modules(helpersModule, contactModule, contactScreenModule)
         }
 
     }

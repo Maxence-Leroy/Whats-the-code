@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,10 +14,20 @@ import com.ragicorp.whatsthecode.contactDetail.ContactDetail.contactDetailNaviga
 import com.ragicorp.whatsthecode.contactDetail.ContactDetail.navigateToContactDetail
 import com.ragicorp.whatsthecode.contactList.ContactList
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val activityProvider: ActivityProvider = get()
+        activityProvider.setActivity(this)
+
         setContent {
             WhatsTheCodeTheme {
                 val navController = rememberNavController()
@@ -57,6 +68,22 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val map: Map<String, Boolean> = permissions
+            .zip(
+                grantResults.map { it == PackageManager.PERMISSION_GRANTED }
+            ).toMap()
+        coroutineScope.launch {
+            get<PermissionsManager>().onPermissionResult(map)
         }
     }
 }
