@@ -3,6 +3,7 @@ import de.fayard.refreshVersions.core.versionFor
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
@@ -74,5 +75,7 @@ dependencies {
     debugImplementation(AndroidX.compose.ui.tooling)
     debugImplementation(AndroidX.compose.ui.testManifest)
 
-    implementation( project(":library:libContact"))
+    implementation("com.google.android.gms:play-services-oss-licenses:17.0.1")
+
+    implementation(project(":library:libContact"))
 }
