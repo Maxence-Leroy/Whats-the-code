@@ -26,7 +26,7 @@ import kotlin.math.min
 
 enum class InitialsViewSize(val circleSize: Dp, val fontSize: TextUnit) {
     Big(200.dp, 75.sp),
-    Small(10.dp, 3.75.sp)
+    Small(40.dp, 12.sp)
 }
 
 @Composable
