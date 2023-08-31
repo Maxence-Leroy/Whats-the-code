@@ -1,5 +1,7 @@
 package com.ragicorp.whatsthecode.contactDetail.views
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.core.content.ContextCompat
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.ui.theme.Spacing
 
@@ -34,6 +38,7 @@ fun AddressCard(
     apartmentDescription: String
 ) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -68,7 +73,9 @@ fun AddressCard(
                     )
 
                     FilledIconButton(onClick = {
-                        /* TODO */
+                        val mapIntent = Intent(Intent.ACTION_VIEW)
+                        mapIntent.data = Uri.parse("geo:geo:0,0?q=$address")
+                        ContextCompat.startActivity(context, mapIntent, null)
                     }) {
                         Icon(
                             Icons.Default.LocationOn,
