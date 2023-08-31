@@ -141,8 +141,8 @@ object ContactDetail {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(Spacing.screen)
-                            .verticalScroll(rememberScrollState()),
+                            .verticalScroll(rememberScrollState())
+                            .padding(Spacing.screen),
                         verticalArrangement = Arrangement.spacedBy(Spacing.single * 4)
                     ) {
                         Text(
