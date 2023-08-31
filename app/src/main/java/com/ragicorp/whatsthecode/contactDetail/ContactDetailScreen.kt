@@ -1,8 +1,6 @@
 package com.ragicorp.whatsthecode.contactDetail
 
 import android.os.Bundle
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,10 +55,6 @@ object ContactDetail {
     ) {
         composable(
             Route,
-            enterTransition = { slideInHorizontally { it } },
-            exitTransition = null,
-            popEnterTransition = null,
-            popExitTransition = { slideOutHorizontally { it } },
             arguments = listOf(
                 navArgument(ContactArgument) {
                     type = NavType.StringType

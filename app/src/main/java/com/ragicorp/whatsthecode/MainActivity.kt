@@ -4,6 +4,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.compose.NavHost
@@ -33,7 +36,11 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = ContactList.Route
+                    startDestination = ContactList.Route,
+                    enterTransition = { slideInHorizontally { it } },
+                    exitTransition = { fadeOut(animationSpec = tween(700)) },
+                    popEnterTransition = { fadeIn(animationSpec = tween(700)) },
+                    popExitTransition = { slideOutHorizontally { it } },
                 ) {
                     composable(ContactList.Route) {
                         ContactList.Screen(
@@ -47,11 +54,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(
-                        route = AddContact.Route,
-                        enterTransition = { slideInHorizontally { it } },
-                        exitTransition = null,
-                        popEnterTransition = null,
-                        popExitTransition = { slideOutHorizontally { it } }
+                        route = AddContact.Route
                     ) {
                         AddContact.Screen(
                             navigateBack = { navController.popBackStack() },
