@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.contactList.views.ContactItem
 import com.ragicorp.whatsthecode.contactList.views.NoContactPlaceholder
+import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
 import org.koin.androidx.compose.getViewModel
 
@@ -30,7 +31,8 @@ internal object ContactList {
     @Composable
     fun Screen(
         contactListViewModel: ContactListViewModel = getViewModel(),
-        navigateToAddContact: () -> Unit
+        navigateToAddContact: () -> Unit,
+        navigateToContactDetail: (ContactDomain) -> Unit
     ) {
         val contactList = contactListViewModel.contacts.collectAsState(emptyList())
         Scaffold(
@@ -60,7 +62,8 @@ internal object ContactList {
                             ) { contact ->
                                 ContactItem(
                                     modifier = Modifier.animateItemPlacement(),
-                                    contact = contact
+                                    contact = contact,
+                                    onClick = { navigateToContactDetail(contact) }
                                 )
                             }
                         }
@@ -75,6 +78,6 @@ internal object ContactList {
 @Preview(device = Devices.PIXEL_4, showSystemUi = true)
 private fun ContactListScreenPreview() {
     WhatsTheCodeTheme {
-        ContactList.Screen(navigateToAddContact = {})
+        ContactList.Screen(navigateToAddContact = {}, navigateToContactDetail = {})
     }
 }

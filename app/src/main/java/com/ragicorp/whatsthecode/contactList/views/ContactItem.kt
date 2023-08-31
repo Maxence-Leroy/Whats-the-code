@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,14 +16,19 @@ import java.util.UUID
 @Composable
 internal fun ContactItem(
     modifier: Modifier = Modifier,
-    contact: ContactDomain
+    contact: ContactDomain,
+    onClick: () -> Unit
 ) {
-    Text(
+    Surface(
         modifier = modifier.fillMaxWidth(),
-        text = contact.name,
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onBackground
-    )
+        color = MaterialTheme.colorScheme.background,
+        onClick = onClick
+    ) {
+        Text(
+            text = contact.name,
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
 }
 
 @Composable
@@ -38,7 +44,8 @@ private fun ContactItemPreview() {
                     address = "Trifouilli-les-Oies",
                     apartmentDescription = "Down the corridor",
                     freeText = "I love free texts!"
-                )
+                ),
+                onClick = {}
             )
         }
     }
