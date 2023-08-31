@@ -71,8 +71,9 @@ object ContactDetail {
     // Wrapper for type-safety
     fun NavHostController.navigateToContactDetail(
         contactId: String,
+        builder: (NavOptionsBuilder.() -> Unit)? = null
     ) {
-        navigate("$RouteBase?$ContactArgument=$contactId")
+        navigate("$RouteBase?$ContactArgument=$contactId", builder = builder ?: {})
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

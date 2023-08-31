@@ -41,7 +41,12 @@ class MainActivity : ComponentActivity() {
                         exitTransition = { slideOutHorizontally { it } }
                     ) {
                         AddContact.Screen(
-                            navigateBack = { navController.popBackStack() }
+                            navigateBack = { navController.popBackStack() },
+                            navigateToContactDetail = { contactId ->
+                                navController.navigateToContactDetail(contactId.toString()) {
+                                    popUpTo(ContactList.Route)
+                                }
+                            }
                         )
                     }
 

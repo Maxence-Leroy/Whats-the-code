@@ -38,6 +38,7 @@ import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.ui.WtcTextField
 import com.ragicorp.whatsthecode.ui.theme.Spacing
 import org.koin.androidx.compose.getViewModel
+import java.util.UUID
 
 internal object AddContact {
     const val Route = "addContact"
@@ -46,7 +47,8 @@ internal object AddContact {
     @Composable
     fun Screen(
         addContactViewModel: AddContactViewModel = getViewModel(),
-        navigateBack: () -> Unit
+        navigateBack: () -> Unit,
+        navigateToContactDetail: (contactId: UUID) -> Unit
     ) {
         val hasSomethingBeenFilled: Boolean by addContactViewModel.hasSomethingChanged.collectAsStateWithLifecycle()
         var showAlertDialog: Boolean by remember { mutableStateOf(false) }
@@ -102,8 +104,8 @@ internal object AddContact {
                         val isButtonEnabled: Boolean by addContactViewModel.isButtonSaveEnabled.collectAsStateWithLifecycle()
                         FilledIconButton(
                             onClick = {
-                                addContactViewModel.save()
-                                navigateBack()
+                                val contactId = addContactViewModel.save()
+                                navigateToContactDetail(contactId)
                             },
                             enabled = isButtonEnabled
                         ) {
