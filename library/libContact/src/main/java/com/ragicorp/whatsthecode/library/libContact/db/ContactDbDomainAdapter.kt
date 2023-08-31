@@ -11,7 +11,8 @@ internal object ContactDbDomainAdapter {
             phoneNumber = contactDb.phoneNumber,
             address = contactDb.address,
             apartmentDescription = contactDb.apartmentDescription,
-            freeText = contactDb.freeText
+            freeText = contactDb.freeText,
+            color = contactDb.color
         )
 
     internal fun contactDb(contact: ContactDomain): ContactDb =
@@ -21,6 +22,7 @@ internal object ContactDbDomainAdapter {
             phoneNumber = contact.phoneNumber,
             address = contact.address,
             apartmentDescription = contact.apartmentDescription,
-            freeText = contact.freeText
+            freeText = contact.freeText,
+            color = contact.color
         )
 }

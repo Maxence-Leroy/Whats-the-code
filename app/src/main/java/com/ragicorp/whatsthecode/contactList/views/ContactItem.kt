@@ -43,7 +43,8 @@ private fun ContactItemPreview() {
                     phoneNumber = "123",
                     address = "Trifouilli-les-Oies",
                     apartmentDescription = "Down the corridor",
-                    freeText = "I love free texts!"
+                    freeText = "I love free texts!",
+                    color = 0
                 ),
                 onClick = {}
             )

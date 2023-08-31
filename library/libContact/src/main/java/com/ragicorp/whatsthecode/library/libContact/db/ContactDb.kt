@@ -10,5 +10,6 @@ internal data class ContactDb(
     val phoneNumber: String,
     val address: String,
     val apartmentDescription: String,
-    val freeText: String
+    val freeText: String,
+    val color: Int
 )

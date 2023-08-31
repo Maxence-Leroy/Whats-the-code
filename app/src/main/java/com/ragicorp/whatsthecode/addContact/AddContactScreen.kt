@@ -30,6 +30,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -102,9 +104,10 @@ internal object AddContact {
                     },
                     actions = {
                         val isButtonEnabled: Boolean by addContactViewModel.isButtonSaveEnabled.collectAsStateWithLifecycle()
+                        val availableColors = contactAvailableColors().map { it.toArgb() }
                         FilledIconButton(
                             onClick = {
-                                val contactId = addContactViewModel.save()
+                                val contactId = addContactViewModel.save(availableColors)
                                 navigateToContactDetail(contactId)
                             },
                             enabled = isButtonEnabled
@@ -174,3 +177,14 @@ internal object AddContact {
         }
     }
 }
+
+@Composable
+private fun contactAvailableColors(): List<Color> =
+    listOf(
+        MaterialTheme.colorScheme.primary,
+        MaterialTheme.colorScheme.secondary,
+        MaterialTheme.colorScheme.tertiary,
+        MaterialTheme.colorScheme.error,
+        MaterialTheme.colorScheme.errorContainer,
+        MaterialTheme.colorScheme.surfaceVariant
+    )

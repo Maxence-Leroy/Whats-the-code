@@ -46,15 +46,17 @@ class AddContactViewModel(private val contactRepository: ContactRepository) : Vi
         }
             .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
-    fun save(): UUID {
+    fun save(possibleColors: List<Int>): UUID {
         val contactId = UUID.randomUUID()
+
         val contact = ContactDomain(
             id = contactId,
             name = _name.value.trim(),
             phoneNumber = _phoneNumber.value.trim(),
             address = _address.value.trim(),
             apartmentDescription = _apartmentDescription.value.trim(),
-            freeText = _freeText.value.trim()
+            freeText = _freeText.value.trim(),
+            color = possibleColors.random()
         )
 
         viewModelScope.launch {
