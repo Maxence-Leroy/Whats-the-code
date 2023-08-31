@@ -35,7 +35,7 @@ fun PhoneNumberCard(
     val context = LocalContext.current
 
     ContactCard(
-        title = stringResource(R.string.contactDetail_phoneNumber_title)
+        title = stringResource(R.string.contact_phoneNumber)
     ) {
         Text(
             modifier = Modifier

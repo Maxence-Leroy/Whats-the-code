@@ -38,6 +38,7 @@ import androidx.navigation.navArgument
 import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.contactDetail.views.AddressCard
 import com.ragicorp.whatsthecode.contactDetail.views.DeleteContactConfirmationDialog
+import com.ragicorp.whatsthecode.contactDetail.views.FreeTextCard
 import com.ragicorp.whatsthecode.contactDetail.views.PhoneNumberCard
 import com.ragicorp.whatsthecode.ui.theme.Spacing
 import org.koin.androidx.compose.getViewModel
@@ -160,6 +161,10 @@ object ContactDetail {
                                 address = contactValue.address,
                                 apartmentDescription = contactValue.apartmentDescription
                             )
+                        }
+
+                        if (contactValue.freeText.isNotBlank()) {
+                            FreeTextCard(freeText = contactValue.freeText)
                         }
                     }
                 }

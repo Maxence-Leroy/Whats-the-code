@@ -19,7 +19,6 @@
     <string name="deleteContactDialog_title">Are you sure to delete this contact?</string>
     <string name="deleteContactDialog_confirmButton">Delete</string>
     <string name="deleteContactDialog_dismissButton">Cancel</string>
-    <string name="contactDetail_phoneNumber_title">Phone number</string>
     <string name="contactDetail_phoneNumber_phoneButtonDescription">Call the contact</string>
     <string name="contactDetail_phoneNumber_sendButtonDescription">Send a message to the contact</string>
     <string name="permissionDeniedDialog_title">Permissions</string>
