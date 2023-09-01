@@ -17,6 +17,7 @@ import com.ragicorp.whatsthecode.contactDetail.ContactDetail.contactDetailNaviga
 import com.ragicorp.whatsthecode.contactDetail.ContactDetail.navigateToContactDetail
 import com.ragicorp.whatsthecode.contactList.ContactList
 import com.ragicorp.whatsthecode.editContact.EditContact.editContactNavigationEntry
+import com.ragicorp.whatsthecode.editContact.EditContact.navigateToEditContact
 import com.ragicorp.whatsthecode.helpers.ActivityProvider
 import com.ragicorp.whatsthecode.helpers.PermissionsManager
 import com.ragicorp.whatsthecode.ui.theme.WhatsTheCodeTheme
@@ -70,7 +71,10 @@ class MainActivity : ComponentActivity() {
                     }
 
                     contactDetailNavigationEntry(
-                        navigateBack = { navController.popBackStack() }
+                        navigateBack = { navController.popBackStack() },
+                        navigateToEditContact = { contactId ->
+                            navController.navigateToEditContact(contactId.toString())
+                        }
                     )
 
                     editContactNavigationEntry(

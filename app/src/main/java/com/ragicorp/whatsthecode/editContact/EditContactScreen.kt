@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -49,10 +48,9 @@ internal object EditContact {
 
     // Wrapper for type-safety
     fun NavHostController.navigateToEditContact(
-        contactId: String,
-        builder: (NavOptionsBuilder.() -> Unit)? = null
+        contactId: String
     ) {
-        navigate("${RouteBase}?${ContactArgument}=$contactId", builder = builder ?: {})
+        navigate("${RouteBase}?${ContactArgument}=$contactId")
     }
 
 

@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -56,7 +57,8 @@ object ContactDetail {
 
     // Wrapper for type-safety
     fun NavGraphBuilder.contactDetailNavigationEntry(
-        navigateBack: () -> Unit
+        navigateBack: () -> Unit,
+        navigateToEditContact: (contactId: UUID) -> Unit
     ) {
         composable(
             Route,
@@ -73,7 +75,8 @@ object ContactDetail {
                 contactDetailViewModel = getViewModel(
                     parameters = { parametersOf(UUID.fromString(contactId)) }
                 ),
-                navigateBack = navigateBack
+                navigateBack = navigateBack,
+                navigateToEditContact = navigateToEditContact
             )
         }
     }
@@ -91,10 +94,12 @@ object ContactDetail {
     @Composable
     private fun Screen(
         contactDetailViewModel: ContactDetailViewModel,
-        navigateBack: () -> Unit
+        navigateBack: () -> Unit,
+        navigateToEditContact: (contactId: UUID) -> Unit
     ) {
         val contact = contactDetailViewModel.contact.collectAsStateWithLifecycle(null)
         var showDeleteContactDialog: Boolean by remember { mutableStateOf(false) }
+        val contactValue = contact.value
 
         if (showDeleteContactDialog) {
             DeleteContactConfirmationDialog(
@@ -124,6 +129,14 @@ object ContactDetail {
                     },
                     title = {},
                     actions = {
+                        if (contactValue != null) {
+                            IconButton(onClick = { navigateToEditContact(contactValue.id) }) {
+                                Icon(
+                                    Icons.Default.Create,
+                                    contentDescription = stringResource(R.string.contactDetail_eidtButtonDescription)
+                                )
+                            }
+                        }
                         IconButton(onClick = { showDeleteContactDialog = true }) {
                             Icon(
                                 Icons.Default.Delete,
@@ -134,7 +147,6 @@ object ContactDetail {
                 )
             }
         ) {
-            val contactValue = contact.value
             if (contactValue != null) {
                 Surface(
                     modifier = Modifier
