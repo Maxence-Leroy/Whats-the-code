@@ -118,7 +118,7 @@ fun ContactModificationScreen(
                     IconButton(onClick = { onBack() }) {
                         Icon(
                             Icons.Default.Close,
-                            contentDescription = stringResource(R.string.addContact_leaveButtonDescription)
+                            contentDescription = stringResource(R.string.modifyContact_leaveButtonDescription)
                         )
                     }
                 },
@@ -134,7 +134,7 @@ fun ContactModificationScreen(
                     ) {
                         Icon(
                             Icons.Default.Done,
-                            contentDescription = stringResource(R.string.addContact_saveButtonDescription)
+                            contentDescription = stringResource(R.string.modifyContact_saveButtonDescription)
                         )
                     }
                 }
