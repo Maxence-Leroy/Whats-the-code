@@ -77,14 +77,7 @@ class MainActivity : ComponentActivity() {
                         }
                     )
 
-                    editContactNavigationEntry(
-                        navigateBack = { navController.popBackStack() },
-                        navigateToContactDetail = { contactId ->
-                            navController.navigateToContactDetail(contactId.toString()) {
-                                popUpTo(ContactList.Route)
-                            }
-                        }
-                    )
+                    editContactNavigationEntry(navigateBack = { navController.popBackStack() })
                 }
             }
         }
