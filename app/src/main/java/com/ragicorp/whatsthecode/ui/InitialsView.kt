@@ -61,6 +61,7 @@ fun InitialsView(
 fun computeMaxThreeInitials(
     name: String
 ): String {
+    if (name.isBlank()) return ""
     val firstLetters = name.split(" ").map { it.first() }
     return firstLetters.subList(0, min(firstLetters.size, 3)).joinToString(separator = "")
 }
