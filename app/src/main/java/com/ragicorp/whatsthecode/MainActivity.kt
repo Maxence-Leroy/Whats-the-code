@@ -89,6 +89,7 @@ class MainActivity : ComponentActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        @Suppress("DEPRECATION")
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         val map: Map<String, Boolean> = permissions
             .zip(
