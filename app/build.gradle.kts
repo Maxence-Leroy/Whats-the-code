@@ -75,7 +75,7 @@ dependencies {
     debugImplementation(AndroidX.compose.ui.tooling)
     debugImplementation(AndroidX.compose.ui.testManifest)
 
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.1")
+    implementation(Google.android.playServices.openSourceLicenses)
 
     implementation(project(":library:libContact"))
 }
