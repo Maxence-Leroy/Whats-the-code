@@ -29,4 +29,6 @@
     <string name="contactDetail_address_mapDescription">Open map</string>
     <string name="contactList_dropDownMenu_iconDescription">More actions</string>
     <string name="contactList_dropDownMenu_ossLicenses">See open source licenses</string>
+    <string name="editContact_titleScreen">Edit a contact</string>
+    <string name="contactDetail_eidtButtonDescription">Edit contact</string>
 </resources>

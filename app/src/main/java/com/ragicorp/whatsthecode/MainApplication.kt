@@ -4,6 +4,7 @@ import android.app.Application
 import com.ragicorp.whatsthecode.addContact.AddContactViewModel
 import com.ragicorp.whatsthecode.contactDetail.ContactDetailViewModel
 import com.ragicorp.whatsthecode.contactList.ContactListViewModel
+import com.ragicorp.whatsthecode.editContact.EditContactViewModel
 import com.ragicorp.whatsthecode.helpers.ActivityProvider
 import com.ragicorp.whatsthecode.helpers.PermissionsManager
 import com.ragicorp.whatsthecode.helpers.getActivity
@@ -29,6 +30,12 @@ class MainApplication: Application() {
             viewModel { AddContactViewModel(get()) }
             viewModel { (contactId: UUID) ->
                 ContactDetailViewModel(
+                    contactId = contactId,
+                    contactRepository = get()
+                )
+            }
+            viewModel { (contactId: UUID) ->
+                EditContactViewModel(
                     contactId = contactId,
                     contactRepository = get()
                 )
