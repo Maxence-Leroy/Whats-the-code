@@ -43,6 +43,7 @@ dependencies {
     ksp(AndroidX.room.compiler)
     implementation(Koin.core)
     implementation(Koin.android)
+    implementation("com.google.code.gson:gson:_")
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.espresso.core)
