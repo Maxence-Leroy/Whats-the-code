@@ -10,6 +10,7 @@ internal object ContactDbDomainAdapter {
             name = contactDb.name,
             phoneNumber = contactDb.phoneNumber,
             address = contactDb.address,
+            codes = contactDb.codes,
             apartmentDescription = contactDb.apartmentDescription,
             freeText = contactDb.freeText,
             color = contactDb.color
@@ -21,6 +22,7 @@ internal object ContactDbDomainAdapter {
             name = contact.name,
             phoneNumber = contact.phoneNumber,
             address = contact.address,
+            codes = contact.codes,
             apartmentDescription = contact.apartmentDescription,
             freeText = contact.freeText,
             color = contact.color

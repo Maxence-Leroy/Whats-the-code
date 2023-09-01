@@ -73,6 +73,7 @@ private fun ContactItemPreview() {
                     name = "Toto",
                     phoneNumber = "123",
                     address = "Trifouilli-les-Oies",
+                    codes = listOf(Pair("Gate", "1234"), Pair("First door on the left", "36B4")),
                     apartmentDescription = "Down the corridor",
                     freeText = "I love free texts!",
                     color = MaterialTheme.colorScheme.primary.toArgb()

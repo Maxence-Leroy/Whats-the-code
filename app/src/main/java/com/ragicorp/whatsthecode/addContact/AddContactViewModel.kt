@@ -59,6 +59,7 @@ class AddContactViewModel(private val contactRepository: ContactRepository) :
             name = _name.value.trim(),
             phoneNumber = _phoneNumber.value.trim(),
             address = _address.value.trim(),
+            codes = emptyList(),
             apartmentDescription = _apartmentDescription.value.trim(),
             freeText = _freeText.value.trim(),
             color = color
