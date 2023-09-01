@@ -28,6 +28,24 @@ class AddContactViewModel(private val contactRepository: ContactRepository) :
     override val address = _address.asStateFlow()
     override val setAddress: (String) -> Unit = { viewModelScope.launch { _address.emit(it) } }
 
+    private val _codes = MutableStateFlow(mutableListOf<Pair<String, String>>(Pair("", "")))
+    override val codes = _codes.asStateFlow()
+    override val addCode: () -> Unit = {
+        val list = _codes.value
+        list.add(Pair("", ""))
+        viewModelScope.launch { _codes.emit(list) }
+    }
+    override val removeCode: (Int) -> Unit = { index ->
+        val list = _codes.value
+        list.removeAt(index)
+        viewModelScope.launch { _codes.emit(list) }
+    }
+    override val setCodes: (Int, Pair<String, String>) -> Unit = { index, code ->
+        val list = _codes.value
+        list[index] = code
+        viewModelScope.launch { _codes.emit(list) }
+    }
+
     private val _apartmentDescription = MutableStateFlow("")
     override val apartmentDescription = _apartmentDescription.asStateFlow()
     override val setApartmentDescription: (String) -> Unit =
@@ -59,7 +77,7 @@ class AddContactViewModel(private val contactRepository: ContactRepository) :
             name = _name.value.trim(),
             phoneNumber = _phoneNumber.value.trim(),
             address = _address.value.trim(),
-            codes = emptyList(),
+            codes = _codes.value.map { Pair(it.first.trim(), it.second.trim()) },
             apartmentDescription = _apartmentDescription.value.trim(),
             freeText = _freeText.value.trim(),
             color = color

@@ -48,6 +48,10 @@ interface ContactModificationViewModel {
     val setPhoneNumber: (String) -> Unit
     val address: StateFlow<String>
     val setAddress: (String) -> Unit
+    val codes: StateFlow<List<Pair<String, String>>>
+    val addCode: () -> Unit
+    val removeCode: (index: Int) -> Unit
+    val setCodes: (index: Int, code: Pair<String, String>) -> Unit
     val apartmentDescription: StateFlow<String>
     val setApartmentDescription: (String) -> Unit
     val freeText: StateFlow<String>

@@ -25,6 +25,7 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
                     _name.emit(contact.name)
                     _phoneNumber.emit(contact.phoneNumber)
                     _address.emit(contact.address)
+                    _codes.emit(contact.codes.toMutableList())
                     _apartmentDescription.emit(contact.apartmentDescription)
                     _freeText.emit(contact.freeText)
                 }
@@ -44,6 +45,24 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
     private val _address = MutableStateFlow("")
     override val address = _address.asStateFlow()
     override val setAddress: (String) -> Unit = { viewModelScope.launch { _address.emit(it) } }
+
+    private val _codes = MutableStateFlow(mutableListOf<Pair<String, String>>())
+    override val codes = _codes.asStateFlow()
+    override val addCode: () -> Unit = {
+        val list = _codes.value
+        list.add(Pair("", ""))
+        viewModelScope.launch { _codes.emit(list) }
+    }
+    override val removeCode: (Int) -> Unit = { index ->
+        val list = _codes.value
+        list.removeAt(index)
+        viewModelScope.launch { _codes.emit(list) }
+    }
+    override val setCodes: (Int, Pair<String, String>) -> Unit = { index, code ->
+        val list = _codes.value
+        list[index] = code
+        viewModelScope.launch { _codes.emit(list) }
+    }
 
     private val _apartmentDescription = MutableStateFlow("")
     override val apartmentDescription = _apartmentDescription.asStateFlow()
@@ -81,6 +100,7 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
             name = _name.value.trim(),
             phoneNumber = _phoneNumber.value.trim(),
             address = _address.value.trim(),
+            codes = _codes.value.map { Pair(it.first.trim(), it.second.trim()) },
             apartmentDescription = _apartmentDescription.value.trim(),
             freeText = _freeText.value.trim()
         )
