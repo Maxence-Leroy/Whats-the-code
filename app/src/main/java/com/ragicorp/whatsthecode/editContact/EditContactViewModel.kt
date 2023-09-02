@@ -46,20 +46,18 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
     override val address = _address.asStateFlow()
     override val setAddress: (String) -> Unit = { viewModelScope.launch { _address.emit(it) } }
 
-    private val _codes = MutableStateFlow(mutableListOf<Pair<String, String>>())
+    private val _codes = MutableStateFlow(listOf(Pair("", "")))
     override val codes = _codes.asStateFlow()
     override val addCode: () -> Unit = {
-        val list = _codes.value
-        list.add(Pair("", ""))
-        viewModelScope.launch { _codes.emit(list) }
+        viewModelScope.launch { _codes.emit(_codes.value + Pair("", "")) }
     }
     override val removeCode: (Int) -> Unit = { index ->
-        val list = _codes.value
+        val list = _codes.value.toMutableList()
         list.removeAt(index)
         viewModelScope.launch { _codes.emit(list) }
     }
     override val setCodes: (Int, Pair<String, String>) -> Unit = { index, code ->
-        val list = _codes.value
+        val list = _codes.value.toMutableList()
         list[index] = code
         viewModelScope.launch { _codes.emit(list) }
     }

@@ -27,7 +27,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -76,7 +75,7 @@ fun ContactModificationScreen(
     navigateBack: () -> Unit,
     navigateToContactDetail: (contactId: UUID) -> Unit
 ) {
-    val codes by viewModel.codes.collectAsState()
+    val codes = viewModel.codes.collectAsStateWithLifecycle()
     val hasSomethingBeenFilled: Boolean by viewModel.hasSomethingChanged.collectAsStateWithLifecycle()
     var showAlertDialog: Boolean by remember { mutableStateOf(false) }
 
@@ -196,8 +195,7 @@ fun ContactModificationScreen(
                             text = stringResource(R.string.contact_codes),
                             style = MaterialTheme.typography.titleMedium
                         )
-
-                        for ((index, value) in codes.withIndex()) {
+                        for ((index, value) in codes.value.withIndex()) {
                             CodeTextField(
                                 index = index,
                                 value = value,
