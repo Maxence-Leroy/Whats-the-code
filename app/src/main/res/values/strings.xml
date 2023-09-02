@@ -31,4 +31,13 @@
     <string name="contactList_dropDownMenu_ossLicenses">See open source licenses</string>
     <string name="editContact_titleScreen">Edit a contact</string>
     <string name="contactDetail_eidtButtonDescription">Edit contact</string>
+    <string name="modifyContact_code_doorLabel">Door number %d</string>
+    <string name="modifyContact_code_doorPlaceholder">Gate door</string>
+    <string name="modifyContact_code_codeLabel">Code number %d</string>
+    <string name="modifyContact_code_codePlaceholder">12B34</string>
+    <string name="modifyContact_code_doorIconDescription">Door icon</string>
+    <string name="modifyContact_code_codeIconDescription">Lock icon</string>
+    <string name="modifyContact_code_deleteIconDescription">Delete this code</string>
+    <string name="contact_codes">Building codes</string>
+    <string name="modifyContact_code_addIconDescription">Add a new code</string>
 </resources>
