@@ -1,4 +1,4 @@
-package com.ragicorp.whatsthecode.ui
+package com.ragicorp.whatsthecode.contactModification
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -41,6 +41,8 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.R
+import com.ragicorp.whatsthecode.ui.CodeTextField
+import com.ragicorp.whatsthecode.ui.WtcTextField
 import com.ragicorp.whatsthecode.ui.theme.Spacing
 import kotlinx.coroutines.flow.StateFlow
 import java.util.UUID

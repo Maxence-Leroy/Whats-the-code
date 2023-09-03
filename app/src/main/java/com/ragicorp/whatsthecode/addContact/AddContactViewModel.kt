@@ -2,9 +2,9 @@ package com.ragicorp.whatsthecode.addContact
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ragicorp.whatsthecode.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.ContactRepository
-import com.ragicorp.whatsthecode.ui.ContactModificationViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow

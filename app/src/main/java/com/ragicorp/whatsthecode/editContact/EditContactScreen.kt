@@ -9,7 +9,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ragicorp.whatsthecode.R
-import com.ragicorp.whatsthecode.ui.ContactModificationScreen
+import com.ragicorp.whatsthecode.contactModification.ContactModificationScreen
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
