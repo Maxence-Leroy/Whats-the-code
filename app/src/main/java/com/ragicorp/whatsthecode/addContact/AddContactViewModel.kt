@@ -3,7 +3,7 @@ package com.ragicorp.whatsthecode.addContact
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
-import com.ragicorp.whatsthecode.library.libContact.ContactRepository
+import com.ragicorp.whatsthecode.library.libContact.LibContact
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class AddContactViewModel(private val contactRepository: ContactRepository) :
+class AddContactViewModel(private val libContact: LibContact) :
     ContactModificationViewModel() {
     override val isButtonSaveEnabled =
         combine(name, address) { mName, mAddress ->
@@ -55,7 +55,7 @@ class AddContactViewModel(private val contactRepository: ContactRepository) :
         )
 
         viewModelScope.launch {
-            contactRepository.addContact(contact)
+            libContact.addContact(contact)
         }
 
         return contactId

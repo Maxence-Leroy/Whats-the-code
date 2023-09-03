@@ -3,7 +3,7 @@ package com.ragicorp.whatsthecode.editContact
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
-import com.ragicorp.whatsthecode.library.libContact.ContactRepository
+import com.ragicorp.whatsthecode.library.libContact.LibContact
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class EditContactViewModel(contactId: UUID, val contactRepository: ContactRepository) :
+class EditContactViewModel(contactId: UUID, private val libContact: LibContact) :
     ContactModificationViewModel() {
-    private val contact = contactRepository.getContactById(contactId)
+    private val contact = libContact.getContactById(contactId)
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     init {
@@ -87,7 +87,7 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
         )
 
         viewModelScope.launch {
-            contactRepository.editContact(newContact)
+            libContact.editContact(newContact)
         }
 
         return contactValue.id

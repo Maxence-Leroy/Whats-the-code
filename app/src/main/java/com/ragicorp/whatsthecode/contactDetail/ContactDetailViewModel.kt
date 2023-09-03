@@ -3,19 +3,19 @@ package com.ragicorp.whatsthecode.contactDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
-import com.ragicorp.whatsthecode.library.libContact.ContactRepository
+import com.ragicorp.whatsthecode.library.libContact.LibContact
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class ContactDetailViewModel(contactId: UUID, val contactRepository: ContactRepository) :
+class ContactDetailViewModel(contactId: UUID, private val libContact: LibContact) :
     ViewModel() {
-    val contact = contactRepository.getContactById(contactId)
+    val contact = libContact.getContactById(contactId)
 
     fun deleteContact(contact: ContactDomain?) {
         if (contact == null) throw IllegalStateException()
 
         viewModelScope.launch {
-            contactRepository.deleteContact(contact)
+            libContact.deleteContact(contact)
         }
     }
 }

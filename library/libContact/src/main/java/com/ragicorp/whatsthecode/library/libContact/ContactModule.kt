@@ -15,5 +15,7 @@ val contactModule = module {
 
     factory { get<ContactDatabase>().contactDao() }
 
-    factory { ContactRepository() }
+    factory { ContactRepository(get()) }
+
+    factory { LibContact() }
 }

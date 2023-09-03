@@ -4,13 +4,9 @@ import com.ragicorp.whatsthecode.library.libContact.db.ContactDao
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDbDomainAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
 import java.util.UUID
 
-class ContactRepository : KoinComponent {
-    private val contactDao: ContactDao = get()
-
+internal class ContactRepository(private val contactDao: ContactDao) {
     fun getContacts(): Flow<List<ContactDomain>> {
         return contactDao
             .getContacts()
