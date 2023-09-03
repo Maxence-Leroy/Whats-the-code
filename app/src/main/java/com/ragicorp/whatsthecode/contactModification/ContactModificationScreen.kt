@@ -44,30 +44,7 @@ import com.ragicorp.whatsthecode.R
 import com.ragicorp.whatsthecode.ui.CodeTextField
 import com.ragicorp.whatsthecode.ui.WtcTextField
 import com.ragicorp.whatsthecode.ui.theme.Spacing
-import kotlinx.coroutines.flow.StateFlow
 import java.util.UUID
-
-interface ContactModificationViewModel {
-    val name: StateFlow<String>
-    val setName: (String) -> Unit
-    val phoneNumber: StateFlow<String>
-    val setPhoneNumber: (String) -> Unit
-    val address: StateFlow<String>
-    val setAddress: (String) -> Unit
-    val codes: StateFlow<List<Pair<String, String>>>
-    val addCode: () -> Unit
-    val removeCode: (index: Int) -> Unit
-    val setCodes: (index: Int, code: Pair<String, String>) -> Unit
-    val apartmentDescription: StateFlow<String>
-    val setApartmentDescription: (String) -> Unit
-    val freeText: StateFlow<String>
-    val setFreeText: (String) -> Unit
-
-    val isButtonSaveEnabled: StateFlow<Boolean>
-    val hasSomethingChanged: StateFlow<Boolean>
-
-    fun save(color: Int? = null): UUID
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

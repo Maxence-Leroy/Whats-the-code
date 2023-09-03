@@ -1,20 +1,17 @@
 package com.ragicorp.whatsthecode.editContact
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.ContactRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
 class EditContactViewModel(contactId: UUID, val contactRepository: ContactRepository) :
-    ContactModificationViewModel, ViewModel() {
+    ContactModificationViewModel() {
     private val contact = contactRepository.getContactById(contactId)
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
@@ -22,54 +19,18 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
         viewModelScope.launch {
             contact.collect { contact ->
                 if (contact != null) {
-                    _name.emit(contact.name)
-                    _phoneNumber.emit(contact.phoneNumber)
-                    _address.emit(contact.address)
-                    _codes.emit(contact.codes.toMutableList())
-                    _apartmentDescription.emit(contact.apartmentDescription)
-                    _freeText.emit(contact.freeText)
+                    setName(contact.name)
+                    setPhoneNumber(contact.phoneNumber)
+                    setAddress(contact.address)
+                    for ((index, value) in contact.codes.withIndex()) {
+                        setCodes(index, value)
+                    }
+                    setApartmentDescription(contact.apartmentDescription)
+                    setFreeText(contact.freeText)
                 }
             }
         }
     }
-
-    private val _name = MutableStateFlow("")
-    override val name = _name.asStateFlow()
-    override val setName: (String) -> Unit = { viewModelScope.launch { _name.emit(it) } }
-
-    private val _phoneNumber = MutableStateFlow("")
-    override val phoneNumber = _phoneNumber.asStateFlow()
-    override val setPhoneNumber: (String) -> Unit =
-        { viewModelScope.launch { _phoneNumber.emit(it) } }
-
-    private val _address = MutableStateFlow("")
-    override val address = _address.asStateFlow()
-    override val setAddress: (String) -> Unit = { viewModelScope.launch { _address.emit(it) } }
-
-    private val _codes = MutableStateFlow(listOf(Pair("", "")))
-    override val codes = _codes.asStateFlow()
-    override val addCode: () -> Unit = {
-        viewModelScope.launch { _codes.emit(_codes.value + Pair("", "")) }
-    }
-    override val removeCode: (Int) -> Unit = { index ->
-        val list = _codes.value.toMutableList()
-        list.removeAt(index)
-        viewModelScope.launch { _codes.emit(list) }
-    }
-    override val setCodes: (Int, Pair<String, String>) -> Unit = { index, code ->
-        val list = _codes.value.toMutableList()
-        list[index] = code
-        viewModelScope.launch { _codes.emit(list) }
-    }
-
-    private val _apartmentDescription = MutableStateFlow("")
-    override val apartmentDescription = _apartmentDescription.asStateFlow()
-    override val setApartmentDescription: (String) -> Unit =
-        { viewModelScope.launch { _apartmentDescription.emit(it) } }
-
-    private val _freeText = MutableStateFlow("")
-    override val freeText = _freeText.asStateFlow()
-    override val setFreeText: (String) -> Unit = { viewModelScope.launch { _freeText.emit(it) } }
 
     override val hasSomethingChanged =
         combine(contact, name, phoneNumber, address, apartmentDescription, freeText) { array ->
@@ -95,12 +56,12 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
         val contactValue = contact.value ?: throw IllegalStateException()
 
         val newContact = contactValue.copy(
-            name = _name.value.trim(),
-            phoneNumber = _phoneNumber.value.trim(),
-            address = _address.value.trim(),
-            codes = _codes.value.map { Pair(it.first.trim(), it.second.trim()) },
-            apartmentDescription = _apartmentDescription.value.trim(),
-            freeText = _freeText.value.trim()
+            name = name.value.trim(),
+            phoneNumber = phoneNumber.value.trim(),
+            address = address.value.trim(),
+            codes = codes.value.map { Pair(it.first.trim(), it.second.trim()) },
+            apartmentDescription = apartmentDescription.value.trim(),
+            freeText = freeText.value.trim()
         )
 
         viewModelScope.launch {
