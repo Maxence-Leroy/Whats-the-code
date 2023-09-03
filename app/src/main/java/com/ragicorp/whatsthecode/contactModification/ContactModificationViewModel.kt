@@ -32,6 +32,11 @@ abstract class ContactModificationViewModel : ViewModel() {
         list.removeAt(index)
         viewModelScope.launch { _codes.emit(list) }
     }
+
+    protected suspend fun setCodes(codes: List<Pair<String, String>>) {
+        _codes.emit(codes)
+    }
+
     val setCodes: (Int, Pair<String, String>) -> Unit = { index, code ->
         val list = _codes.value.toMutableList()
         list[index] = code
@@ -55,5 +60,11 @@ abstract class ContactModificationViewModel : ViewModel() {
 
     open fun save(color: Int? = null): UUID {
         throw NotImplementedError()
+    }
+
+    protected fun trimCodes(codesValue: (List<Pair<String, String>>)? = null): List<Pair<String, String>> {
+        return (codesValue ?: codes.value)
+            .map { Pair(it.first.trim(), it.second.trim()) }
+            .filter { it.first.isNotBlank() || it.second.isNotBlank() }
     }
 }

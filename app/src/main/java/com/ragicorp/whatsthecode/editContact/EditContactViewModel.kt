@@ -5,7 +5,9 @@ import com.ragicorp.whatsthecode.contactModification.ContactModificationViewMode
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.ContactRepository
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -22,8 +24,9 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
                     setName(contact.name)
                     setPhoneNumber(contact.phoneNumber)
                     setAddress(contact.address)
-                    for ((index, value) in contact.codes.withIndex()) {
-                        setCodes(index, value)
+                    setCodes(contact.codes)
+                    if (contact.codes.isEmpty()) {
+                        addCode()
                     }
                     setApartmentDescription(contact.apartmentDescription)
                     setFreeText(contact.freeText)
@@ -32,20 +35,39 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
         }
     }
 
-    override val hasSomethingChanged =
-        combine(contact, name, phoneNumber, address, apartmentDescription, freeText) { array ->
-            val mContact = array[0] as ContactDomain?
-            val mName = array[1] as String
-            val mPhoneNumber = array[2] as String
-            val mAddress = array[3] as String
-            val mApartmentDescription = array[4] as String
-            val mFreeText = array[5] as String
+    override val hasSomethingChanged: StateFlow<Boolean>
+        get() {
+            val allButCodesHasChanged = combine(
+                contact,
+                name,
+                phoneNumber,
+                address,
+                apartmentDescription,
+                freeText
+            ) { array ->
+                val mContact = array[0] as ContactDomain?
+                val mName = array[1] as String
+                val mPhoneNumber = array[2] as String
+                val mAddress = array[3] as String
+                val mApartmentDescription = array[4] as String
+                val mFreeText = array[5] as String
 
-            ((mContact?.name ?: "") != mName) || ((mContact?.phoneNumber
-                ?: "") != mPhoneNumber) || ((mContact?.address
-                ?: "") != mAddress) || ((mContact?.apartmentDescription
-                ?: "") != mApartmentDescription) || ((mContact?.freeText ?: "") != mFreeText)
-        }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
+                ((mContact?.name ?: "") != mName) || ((mContact?.phoneNumber
+                    ?: "") != mPhoneNumber) || ((mContact?.address
+                    ?: "") != mAddress) || ((mContact?.apartmentDescription
+                    ?: "") != mApartmentDescription) || ((mContact?.freeText ?: "") != mFreeText)
+            }
+
+            val hasCodesChanged = combine(contact.mapNotNull { it }, codes) { mContact, mCodes ->
+                trimCodes(mCodes) != trimCodes(mContact.codes)
+            }
+
+            return combine(allButCodesHasChanged, hasCodesChanged) { (allButCodes, code) ->
+                allButCodes || code
+            }
+                .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+        }
+
 
     override val isButtonSaveEnabled =
         combine(hasSomethingChanged, name, address) { mHasSomethingChanged, mName, mAddress ->
@@ -59,7 +81,7 @@ class EditContactViewModel(contactId: UUID, val contactRepository: ContactReposi
             name = name.value.trim(),
             phoneNumber = phoneNumber.value.trim(),
             address = address.value.trim(),
-            codes = codes.value.map { Pair(it.first.trim(), it.second.trim()) },
+            codes = trimCodes(),
             apartmentDescription = apartmentDescription.value.trim(),
             freeText = freeText.value.trim()
         )
