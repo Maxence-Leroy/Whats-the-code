@@ -181,10 +181,11 @@ object ContactDetail {
                             PhoneNumberCard(phoneNumber = contactValue.phoneNumber)
                         }
 
-                        if (contactValue.address.isNotBlank() or contactValue.apartmentDescription.isNotBlank()) {
+                        if (contactValue.address.isNotBlank() or contactValue.codes.isNotEmpty() or contactValue.apartmentDescription.isNotBlank()) {
                             AddressCard(
                                 address = contactValue.address,
-                                apartmentDescription = contactValue.apartmentDescription
+                                apartmentDescription = contactValue.apartmentDescription,
+                                codes = contactValue.codes
                             )
                         }
 
