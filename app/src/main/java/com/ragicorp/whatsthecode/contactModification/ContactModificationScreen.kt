@@ -15,13 +15,14 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -162,12 +163,15 @@ fun ContactModificationScreen(
                     label = stringResource(R.string.contact_address)
                 )
 
-                Surface(
-                    color = MaterialTheme.colorScheme.surfaceVariant
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(Spacing.single),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(Spacing.single),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.single * 2),
                         horizontalAlignment = Alignment.Start
                     ) {
                         Text(
