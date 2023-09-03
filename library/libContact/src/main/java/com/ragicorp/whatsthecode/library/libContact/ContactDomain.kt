@@ -12,3 +12,14 @@ data class ContactDomain(
     val freeText: String,
     val color: Int
 )
+
+val stubContact = ContactDomain(
+    id = UUID.randomUUID(),
+    name = "James Bond",
+    phoneNumber = "007",
+    address = "MI6",
+    codes = listOf(Pair("Code name", "007"), Pair("Number of movies", "Too many")),
+    apartmentDescription = "Something with many expensive items",
+    freeText = "Best secret agent",
+    color = 1
+)
