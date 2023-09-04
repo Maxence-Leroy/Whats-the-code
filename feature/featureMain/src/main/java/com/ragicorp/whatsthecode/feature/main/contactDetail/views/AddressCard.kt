@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode.feature.main.contactDetail.views
 
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,9 +26,11 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
+import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -121,5 +124,57 @@ private fun ContentWithDividers(
         if (index != content.size - 1) {
             Divider(color = MaterialTheme.colorScheme.onSecondaryContainer)
         }
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun AddressAlonePreview() {
+    WhatsTheCodeTheme {
+        AddressCard(
+            address = "Hello world",
+            codes = emptyList(),
+            apartmentDescription = ""
+        )
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun CodesAlonePreview() {
+    WhatsTheCodeTheme {
+        AddressCard(
+            address = "",
+            codes = listOf(Pair("Door A", "Code A"), Pair("Door B", "Code B")),
+            apartmentDescription = ""
+        )
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun DescriptionAlonePreview() {
+    WhatsTheCodeTheme {
+        AddressCard(
+            address = "",
+            codes = emptyList(),
+            apartmentDescription = "A beautiful apartment with a handsome owner. I need a longer text for it to go on multiple lines."
+        )
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun FullAddressCardPreview() {
+    WhatsTheCodeTheme {
+        AddressCard(
+            address = "55 Rue du Faubourg Saint-Honoré, 75008 Paris",
+            codes = listOf(Pair("Door A", "Code A"), Pair("Door B", "Code B")),
+            apartmentDescription = "A beautiful apartment with a handsome owner. I need a longer text for it to go on multiple lines."
+        )
     }
 }
