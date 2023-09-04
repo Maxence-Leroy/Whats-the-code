@@ -1,9 +1,13 @@
 package com.ragicorp.whatsthecode.feature.main.ui
 
+import androidx.annotation.VisibleForTesting
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,6 +17,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 
 sealed class WtcImeAction {
     data object Default : WtcImeAction()
@@ -69,8 +75,35 @@ fun WtcTextField(
     )
 }
 
+@VisibleForTesting(VisibleForTesting.PRIVATE)
 @Preview
 @Composable
 internal fun WtcTextFieldPreview() {
-    WtcTextField(value = "Initial value", onValueChanged = {}, label = "Bonjour")
+    WhatsTheCodeTheme {
+        Surface {
+            Column {
+                WtcTextField(
+                    modifier = Modifier.padding(8.dp),
+                    singleLine = true,
+                    value = "Initial value",
+                    onValueChanged = {},
+                    label = "Hello"
+                )
+                WtcTextField(
+                    modifier = Modifier.padding(8.dp),
+                    singleLine = false,
+                    value = "Value on one line",
+                    onValueChanged = {},
+                    label = "World"
+                )
+                WtcTextField(
+                    modifier = Modifier.padding(8.dp),
+                    singleLine = false,
+                    value = "Value\nOn\nMultiple\n\n\n\nLines",
+                    onValueChanged = {},
+                    label = "HYD"
+                )
+            }
+        }
+    }
 }
