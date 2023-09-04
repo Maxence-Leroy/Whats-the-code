@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode.feature.main.contactDetail.views
 
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,8 +23,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import com.ragicorp.whatsthecode.feature.main.R
+import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -72,5 +75,14 @@ fun PhoneNumberCard(
                 )
             }
         }
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun PhoneNumberCardPreview() {
+    WhatsTheCodeTheme {
+        PhoneNumberCard(phoneNumber = "+33123456789")
     }
 }
