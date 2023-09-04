@@ -13,8 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,6 +40,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.feature.main.R
+import com.ragicorp.whatsthecode.feature.main.contactModification.views.LeaveConfirmationDialog
 import com.ragicorp.whatsthecode.feature.main.ui.CodeTextField
 import com.ragicorp.whatsthecode.feature.main.ui.WtcTextField
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
@@ -68,23 +67,12 @@ fun ContactModificationScreen(
     }
 
     if (showAlertDialog) {
-        AlertDialog(
-            onDismissRequest = { showAlertDialog = false },
-            title = { Text(text = stringResource(R.string.unsavedChangesDialog_title)) },
-            text = { Text(text = stringResource(R.string.unsavedChangesDialog_text)) },
-            confirmButton = {
-                Button(onClick = {
-                    showAlertDialog = false
-                    navigateBack()
-                }) {
-                    Text(text = stringResource(R.string.unsavedChangesDialog_confirmButton))
-                }
-            },
-            dismissButton = {
-                Button(onClick = { showAlertDialog = false }) {
-                    Text(text = stringResource(R.string.unsavedChangesDialog_dismissButton))
-                }
-            },
+        LeaveConfirmationDialog(
+            onDismiss = { showAlertDialog = false },
+            onConfirm = {
+                showAlertDialog = false
+                navigateBack()
+            }
         )
     }
 
