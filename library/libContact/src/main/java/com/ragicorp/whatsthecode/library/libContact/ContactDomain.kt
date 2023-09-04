@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.library.libContact
 
+import android.graphics.Color
 import java.util.UUID
 
 data class ContactDomain(
@@ -21,5 +22,5 @@ val stubContact = ContactDomain(
     codes = listOf(Pair("Code name", "007"), Pair("Number of movies", "Too many")),
     apartmentDescription = "Something with many expensive items",
     freeText = "Best secret agent",
-    color = 1
+    color = Color.BLUE
 )

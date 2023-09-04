@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.contactList.views
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,14 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import com.ragicorp.whatsthecode.feature.main.ui.InitialsView
 import com.ragicorp.whatsthecode.feature.main.ui.InitialsViewSize
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
-import java.util.UUID
+import com.ragicorp.whatsthecode.library.libContact.stubContact
 
 @Composable
 internal fun ContactItem(
@@ -62,22 +62,42 @@ internal fun ContactItem(
     }
 }
 
+@VisibleForTesting(VisibleForTesting.PRIVATE)
 @Composable
 @Preview
-private fun ContactItemPreview() {
+internal fun FullContactItemPreview() {
     WhatsTheCodeTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             ContactItem(
-                contact = ContactDomain(
-                    id = UUID.randomUUID(),
-                    name = "Toto",
-                    phoneNumber = "123",
-                    address = "Trifouilli-les-Oies",
-                    codes = listOf(Pair("Gate", "1234"), Pair("First door on the left", "36B4")),
-                    apartmentDescription = "Down the corridor",
-                    freeText = "I love free texts!",
-                    color = MaterialTheme.colorScheme.primary.toArgb()
-                ),
+                contact = stubContact,
+                onClick = {}
+            )
+        }
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun ContactWithoutAddressPreview() {
+    WhatsTheCodeTheme {
+        Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            ContactItem(
+                contact = stubContact.copy(address = ""),
+                onClick = {}
+            )
+        }
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+internal fun ContactWithoutNamePreview() {
+    WhatsTheCodeTheme {
+        Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            ContactItem(
+                contact = stubContact.copy(name = ""),
                 onClick = {}
             )
         }
