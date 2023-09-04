@@ -1,24 +1,19 @@
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
-    namespace = "com.ragicorp.whatsthecode"
+    namespace = "com.ragicorp.whatsthecode.feature.main"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ragicorp.whatsthecode"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -37,18 +32,16 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.compiler)
     }
 }
 
 dependencies {
-
     implementation(AndroidX.core.ktx)
-    implementation(AndroidX.lifecycle.runtime.ktx)
-    implementation(AndroidX.activity.compose)
     implementation(platform(AndroidX.compose.bom))
     implementation(AndroidX.compose.ui)
     implementation(AndroidX.compose.ui.graphics)
@@ -63,12 +56,9 @@ dependencies {
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.espresso.core)
-    androidTestImplementation(platform(AndroidX.compose.bom))
-    androidTestImplementation(AndroidX.compose.ui.testJunit4)
     debugImplementation(AndroidX.compose.ui.tooling)
     debugImplementation(AndroidX.compose.ui.testManifest)
 
     implementation(project(":core:coreHelpers"))
-    implementation(project(":feature:featureMain"))
     implementation(project(":library:libContact"))
 }

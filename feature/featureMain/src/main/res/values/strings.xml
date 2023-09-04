@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="contactList_noContactPlaceholder">No contact found. You can add some with the plus button at the bottom right.</string>
+    <string name="contactList_addButtonDescription">Add contact button</string>
+    <string name="contact_name">Name</string>
+    <string name="addContact_titleScreen">Create a contact</string>
+    <string name="contact_phoneNumber">Phone number</string>
+    <string name="contact_address">Address</string>
+    <string name="contact_apartmentDescription">Apartment number</string>
+    <string name="contact_freeText">Other</string>
+    <string name="modifyContact_saveButtonDescription">Save</string>
+    <string name="modifyContact_leaveButtonDescription">Leave contact creation</string>
+    <string name="unsavedChangesDialog_title">Are you sure to leave?</string>
+    <string name="unsavedChangesDialog_text">There are unsaved changes. If you leave, the data will be lost.</string>
+    <string name="unsavedChangesDialog_confirmButton">Leave</string>
+    <string name="unsavedChangesDialog_dismissButton">Cancel</string>
+    <string name="contactDetail_leaveButtonDescription">Return to contact list</string>
+    <string name="contactDetail_deleteButtonDescription">Delete contact</string>
+    <string name="deleteContactDialog_title">Are you sure to delete this contact?</string>
+    <string name="deleteContactDialog_confirmButton">Delete</string>
+    <string name="deleteContactDialog_dismissButton">Cancel</string>
+    <string name="contactDetail_phoneNumber_phoneButtonDescription">Call the contact</string>
+    <string name="contactDetail_phoneNumber_sendButtonDescription">Send a message to the contact</string>
+    <string name="contactDetail_address_title">Address</string>
+    <string name="contactDetail_address_mapDescription">Open map</string>
+    <string name="contactList_dropDownMenu_iconDescription">More actions</string>
+    <string name="contactList_dropDownMenu_ossLicenses">See open source licenses</string>
+    <string name="editContact_titleScreen">Edit a contact</string>
+    <string name="contactDetail_eidtButtonDescription">Edit contact</string>
+    <string name="modifyContact_code_doorLabel">Door #%d</string>
+    <string name="modifyContact_code_doorPlaceholder">Gate door</string>
+    <string name="modifyContact_code_codeLabel">Code #%d</string>
+    <string name="modifyContact_code_codePlaceholder">12B34</string>
+    <string name="modifyContact_code_doorIconDescription">Door icon</string>
+    <string name="modifyContact_code_codeIconDescription">Lock icon</string>
+    <string name="modifyContact_code_deleteIconDescription">Delete this code</string>
+    <string name="contact_codes">Building codes</string>
+    <string name="modifyContact_code_addIconDescription">Add a new code</string>
+</resources>
