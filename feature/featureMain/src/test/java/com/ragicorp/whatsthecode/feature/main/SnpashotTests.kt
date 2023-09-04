@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode.feature.main
 
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
+import app.cash.paparazzi.detectEnvironment
 import com.android.ide.common.rendering.api.SessionParams
 import org.junit.Rule
 
@@ -20,6 +21,9 @@ abstract class SnapshotComponentTest(
                 renderingMode = SessionParams.RenderingMode.SHRINK,
                 maxPercentDifference = 0.1,
                 theme = "android:Theme.MaterialComponents.Light.NoActionBar",
+                environment = detectEnvironment().run {
+                    copy(compileSdkVersion = 33, platformDir = platformDir.replace("34", "33"))
+                },
             )
     }
 }
@@ -35,6 +39,9 @@ abstract class SnapshotVerticalComponentTest(
                 renderingMode = SessionParams.RenderingMode.V_SCROLL,
                 maxPercentDifference = 0.1,
                 theme = "android:Theme.MaterialComponents.Light.NoActionBar",
+                environment = detectEnvironment().run {
+                    copy(compileSdkVersion = 33, platformDir = platformDir.replace("34", "33"))
+                },
             )
     }
 }
@@ -50,6 +57,9 @@ abstract class SnapshotUiTest(
                 renderingMode = SessionParams.RenderingMode.NORMAL,
                 maxPercentDifference = 0.1,
                 theme = "android:Theme.MaterialComponents.Light.NoActionBar",
+                environment = detectEnvironment().run {
+                    copy(compileSdkVersion = 33, platformDir = platformDir.replace("34", "33"))
+                },
             )
     }
 }

@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.contactDetail.views
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.ragicorp.whatsthecode.feature.main.R
+import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 
 @Composable
 internal fun DeleteContactConfirmationDialog(
@@ -29,8 +31,11 @@ internal fun DeleteContactConfirmationDialog(
     )
 }
 
+@VisibleForTesting(VisibleForTesting.PRIVATE)
 @Preview
 @Composable
-private fun DeleteContactConfirmationDialogPreview() {
-    DeleteContactConfirmationDialog({}, {})
+internal fun DeleteContactConfirmationDialogPreview() {
+    WhatsTheCodeTheme {
+        DeleteContactConfirmationDialog({}, {})
+    }
 }
