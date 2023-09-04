@@ -18,7 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -26,11 +25,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -40,11 +36,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.AddressCard
+import com.ragicorp.whatsthecode.feature.main.contactDetail.views.ContactImageAndName
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.DeleteContactConfirmationDialog
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.FreeTextCard
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.PhoneNumberCard
-import com.ragicorp.whatsthecode.feature.main.ui.InitialsView
-import com.ragicorp.whatsthecode.feature.main.ui.InitialsViewSize
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -162,18 +157,9 @@ object ContactDetail {
                         verticalArrangement = Arrangement.spacedBy(Spacing.single * 4)
                     ) {
                         if (contactValue.name.isNotBlank()) {
-                            InitialsView(
-                                modifier = Modifier.align(CenterHorizontally),
+                            ContactImageAndName(
                                 name = contactValue.name,
-                                color = Color(contactValue.color),
-                                size = InitialsViewSize.Big
-                            )
-
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = contactValue.name,
-                                style = MaterialTheme.typography.headlineLarge,
-                                textAlign = TextAlign.Center
+                                color = contactValue.color
                             )
                         }
 
