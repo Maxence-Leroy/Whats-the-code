@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.ui
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,14 +60,17 @@ fun InitialsView(
     }
 }
 
-fun computeMaxThreeInitials(
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+internal fun computeMaxThreeInitials(
     name: String
 ): String {
     if (name.isBlank()) return ""
     val firstLetters = name.split(" ").map { it.first() }
     return firstLetters.subList(0, min(firstLetters.size, 3)).joinToString(separator = "")
+        .uppercase()
 }
 
+@VisibleForTesting(VisibleForTesting.PRIVATE)
 @Composable
 @Preview
 internal fun BigInitialsPreview() {
@@ -118,6 +122,7 @@ internal fun BigInitialsPreview() {
     }
 }
 
+@VisibleForTesting(VisibleForTesting.PRIVATE)
 @Composable
 @Preview
 internal fun SmallInitialsPreview() {
