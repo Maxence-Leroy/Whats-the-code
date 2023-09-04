@@ -3,6 +3,7 @@ import de.fayard.refreshVersions.core.versionFor
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("app.cash.paparazzi")
 }
 
 android {

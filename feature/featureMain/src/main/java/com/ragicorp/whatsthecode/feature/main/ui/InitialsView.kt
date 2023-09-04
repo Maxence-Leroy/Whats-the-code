@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode.feature.main.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -67,53 +68,61 @@ fun computeMaxThreeInitials(
 }
 
 @Composable
-@Preview(widthDp = 1250)
-fun BigInitialsPreview() {
+@Preview
+internal fun BigInitialsPreview() {
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        WhatsTheCodeTheme(darkTheme = false) {
-            InitialsView(
-                name = "Abc",
-                color = MaterialTheme.colorScheme.primary,
-                size = InitialsViewSize.Big
-            )
-            InitialsView(
-                name = "Ragi Corp",
-                color = MaterialTheme.colorScheme.secondary,
-                size = InitialsViewSize.Big
-            )
-            InitialsView(
-                name = "Alfhreh Bfihi Cihgrih",
-                color = MaterialTheme.colorScheme.tertiary,
-                size = InitialsViewSize.Big
-            )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            WhatsTheCodeTheme(darkTheme = false) {
+                InitialsView(
+                    name = "Abc",
+                    color = MaterialTheme.colorScheme.primary,
+                    size = InitialsViewSize.Big
+                )
+                InitialsView(
+                    name = "Ragi Corp",
+                    color = MaterialTheme.colorScheme.secondary,
+                    size = InitialsViewSize.Big
+                )
+                InitialsView(
+                    name = "Alfhreh Bfihi Cihgrih",
+                    color = MaterialTheme.colorScheme.tertiary,
+                    size = InitialsViewSize.Big
+                )
+            }
         }
-        WhatsTheCodeTheme(darkTheme = true) {
-            InitialsView(
-                name = "Abc",
-                color = MaterialTheme.colorScheme.primary,
-                size = InitialsViewSize.Big
-            )
-            InitialsView(
-                name = "Ragi Corp",
-                color = MaterialTheme.colorScheme.secondary,
-                size = InitialsViewSize.Big
-            )
-            InitialsView(
-                name = "Alfhreh Bfihi Cihgrih",
-                color = MaterialTheme.colorScheme.tertiary,
-                size = InitialsViewSize.Big
-            )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            WhatsTheCodeTheme(darkTheme = true) {
+                InitialsView(
+                    name = "Abc",
+                    color = MaterialTheme.colorScheme.primary,
+                    size = InitialsViewSize.Big
+                )
+                InitialsView(
+                    name = "Ragi Corp",
+                    color = MaterialTheme.colorScheme.secondary,
+                    size = InitialsViewSize.Big
+                )
+                InitialsView(
+                    name = "Alfhreh Bfihi Cihgrih",
+                    color = MaterialTheme.colorScheme.tertiary,
+                    size = InitialsViewSize.Big
+                )
+            }
         }
     }
 }
 
 @Composable
 @Preview
-fun SmallInitialsPreview() {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+internal fun SmallInitialsPreview() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         WhatsTheCodeTheme(darkTheme = false) {
             InitialsView(
