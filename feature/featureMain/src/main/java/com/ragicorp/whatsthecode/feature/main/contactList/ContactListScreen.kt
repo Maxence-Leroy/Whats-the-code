@@ -28,15 +28,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.contactList.views.ContactItem
 import com.ragicorp.whatsthecode.feature.main.contactList.views.NoContactPlaceholder
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
-import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import org.koin.androidx.compose.getViewModel
 
@@ -124,13 +121,5 @@ internal object ContactList {
                 }
             }
         )
-    }
-}
-
-@Composable
-@Preview(device = Devices.PIXEL_4, showSystemUi = true)
-private fun ContactListScreenPreview() {
-    WhatsTheCodeTheme {
-        ContactList.Screen(navigateToAddContact = {}, navigateToContactDetail = {})
     }
 }
