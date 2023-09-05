@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.contactModification.views
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,11 +36,14 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.ui.CodeTextField
 import com.ragicorp.whatsthecode.feature.main.ui.WtcTextField
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
+import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -200,3 +204,64 @@ private fun contactAvailableColors(): List<Color> =
         MaterialTheme.colorScheme.errorContainer,
         MaterialTheme.colorScheme.surfaceVariant
     )
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+fun FilledContactModificationScaffoldPreview() {
+    WhatsTheCodeTheme {
+        ContactModificationScaffold(
+            title = "Full Preview",
+            onBack = {},
+            onSave = {},
+            isButtonSaveEnabled = MutableStateFlow(true),
+            name = MutableStateFlow("Emmanuel Macron"),
+            setName = {},
+            phoneNumber = MutableStateFlow("+33123456789"),
+            setPhoneNumber = {},
+            address = MutableStateFlow("55 Rue du Faubourg Saint-Honoré, 75008 Paris"),
+            setAddress = {},
+            codes = MutableStateFlow(
+                listOf(
+                    Pair("Fence", "1234"),
+                    Pair("Nuclear weapons", "5678")
+                )
+            ),
+            addCode = {},
+            removeCode = {},
+            setCodes = { _, _ -> },
+            apartmentDescription = MutableStateFlow("Biggest room of the palace"),
+            setApartmentDescription = {},
+            freeText = MutableStateFlow("Because he is the boss"),
+            setFreeText = {}
+        )
+    }
+}
+
+@VisibleForTesting(VisibleForTesting.PRIVATE)
+@Composable
+@Preview
+fun EmptyContactModificationScaffoldPreview() {
+    WhatsTheCodeTheme {
+        ContactModificationScaffold(
+            title = "Empty Preview",
+            onBack = {},
+            onSave = {},
+            isButtonSaveEnabled = MutableStateFlow(false),
+            name = MutableStateFlow(""),
+            setName = {},
+            phoneNumber = MutableStateFlow(""),
+            setPhoneNumber = {},
+            address = MutableStateFlow(""),
+            setAddress = {},
+            codes = MutableStateFlow(emptyList()),
+            addCode = {},
+            removeCode = {},
+            setCodes = { _, _ -> },
+            apartmentDescription = MutableStateFlow(""),
+            setApartmentDescription = {},
+            freeText = MutableStateFlow(""),
+            setFreeText = {}
+        )
+    }
+}

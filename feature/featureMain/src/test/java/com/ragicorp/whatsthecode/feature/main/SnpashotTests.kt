@@ -13,7 +13,7 @@ abstract class SnapshotComponentTest(
     companion object {
         val defaultPaparazziRule: Paparazzi
             get() = Paparazzi(
-                deviceConfig = DeviceConfig.NEXUS_5.copy(
+                deviceConfig = DeviceConfig.PIXEL_6.copy(
                     softButtons = false,
                     screenHeight = 10000,
                     screenWidth = 10000
@@ -35,7 +35,7 @@ abstract class SnapshotVerticalComponentTest(
     companion object {
         val defaultPaparazziRule: Paparazzi
             get() = Paparazzi(
-                deviceConfig = DeviceConfig.NEXUS_5.copy(softButtons = false, screenHeight = 1),
+                deviceConfig = DeviceConfig.PIXEL_6.copy(softButtons = false, screenHeight = 1),
                 renderingMode = SessionParams.RenderingMode.V_SCROLL,
                 maxPercentDifference = 0.1,
                 theme = "android:Theme.MaterialComponents.Light.NoActionBar",
@@ -53,7 +53,7 @@ abstract class SnapshotUiTest(
     companion object {
         val defaultPaparazziRule: Paparazzi
             get() = Paparazzi(
-                deviceConfig = DeviceConfig.NEXUS_5.copy(softButtons = false),
+                deviceConfig = DeviceConfig.PIXEL_6.copy(softButtons = false),
                 renderingMode = SessionParams.RenderingMode.NORMAL,
                 maxPercentDifference = 0.1,
                 theme = "android:Theme.MaterialComponents.Light.NoActionBar",
