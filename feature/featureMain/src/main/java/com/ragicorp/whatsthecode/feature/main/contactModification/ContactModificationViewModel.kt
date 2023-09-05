@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.contactModification
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -62,7 +63,8 @@ abstract class ContactModificationViewModel : ViewModel() {
         throw NotImplementedError()
     }
 
-    protected fun trimCodes(codesValue: (List<Pair<String, String>>)? = null): List<Pair<String, String>> {
+    @VisibleForTesting(VisibleForTesting.PROTECTED)
+    internal fun trimCodes(codesValue: (List<Pair<String, String>>)? = null): List<Pair<String, String>> {
         return (codesValue ?: codes.value)
             .map { Pair(it.first.trim(), it.second.trim()) }
             .filter { it.first.isNotBlank() || it.second.isNotBlank() }
