@@ -46,11 +46,11 @@ class EditContactViewModel(contactId: UUID, private val libContact: LibContact) 
                 freeText
             ) { array ->
                 val mContact = array[0] as ContactDomain?
-                val mName = array[1] as String
-                val mPhoneNumber = array[2] as String
-                val mAddress = array[3] as String
-                val mApartmentDescription = array[4] as String
-                val mFreeText = array[5] as String
+                val mName = (array[1] as String).trim()
+                val mPhoneNumber = (array[2] as String).trim()
+                val mAddress = (array[3] as String).trim()
+                val mApartmentDescription = (array[4] as String).trim()
+                val mFreeText = (array[5] as String).trim()
 
                 ((mContact?.name ?: "") != mName) || ((mContact?.phoneNumber
                     ?: "") != mPhoneNumber) || ((mContact?.address
