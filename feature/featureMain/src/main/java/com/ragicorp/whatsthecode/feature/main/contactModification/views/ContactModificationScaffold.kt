@@ -25,17 +25,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.feature.main.R
@@ -45,6 +48,7 @@ import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,20 +58,20 @@ fun ContactModificationScaffold(
     onBack: () -> Unit,
     onSave: (Int) -> Unit,
     isButtonSaveEnabled: StateFlow<Boolean>,
-    name: StateFlow<String>,
-    setName: (String) -> Unit,
-    phoneNumber: StateFlow<String>,
-    setPhoneNumber: (String) -> Unit,
-    address: StateFlow<String>,
-    setAddress: (String) -> Unit,
+    name: StateFlow<TextFieldValue>,
+    setName: (TextFieldValue) -> Unit,
+    phoneNumber: StateFlow<TextFieldValue>,
+    setPhoneNumber: (TextFieldValue) -> Unit,
+    address: StateFlow<TextFieldValue>,
+    setAddress: (TextFieldValue) -> Unit,
     codes: StateFlow<List<Pair<String, String>>>,
     addCode: () -> Unit,
     removeCode: (Int) -> Unit,
     setCodes: (Int, Pair<String, String>) -> Unit,
-    apartmentDescription: StateFlow<String>,
-    setApartmentDescription: (String) -> Unit,
-    freeText: StateFlow<String>,
-    setFreeText: (String) -> Unit
+    apartmentDescription: StateFlow<TextFieldValue>,
+    setApartmentDescription: (TextFieldValue) -> Unit,
+    freeText: StateFlow<TextFieldValue>,
+    setFreeText: (TextFieldValue) -> Unit
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -107,13 +111,14 @@ fun ContactModificationScaffold(
         },
         content = {
             val scrollState = rememberScrollState()
-            val previousMaxValue = remember { mutableIntStateOf(scrollState.maxValue) }
+            val coroutineScope = rememberCoroutineScope()
+            val beforeLastTextFieldPosition = remember { mutableFloatStateOf(0f) }
+            val lastTextFieldPosition = remember { mutableFloatStateOf(0f) }
 
-            LaunchedEffect(scrollState.maxValue) {
-                val newMaxValue = scrollState.maxValue
-                val scrollAmount = newMaxValue - previousMaxValue.intValue
-                previousMaxValue.intValue = newMaxValue
-                scrollState.animateScrollTo(scrollState.value + scrollAmount)
+            fun scrollTo(offset: Float) {
+                coroutineScope.launch {
+                    scrollState.animateScrollTo(offset.toInt())
+                }
             }
 
             Column(
@@ -179,15 +184,27 @@ fun ContactModificationScaffold(
                 }
 
                 WtcTextField(
+                    modifier = Modifier.onGloballyPositioned { layout ->
+                        beforeLastTextFieldPosition.floatValue = layout.positionInParent().y
+                    },
                     value = apartmentDescription.collectAsStateWithLifecycle().value,
                     onValueChanged = setApartmentDescription,
-                    label = stringResource(R.string.contact_apartmentDescription)
+                    label = stringResource(R.string.contact_apartmentDescription),
+                    onCursorRectChange = { rect ->
+                        scrollTo(beforeLastTextFieldPosition.floatValue + rect.top)
+                    }
                 )
                 WtcTextField(
+                    modifier = Modifier.onGloballyPositioned { layout ->
+                        lastTextFieldPosition.floatValue = layout.positionInParent().y
+                    },
                     value = freeText.collectAsStateWithLifecycle().value,
                     onValueChanged = setFreeText,
                     label = stringResource(R.string.contact_freeText),
-                    singleLine = false
+                    singleLine = false,
+                    onCursorRectChange = { rect ->
+                        scrollTo(lastTextFieldPosition.floatValue + rect.top)
+                    }
                 )
             }
         }
@@ -215,11 +232,11 @@ fun FilledContactModificationScaffoldPreview() {
             onBack = {},
             onSave = {},
             isButtonSaveEnabled = MutableStateFlow(true),
-            name = MutableStateFlow("Emmanuel Macron"),
+            name = MutableStateFlow(TextFieldValue("Emmanuel Macron")),
             setName = {},
-            phoneNumber = MutableStateFlow("+33123456789"),
+            phoneNumber = MutableStateFlow(TextFieldValue("+33123456789")),
             setPhoneNumber = {},
-            address = MutableStateFlow("55 Rue du Faubourg Saint-Honoré, 75008 Paris"),
+            address = MutableStateFlow(TextFieldValue("55 Rue du Faubourg Saint-Honoré, 75008 Paris")),
             setAddress = {},
             codes = MutableStateFlow(
                 listOf(
@@ -230,9 +247,9 @@ fun FilledContactModificationScaffoldPreview() {
             addCode = {},
             removeCode = {},
             setCodes = { _, _ -> },
-            apartmentDescription = MutableStateFlow("Biggest room of the palace"),
+            apartmentDescription = MutableStateFlow(TextFieldValue("Biggest room of the palace")),
             setApartmentDescription = {},
-            freeText = MutableStateFlow("Because he is the boss"),
+            freeText = MutableStateFlow(TextFieldValue("Because he is the boss")),
             setFreeText = {}
         )
     }
@@ -248,19 +265,19 @@ fun EmptyContactModificationScaffoldPreview() {
             onBack = {},
             onSave = {},
             isButtonSaveEnabled = MutableStateFlow(false),
-            name = MutableStateFlow(""),
+            name = MutableStateFlow(TextFieldValue("")),
             setName = {},
-            phoneNumber = MutableStateFlow(""),
+            phoneNumber = MutableStateFlow(TextFieldValue("")),
             setPhoneNumber = {},
-            address = MutableStateFlow(""),
+            address = MutableStateFlow(TextFieldValue("")),
             setAddress = {},
             codes = MutableStateFlow(emptyList()),
             addCode = {},
             removeCode = {},
             setCodes = { _, _ -> },
-            apartmentDescription = MutableStateFlow(""),
+            apartmentDescription = MutableStateFlow(TextFieldValue("")),
             setApartmentDescription = {},
-            freeText = MutableStateFlow(""),
+            freeText = MutableStateFlow(TextFieldValue("")),
             setFreeText = {}
         )
     }

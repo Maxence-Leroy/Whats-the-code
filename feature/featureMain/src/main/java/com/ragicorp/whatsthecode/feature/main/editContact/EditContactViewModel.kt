@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.editContact
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
@@ -21,15 +22,15 @@ class EditContactViewModel(contactId: UUID, private val libContact: LibContact) 
         viewModelScope.launch {
             contact.collect { contact ->
                 if (contact != null) {
-                    setName(contact.name)
-                    setPhoneNumber(contact.phoneNumber)
-                    setAddress(contact.address)
+                    setName(TextFieldValue(contact.name))
+                    setPhoneNumber(TextFieldValue(contact.phoneNumber))
+                    setAddress(TextFieldValue(contact.address))
                     setCodes(contact.codes)
                     if (contact.codes.isEmpty()) {
                         addCode()
                     }
-                    setApartmentDescription(contact.apartmentDescription)
-                    setFreeText(contact.freeText)
+                    setApartmentDescription(TextFieldValue(contact.apartmentDescription))
+                    setFreeText(TextFieldValue(contact.freeText))
                 }
             }
         }
@@ -46,11 +47,11 @@ class EditContactViewModel(contactId: UUID, private val libContact: LibContact) 
                 freeText
             ) { array ->
                 val mContact = array[0] as ContactDomain?
-                val mName = (array[1] as String).trim()
-                val mPhoneNumber = (array[2] as String).trim()
-                val mAddress = (array[3] as String).trim()
-                val mApartmentDescription = (array[4] as String).trim()
-                val mFreeText = (array[5] as String).trim()
+                val mName = (array[1] as TextFieldValue).text.trim()
+                val mPhoneNumber = (array[2] as TextFieldValue).text.trim()
+                val mAddress = (array[3] as TextFieldValue).text.trim()
+                val mApartmentDescription = (array[4] as TextFieldValue).text.trim()
+                val mFreeText = (array[5] as TextFieldValue).text.trim()
 
                 ((mContact?.name ?: "") != mName) || ((mContact?.phoneNumber
                     ?: "") != mPhoneNumber) || ((mContact?.address
@@ -71,19 +72,19 @@ class EditContactViewModel(contactId: UUID, private val libContact: LibContact) 
 
     override val isButtonSaveEnabled =
         combine(hasSomethingChanged, name, address) { mHasSomethingChanged, mName, mAddress ->
-            mHasSomethingChanged && (mName.isNotBlank() || mAddress.isNotBlank())
+            mHasSomethingChanged && (mName.text.isNotBlank() || mAddress.text.isNotBlank())
         }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     override fun save(color: Int?): UUID {
         val contactValue = contact.value ?: throw IllegalStateException()
 
         val newContact = contactValue.copy(
-            name = name.value.trim(),
-            phoneNumber = phoneNumber.value.trim(),
-            address = address.value.trim(),
+            name = name.value.text.trim(),
+            phoneNumber = phoneNumber.value.text.trim(),
+            address = address.value.text.trim(),
             codes = trimCodes(),
-            apartmentDescription = apartmentDescription.value.trim(),
-            freeText = freeText.value.trim()
+            apartmentDescription = apartmentDescription.value.text.trim(),
+            freeText = freeText.value.text.trim()
         )
 
         viewModelScope.launch {

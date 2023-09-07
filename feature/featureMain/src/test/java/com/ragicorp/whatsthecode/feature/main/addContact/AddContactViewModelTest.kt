@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode.feature.main.addContact
 
 import android.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import com.ragicorp.whatsthecode.feature.main.MainDispatcherRule
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.LibContact
@@ -50,7 +51,7 @@ class AddContactViewModelTest {
             val viewModel = AddContactViewModel(mockLibContact)
 
             // When
-            viewModel.setName("Hello")
+            viewModel.setName(TextFieldValue("Hello"))
 
             // Then
             assertTrue(viewModel.hasSomethingChanged.value)
@@ -64,7 +65,7 @@ class AddContactViewModelTest {
             val viewModel = AddContactViewModel(mockLibContact)
 
             // When
-            viewModel.setAddress("Hello")
+            viewModel.setAddress(TextFieldValue("Hello"))
 
             // Then
             assertTrue(viewModel.hasSomethingChanged.value)
@@ -77,11 +78,11 @@ class AddContactViewModelTest {
         val viewModel = AddContactViewModel(mockLibContact)
 
         // When
-        viewModel.setName("        ")
-        viewModel.setPhoneNumber("      ")
-        viewModel.setAddress("      ")
-        viewModel.setApartmentDescription("     ")
-        viewModel.setFreeText("    ")
+        viewModel.setName(TextFieldValue("        "))
+        viewModel.setPhoneNumber(TextFieldValue("      "))
+        viewModel.setAddress(TextFieldValue("      "))
+        viewModel.setApartmentDescription(TextFieldValue("     "))
+        viewModel.setFreeText(TextFieldValue("    "))
 
         // Then
         assertFalse(viewModel.hasSomethingChanged.value)
@@ -123,7 +124,7 @@ class AddContactViewModelTest {
             val viewModel = AddContactViewModel(mockLibContact)
 
             // When
-            viewModel.setPhoneNumber("+336123456789")
+            viewModel.setPhoneNumber(TextFieldValue("+336123456789"))
 
             // Then
             assertTrue(viewModel.hasSomethingChanged.value)
@@ -136,14 +137,14 @@ class AddContactViewModelTest {
         val viewModel = AddContactViewModel(mockLibContact)
 
         // When
-        viewModel.setName("  a   ")
-        viewModel.setPhoneNumber("           b")
-        viewModel.setAddress("c        ")
+        viewModel.setName(TextFieldValue("  a   "))
+        viewModel.setPhoneNumber(TextFieldValue("           b"))
+        viewModel.setAddress(TextFieldValue("c        "))
         viewModel.addCode()
         viewModel.setCodes(0, Pair("   g    ", "h      "))
         viewModel.setCodes(1, Pair("     i", "j"))
-        viewModel.setApartmentDescription("d")
-        viewModel.setFreeText("   e  ")
+        viewModel.setApartmentDescription(TextFieldValue("d"))
+        viewModel.setFreeText(TextFieldValue("   e  "))
         viewModel.save(Color.BLUE)
 
         // Then
