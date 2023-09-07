@@ -16,7 +16,7 @@ class AddContactViewModel(private val libContact: LibContact) :
     ContactModificationViewModel() {
     override val isButtonSaveEnabled =
         combine(name, address) { mName, mAddress ->
-            mName.isNotBlank() || mAddress.isNotBlank()
+            mName.text.isNotBlank() || mAddress.text.isNotBlank()
         }
             .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
@@ -24,7 +24,7 @@ class AddContactViewModel(private val libContact: LibContact) :
         get() {
             val allButCodesHasChanged =
                 combine(name, phoneNumber, address, apartmentDescription, freeText) { array ->
-                    array.any { it.isNotBlank() }
+                    array.any { it.text.isNotBlank() }
                 }
 
             val hasCodesChanged = codes
@@ -45,12 +45,12 @@ class AddContactViewModel(private val libContact: LibContact) :
 
         val contact = ContactDomain(
             id = contactId,
-            name = name.value.trim(),
-            phoneNumber = phoneNumber.value.trim(),
-            address = address.value.trim(),
+            name = name.value.text.trim(),
+            phoneNumber = phoneNumber.value.text.trim(),
+            address = address.value.text.trim(),
             codes = trimCodes(),
-            apartmentDescription = apartmentDescription.value.trim(),
-            freeText = freeText.value.trim(),
+            apartmentDescription = apartmentDescription.value.text.trim(),
+            freeText = freeText.value.text.trim(),
             color = color
         )
 

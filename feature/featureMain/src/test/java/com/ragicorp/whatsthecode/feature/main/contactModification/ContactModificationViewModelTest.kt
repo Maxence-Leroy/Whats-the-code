@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.contactModification
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.ragicorp.whatsthecode.feature.main.MainDispatcherRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -17,12 +18,12 @@ class ContactModificationViewModelTest {
         // Given
         val viewModel = NotAbstractContactModificationViewModel()
 
-        assertEquals("", viewModel.name.value)
-        assertEquals("", viewModel.phoneNumber.value)
-        assertEquals("", viewModel.address.value)
+        assertEquals("", viewModel.name.value.text)
+        assertEquals("", viewModel.phoneNumber.value.text)
+        assertEquals("", viewModel.address.value.text)
         assertEquals(listOf(Pair("", "")), viewModel.codes.value)
-        assertEquals("", viewModel.apartmentDescription.value)
-        assertEquals("", viewModel.freeText.value)
+        assertEquals("", viewModel.apartmentDescription.value.text)
+        assertEquals("", viewModel.freeText.value.text)
 
         // When
         val newName = "Emmanuel Macron"
@@ -31,19 +32,19 @@ class ContactModificationViewModelTest {
         val newApartmentDescription = "Biggest room of the palace"
         val newFreeText = "Because he is the boss"
 
-        viewModel.setName(newName)
-        viewModel.setPhoneNumber(newPhoneNumber)
-        viewModel.setAddress(newAddress)
-        viewModel.setApartmentDescription(newApartmentDescription)
-        viewModel.setFreeText(newFreeText)
+        viewModel.setName(TextFieldValue(newName))
+        viewModel.setPhoneNumber(TextFieldValue(newPhoneNumber))
+        viewModel.setAddress(TextFieldValue(newAddress))
+        viewModel.setApartmentDescription(TextFieldValue(newApartmentDescription))
+        viewModel.setFreeText(TextFieldValue(newFreeText))
 
         // Then
-        assertEquals(newName, viewModel.name.value)
-        assertEquals(newPhoneNumber, viewModel.phoneNumber.value)
-        assertEquals(newAddress, viewModel.address.value)
+        assertEquals(newName, viewModel.name.value.text)
+        assertEquals(newPhoneNumber, viewModel.phoneNumber.value.text)
+        assertEquals(newAddress, viewModel.address.value.text)
         assertEquals(listOf(Pair("", "")), viewModel.codes.value)
-        assertEquals(newApartmentDescription, viewModel.apartmentDescription.value)
-        assertEquals(newFreeText, viewModel.freeText.value)
+        assertEquals(newApartmentDescription, viewModel.apartmentDescription.value.text)
+        assertEquals(newFreeText, viewModel.freeText.value.text)
     }
 
     @Test

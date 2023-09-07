@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode.feature.main.contactModification
 
 import androidx.annotation.VisibleForTesting
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,18 +11,18 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 abstract class ContactModificationViewModel : ViewModel() {
-    private val _name = MutableStateFlow("")
+    private val _name = MutableStateFlow(TextFieldValue(""))
     val name = _name.asStateFlow()
-    val setName: (String) -> Unit = { viewModelScope.launch { _name.emit(it) } }
+    val setName: (TextFieldValue) -> Unit = { viewModelScope.launch { _name.emit(it) } }
 
-    private val _phoneNumber = MutableStateFlow("")
+    private val _phoneNumber = MutableStateFlow(TextFieldValue(""))
     val phoneNumber = _phoneNumber.asStateFlow()
-    val setPhoneNumber: (String) -> Unit =
+    val setPhoneNumber: (TextFieldValue) -> Unit =
         { viewModelScope.launch { _phoneNumber.emit(it) } }
 
-    private val _address = MutableStateFlow("")
+    private val _address = MutableStateFlow(TextFieldValue(""))
     val address = _address.asStateFlow()
-    val setAddress: (String) -> Unit = { viewModelScope.launch { _address.emit(it) } }
+    val setAddress: (TextFieldValue) -> Unit = { viewModelScope.launch { _address.emit(it) } }
 
     private val _codes = MutableStateFlow(listOf(Pair("", "")))
     val codes = _codes.asStateFlow()
@@ -44,14 +45,14 @@ abstract class ContactModificationViewModel : ViewModel() {
         viewModelScope.launch { _codes.emit(list) }
     }
 
-    private val _apartmentDescription = MutableStateFlow("")
+    private val _apartmentDescription = MutableStateFlow(TextFieldValue(""))
     val apartmentDescription = _apartmentDescription.asStateFlow()
-    val setApartmentDescription: (String) -> Unit =
+    val setApartmentDescription: (TextFieldValue) -> Unit =
         { viewModelScope.launch { _apartmentDescription.emit(it) } }
 
-    private val _freeText = MutableStateFlow("")
+    private val _freeText = MutableStateFlow(TextFieldValue(""))
     val freeText = _freeText.asStateFlow()
-    val setFreeText: (String) -> Unit = { viewModelScope.launch { _freeText.emit(it) } }
+    val setFreeText: (TextFieldValue) -> Unit = { viewModelScope.launch { _freeText.emit(it) } }
 
     open val isButtonSaveEnabled: StateFlow<Boolean>
         get() = throw NotImplementedError()

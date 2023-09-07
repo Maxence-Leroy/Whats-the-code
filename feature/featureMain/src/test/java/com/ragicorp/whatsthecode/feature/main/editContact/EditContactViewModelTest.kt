@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.feature.main.editContact
 
+import androidx.compose.ui.text.input.TextFieldValue
 import com.ragicorp.whatsthecode.feature.main.MainDispatcherRule
 import com.ragicorp.whatsthecode.library.libContact.LibContact
 import com.ragicorp.whatsthecode.library.libContact.stubContact
@@ -36,12 +37,12 @@ class EditContactViewModelTest {
 
         // Then
         verify(exactly = 1) { libContact.getContactById(contactId) }
-        assertEquals(stubContact.name, viewModel.name.value)
-        assertEquals(stubContact.phoneNumber, viewModel.phoneNumber.value)
-        assertEquals(stubContact.address, viewModel.address.value)
+        assertEquals(stubContact.name, viewModel.name.value.text)
+        assertEquals(stubContact.phoneNumber, viewModel.phoneNumber.value.text)
+        assertEquals(stubContact.address, viewModel.address.value.text)
         assertEquals(stubContact.codes, viewModel.codes.value)
-        assertEquals(stubContact.apartmentDescription, viewModel.apartmentDescription.value)
-        assertEquals(stubContact.freeText, viewModel.freeText.value)
+        assertEquals(stubContact.apartmentDescription, viewModel.apartmentDescription.value.text)
+        assertEquals(stubContact.freeText, viewModel.freeText.value.text)
     }
 
     @Test
@@ -63,7 +64,7 @@ class EditContactViewModelTest {
             val viewModel = EditContactViewModel(contactId, libContact)
 
             // When
-            viewModel.setName("Hello")
+            viewModel.setName(TextFieldValue("Hello"))
 
             // Then
             TestCase.assertTrue(viewModel.hasSomethingChanged.value)
@@ -77,7 +78,7 @@ class EditContactViewModelTest {
             val viewModel = EditContactViewModel(contactId, libContact)
 
             // When
-            viewModel.setAddress("Hello")
+            viewModel.setAddress(TextFieldValue("Hello"))
 
             // Then
             TestCase.assertTrue(viewModel.hasSomethingChanged.value)
@@ -90,11 +91,11 @@ class EditContactViewModelTest {
         val viewModel = EditContactViewModel(contactId, libContact)
 
         // When
-        viewModel.setName("${stubContact.name}        ")
-        viewModel.setPhoneNumber("      ${stubContact.phoneNumber}")
-        viewModel.setAddress("  ${stubContact.address}    ")
-        viewModel.setApartmentDescription("    ${stubContact.apartmentDescription} ")
-        viewModel.setFreeText("  ${stubContact.freeText}  ")
+        viewModel.setName(TextFieldValue("${stubContact.name}        "))
+        viewModel.setPhoneNumber(TextFieldValue("      ${stubContact.phoneNumber}"))
+        viewModel.setAddress(TextFieldValue("  ${stubContact.address}    "))
+        viewModel.setApartmentDescription(TextFieldValue("    ${stubContact.apartmentDescription} "))
+        viewModel.setFreeText(TextFieldValue("  ${stubContact.freeText}  "))
 
         // Then
         TestCase.assertFalse(viewModel.hasSomethingChanged.value)
@@ -136,7 +137,7 @@ class EditContactViewModelTest {
             val viewModel = EditContactViewModel(contactId, libContact)
 
             // When
-            viewModel.setPhoneNumber("YOLO")
+            viewModel.setPhoneNumber(TextFieldValue("YOLO"))
 
             // Then
             TestCase.assertTrue(viewModel.hasSomethingChanged.value)
@@ -149,7 +150,7 @@ class EditContactViewModelTest {
         val viewModel = EditContactViewModel(contactId, libContact)
 
         // When
-        viewModel.setName("  a   ")
+        viewModel.setName(TextFieldValue("  a   "))
         viewModel.save()
 
         // Then
