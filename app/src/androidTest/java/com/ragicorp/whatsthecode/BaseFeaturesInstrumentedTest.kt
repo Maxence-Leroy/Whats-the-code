@@ -257,11 +257,9 @@ class BaseFeaturesInstrumentedTest {
         val dialer = device.findObject(By.clazz("android.widget.EditText"))
         assertEquals(stubContact.phoneNumber, dialer.text.replace(" ", ""))
 
-        device.pressBack()
+        device.pressRecentApps()
         waitTest()
-        device.pressBack()
-        waitTest()
-        device.pressBack()
+        device.findObject(By.clazz("android.widget.ListView")).children.first().click()
         waitTest()
 
         // Can open sms app
@@ -278,9 +276,9 @@ class BaseFeaturesInstrumentedTest {
         )
         assertNotNull(device.findObject(By.text(stubContact.phoneNumber)))
 
-        device.pressBack()
+        device.pressRecentApps()
         waitTest()
-        device.pressBack()
+        device.findObject(By.clazz("android.widget.ListView")).children.first().click()
         waitTest()
 
         // Can see other contact data
