@@ -12,3 +12,11 @@ buildscript {
         classpath("app.cash.paparazzi:paparazzi-gradle-plugin:1.3.1")
     }
 }
+
+task("runUnitTests") {
+    dependsOn(
+        ":feature:featureMain:testDebugUnitTest",
+        ":feature:featureMain:verifyPaparazziDebug",
+        ":library:libContact:testDebugUnitTest",
+    )
+}
