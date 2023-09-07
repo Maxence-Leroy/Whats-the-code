@@ -33,7 +33,7 @@
     <string name="modifyContact_code_codePlaceholder">12B34</string>
     <string name="modifyContact_code_doorIconDescription">Door icon</string>
     <string name="modifyContact_code_codeIconDescription">Lock icon</string>
-    <string name="modifyContact_code_deleteIconDescription">Delete this code</string>
+    <string name="modifyContact_code_deleteIconDescription">Delete code #%d</string>
     <string name="contact_codes">Building codes</string>
     <string name="modifyContact_code_addIconDescription">Add a new code</string>
 </resources>

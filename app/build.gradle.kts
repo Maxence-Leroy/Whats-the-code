@@ -62,9 +62,8 @@ dependencies {
     implementation(Google.android.playServices.openSourceLicenses)
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
-    androidTestImplementation(AndroidX.test.espresso.core)
-    androidTestImplementation(platform(AndroidX.compose.bom))
-    androidTestImplementation(AndroidX.compose.ui.testJunit4)
+    androidTestImplementation(AndroidX.test.runner)
+    androidTestImplementation(AndroidX.test.uiAutomator)
     debugImplementation(AndroidX.compose.ui.tooling)
     debugImplementation(AndroidX.compose.ui.testManifest)
 

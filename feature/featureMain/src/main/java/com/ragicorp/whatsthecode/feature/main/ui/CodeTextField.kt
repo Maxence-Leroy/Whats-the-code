@@ -89,7 +89,10 @@ fun CodeTextField(
         IconButton(onClick = onDeletePressed) {
             Icon(
                 Icons.Default.Delete,
-                contentDescription = stringResource(R.string.modifyContact_code_deleteIconDescription)
+                contentDescription = stringResource(
+                    R.string.modifyContact_code_deleteIconDescription,
+                    (index + 1)
+                )
             )
         }
     }
