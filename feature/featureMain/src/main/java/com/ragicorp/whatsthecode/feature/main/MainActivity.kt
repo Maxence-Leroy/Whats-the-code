@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ragicorp.whatsthecode.corehelpers.ActivityProvider
 import com.ragicorp.whatsthecode.corehelpers.PermissionsManager
+import com.ragicorp.whatsthecode.feature.main.about.About
 import com.ragicorp.whatsthecode.feature.main.addContact.AddContact
 import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetail.contactDetailNavigationEntry
 import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetail.navigateToContactDetail
@@ -78,6 +79,14 @@ class MainActivity : ComponentActivity() {
                     )
 
                     editContactNavigationEntry(navigateBack = { navController.popBackStack() })
+
+                    composable(
+                        route = About.Route
+                    ) {
+                        About.Screen(
+                            onBack = { navController.popBackStack() }
+                        )
+                    }
                 }
             }
         }

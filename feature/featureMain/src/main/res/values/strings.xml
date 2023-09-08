@@ -36,4 +36,8 @@
     <string name="modifyContact_code_deleteIconDescription">Delete code #%d</string>
     <string name="contact_codes">Building codes</string>
     <string name="modifyContact_code_addIconDescription">Add a new code</string>
+    <string name="about_title">About</string>
+    <string name="about_backButtonDescription">Back</string>
+    <string name="about_content" />
+    <string name="about_emailButton">Send an email</string>
 </resources>

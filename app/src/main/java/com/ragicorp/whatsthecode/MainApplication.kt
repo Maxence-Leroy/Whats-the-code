@@ -7,10 +7,16 @@ import com.ragicorp.whatsthecode.library.libContact.contactModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 class MainApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+
+        val versionModule = module {
+            single(named("appVersion")) { BuildConfig.VERSION_NAME }
+        }
 
         startKoin {
             // Log Koin into Android logger
@@ -18,7 +24,7 @@ class MainApplication: Application() {
             // Reference Android context
             androidContext(this@MainApplication)
             // Load modules
-            modules(helpersModule, contactModule, featureMainModule)
+            modules(helpersModule, contactModule, featureMainModule, versionModule)
         }
 
         val inAppUpdateService = InAppUpdateServiceImpl()
