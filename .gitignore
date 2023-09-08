@@ -28,6 +28,9 @@ misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 
+# Fastlane report
+fastlane/report.xml
+
 # Keystore files
 *.keystore
 
