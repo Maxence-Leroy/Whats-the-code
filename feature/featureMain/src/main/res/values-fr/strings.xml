@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="contactList_noContactPlaceholder">Aucun contact trouvé. Vous pouvez en rajouter de nouveaux à l\'aide du bouton plus, en bas à droite.</string>
+    <string name="contactList_addButtonDescription">Bouton d\'ajout de contact</string>
+    <string name="contact_name">Nom</string>
+    <string name="addContact_titleScreen">Ajout de contact</string>
+    <string name="contact_phoneNumber">Numéro de téléphone</string>
+    <string name="contact_address">Adresse</string>
+    <string name="contact_apartmentDescription">Numéro d\'appartement</string>
+    <string name="contact_freeText">Notes</string>
+    <string name="modifyContact_saveButtonDescription">Sauvegarder</string>
+    <string name="modifyContact_leaveButtonDescription">Quitter l\'ajout / la modification de contact</string>
+    <string name="unsavedChangesDialog_title">Êtes-vous sûr de vouloir quitter ?</string>
+    <string name="unsavedChangesDialog_text">Des changements n\'ont pas été sauvegardés. Si vous quittez, ils seront perdus.</string>
+    <string name="unsavedChangesDialog_confirmButton">Quitter</string>
+    <string name="unsavedChangesDialog_dismissButton">Annuler</string>
+    <string name="contactDetail_leaveButtonDescription">Retour à la liste de contacts</string>
+    <string name="contactDetail_deleteButtonDescription">Supprimer un contact</string>
+    <string name="deleteContactDialog_title">Êtes-vous sûr de vouloir supprimer ce contact?</string>
+    <string name="deleteContactDialog_confirmButton">Supprimer</string>
+    <string name="deleteContactDialog_dismissButton">Annuler</string>
+    <string name="contactDetail_phoneNumber_phoneButtonDescription">Appeler le contact</string>
+    <string name="contactDetail_phoneNumber_sendButtonDescription">Envoyer un SMS au contact</string>
+    <string name="contactDetail_address_title">Adresse</string>
+    <string name="contactDetail_address_mapDescription">Ouvrir la carte</string>
+    <string name="contactList_dropDownMenu_iconDescription">Plus d\'actions</string>
+    <string name="contactList_dropDownMenu_ossLicenses">Voir les licenses open-source</string>
+    <string name="editContact_titleScreen">Modifier un contact</string>
+    <string name="contactDetail_eidtButtonDescription">Modifier un contact</string>
+    <string name="modifyContact_code_doorLabel">Porte n°%d</string>
+    <string name="modifyContact_code_doorPlaceholder">Portail</string>
+    <string name="modifyContact_code_codeLabel">Code n°%d</string>
+    <string name="modifyContact_code_codePlaceholder">12B34</string>
+    <string name="modifyContact_code_doorIconDescription">Icône de porte</string>
+    <string name="modifyContact_code_codeIconDescription">Icône de cadenas</string>
+    <string name="modifyContact_code_deleteIconDescription">Supprimer le code n°%d</string>
+    <string name="contact_codes">Codes du bâtiment</string>
+    <string name="modifyContact_code_addIconDescription">Ajouter un nouveau code</string>
+    <string name="about_title">À propos</string>
+    <string name="about_backButtonDescription">Retour</string>
+    <string name="about_content">J\'ai réalisé cette application sur mon temps libre. Si vous avez une suggestion ou un bug à signaler, vous pouvez m\'envoyer un courriel à l\'aide du bouton ci-dessous.</string>
+    <string name="about_emailButton">Envoyer un courriel</string>
+    <string name="contactList_dropDownMenu_about">À propos</string>
+</resources>
