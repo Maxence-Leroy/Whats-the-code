@@ -57,6 +57,7 @@ end
 lane :deploy do
   if ENV['DEPLOY_TARGET'] == 'appcenter'
     deploy_appcenter
+  end
 end
 
 lane :distribute do
