@@ -1,0 +1,66 @@
+# Skip docs generation
+skip_docs
+
+release_notes_command = "git log HEAD --pretty=format:\"%s\" -1"
+
+before_all do |lane, options|
+  if lane == :setup_repo
+    puts "Setup repo..."
+  else
+    load_env_file
+  end
+end
+
+lane :setup_repo do |options|
+  sh "git clone -b v2.1.0 https://github.com/elasticdog/transcrypt.git transcrypt"
+  sh "./transcrypt/transcrypt -c aes-256-cbc -p '#{ENV['TRANSCRYPT_PASSWORD']}' -y"
+end
+
+private_lane :load_env_file do |lane, options|
+  env_name = lane_context[SharedValues::ENVIRONMENT]
+  Dotenv.overload(".env.#{env_name}.secret")
+end
+
+private_lane :update_version do
+  version_number = 0
+  if ENV['DEPLOY_TARGET'] == 'appcenter'
+    old_version_number = appcenter_fetch_version_number()
+    version_number = old_version_number['build_number'].to_i + 1
+  end
+  sh "sed -i -E \"s/0.0.0-development/$(git describe --abbrev=7 --tags --always --first-parent)/\" ../app/build.gradle.kts"
+  sh "sed -i -E \"s/versionCode = 1/versionCode = #{version_number.to_s}/\" ../app/build.gradle.kts"
+end
+
+lane :build do
+  gradle(task: ENV['ANDROID_GRADLE_TASK'])
+end
+
+private_lane :deploy_appcenter do
+  appcenter_upload(
+    apk: ENV['ANDROID_APK_PATH'],
+    release_notes: %x[#{release_notes_command}],
+  )
+end
+
+private_lane :deploy_playstore do
+  supply(
+    aab: ENV['ANDROID_APK_PATH'],
+    json_key: ENV['GOOGLE_PLAY_STORE_SERVICE_ACCOUNT_CREDENTIALS'],
+    track: 'internal',
+    package_name: ENV['PACKAGE_NAME'],
+    skip_upload_apk: true,
+    release_status: 'draft',
+    in_app_update_priority: ENV['IN_APP_UPDATES_PRIORITY'].to_i
+  )
+end
+
+lane :deploy do
+  if ENV['DEPLOY_TARGET'] == 'appcenter'
+    deploy_appcenter
+end
+
+lane :distribute do
+  update_version
+  build
+  deploy
+end

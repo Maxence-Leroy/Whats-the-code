@@ -1,3 +1,4 @@
 #pattern  filter=crypt diff=crypt merge=crypt
 app/wtc_key.jks  filter=crypt diff=crypt merge=crypt
 config/*  filter=crypt diff=crypt merge=crypt
+fastlane/*.secret  filter=crypt diff=crypt merge=crypt

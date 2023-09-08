@@ -27,7 +27,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.0.0-development"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -118,7 +118,6 @@ dependencies {
     implementation(Koin.android)
     implementation(Koin.compose)
     implementation(Google.android.playServices.openSourceLicenses)
-    "stagingImplementation"("com.microsoft.appcenter:appcenter-analytics:_")
     "stagingImplementation"("com.microsoft.appcenter:appcenter-distribute:_")
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
