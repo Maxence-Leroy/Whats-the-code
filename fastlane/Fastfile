@@ -3,6 +3,10 @@ skip_docs
 
 release_notes_command = "git log HEAD --pretty=format:\"%s\" -1"
 
+before_all do |lane, options|
+  load_env_file
+end
+
 private_lane :load_env_file do |lane, options|
   env_name = lane_context[SharedValues::ENVIRONMENT]
   Dotenv.overload(".env.#{env_name}.secret")
