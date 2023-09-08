@@ -1,5 +1,7 @@
 package com.ragicorp.whatsthecode.feature.main.about
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +22,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.content.ContextCompat
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import org.koin.compose.koinInject
@@ -35,6 +39,8 @@ internal object About {
         version: String = koinInject(qualifier = named("appVersion")),
         onBack: () -> Unit
     ) {
+        val context = LocalContext.current
+
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -72,7 +78,11 @@ internal object About {
                         text = stringResource(R.string.about_content),
                     )
 
-                    Button(onClick = { /*TODO*/ }) {
+                    Button(onClick = {
+                        val mailIntent = Intent(Intent.ACTION_SENDTO)
+                        mailIntent.data = Uri.parse("mailto:ragicorp@gmail.com")
+                        ContextCompat.startActivity(context, mailIntent, null)
+                    }) {
                         Text(text = stringResource(R.string.about_emailButton))
                     }
 
