@@ -9,7 +9,7 @@ plugins {
 buildscript {
     dependencies {
         classpath(Google.android.openSourceLicensesPlugin)
-        classpath("app.cash.paparazzi:paparazzi-gradle-plugin:1.3.1")
+        classpath("app.cash.paparazzi:paparazzi-gradle-plugin:_")
     }
 }
 

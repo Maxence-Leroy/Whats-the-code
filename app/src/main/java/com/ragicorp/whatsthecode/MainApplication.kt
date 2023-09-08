@@ -21,5 +21,7 @@ class MainApplication: Application() {
             modules(helpersModule, contactModule, featureMainModule)
         }
 
+        val inAppUpdateService = InAppUpdateServiceImpl()
+        inAppUpdateService.start(this)
     }
 }

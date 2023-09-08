@@ -8,6 +8,8 @@ android {
     namespace = "com.ragicorp.whatsthecode"
     compileSdk = 34
 
+    buildFeatures.buildConfig = true
+
     defaultConfig {
         applicationId = "com.ragicorp.whatsthecode"
         minSdk = 24
@@ -30,6 +32,39 @@ android {
             )
         }
     }
+
+    flavorDimensions.add("distribute")
+    productFlavors {
+        create("dev") {
+            dimension = "distribute"
+            applicationIdSuffix = ".dev"
+            resValue("string", "app_name", "WTC-dev")
+        }
+        create("staging") {
+            dimension = "distribute"
+            applicationIdSuffix = ".staging"
+            resValue("string", "app_name", "WTC-staging")
+        }
+        create("prod") {
+            dimension = "distribute"
+            applicationIdSuffix = ".prod"
+        }
+    }
+
+    productFlavors.forEach { flavor ->
+        // Escape early if flavor is not on the distribute dimension
+        if (flavor.dimension != "distribute") return@forEach
+
+        // Add each prop to build config
+        val props = getProps("$rootDir/config/${flavor.name}.properties")
+        props.forEach { p ->
+            val key = p.key as String
+            val value = p.value
+            flavor.buildConfigField("String", key, "\"$value\"")
+            flavor.manifestPlaceholders[key] = value
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -60,6 +95,8 @@ dependencies {
     implementation(Koin.android)
     implementation(Koin.compose)
     implementation(Google.android.playServices.openSourceLicenses)
+    "stagingImplementation"("com.microsoft.appcenter:appcenter-analytics:_")
+    "stagingImplementation"("com.microsoft.appcenter:appcenter-distribute:_")
     testImplementation(Testing.junit4)
     androidTestImplementation(AndroidX.test.ext.junit)
     androidTestImplementation(AndroidX.test.runner)
