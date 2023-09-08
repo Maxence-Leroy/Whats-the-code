@@ -54,6 +54,9 @@ class MainActivity : ComponentActivity() {
                             },
                             navigateToContactDetail = {
                                 navController.navigateToContactDetail(it.id.toString())
+                            },
+                            navigateToAboutScreen = {
+                                navController.navigate(About.Route)
                             }
                         )
                     }

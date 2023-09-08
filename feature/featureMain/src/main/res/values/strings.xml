@@ -40,4 +40,5 @@
     <string name="about_backButtonDescription">Back</string>
     <string name="about_content" />
     <string name="about_emailButton">Send an email</string>
+    <string name="contactList_dropDownMenu_about">About</string>
 </resources>

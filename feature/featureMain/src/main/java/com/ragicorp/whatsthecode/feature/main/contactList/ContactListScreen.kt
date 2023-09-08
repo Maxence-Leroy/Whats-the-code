@@ -45,7 +45,8 @@ internal object ContactList {
     fun Screen(
         contactListViewModel: ContactListViewModel = getViewModel(),
         navigateToAddContact: () -> Unit,
-        navigateToContactDetail: (ContactDomain) -> Unit
+        navigateToContactDetail: (ContactDomain) -> Unit,
+        navigateToAboutScreen: () -> Unit
     ) {
         val contactList = contactListViewModel.contacts.collectAsStateWithLifecycle(emptyList())
         var isDropDownMenuExpanded by remember { mutableStateOf(false) }
@@ -114,6 +115,15 @@ internal object ContactList {
                                             OssLicensesMenuActivity::class.java
                                         )
                                     )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = stringResource(R.string.contactList_dropDownMenu_about))
+                                },
+                                onClick = {
+                                    isDropDownMenuExpanded = false
+                                    navigateToAboutScreen()
                                 }
                             )
                         }
