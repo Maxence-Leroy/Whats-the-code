@@ -1,7 +1,19 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.android.gms.oss-licenses-plugin")
+}
+
+fun getProps(path: String): Properties {
+    val props = Properties()
+    val propsFile = File(path)
+    if (propsFile.exists()) {
+        props.load(FileInputStream(propsFile))
+    }
+    return props
 }
 
 android {
@@ -23,8 +35,19 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            val props = getProps("$rootDir/config/signing.properties")
+            keyAlias = props["keyAlias"] as String
+            keyPassword = props["keyPassword"] as String
+            storeFile = file(props["storeFile"] as String)
+            storePassword = props["storePassword"] as String
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs["release"]
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
