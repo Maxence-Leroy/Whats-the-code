@@ -18,6 +18,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup transcrypt
+        shell: bash
+        env:
+          TRANSCRYPT_PASSWORD: ${{ secrets.TRANSCRYPT_PASSWORD }}
+        run: |
+          git clone -b v2.1.0 https://github.com/elasticdog/transcrypt.git transcrypt
+          git reset --hard
+          git clean -df
+          ./transcrypt/transcrypt -c aes-256-cbc -p "$TRANSCRYPT_PASSWORD" -y
+
       # Setup jdk
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -34,16 +44,6 @@ jobs:
         with:
           ruby-version: "3.0" # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-
-      - name: Setup transcrypt
-        shell: bash
-        env:
-          TRANSCRYPT_PASSWORD: ${{ secrets.TRANSCRYPT_PASSWORD }}
-        run: |
-          git clone -b v2.1.0 https://github.com/elasticdog/transcrypt.git transcrypt
-          git reset --hard
-          git clean -df
-          ./transcrypt/transcrypt -c aes-256-cbc -p "$TRANSCRYPT_PASSWORD" -y
 
       - name: Deploy to appcenter
         run: bundle exec fastlane distribute --env staging
