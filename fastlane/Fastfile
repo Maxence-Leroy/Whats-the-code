@@ -3,19 +3,6 @@ skip_docs
 
 release_notes_command = "git log HEAD --pretty=format:\"%s\" -1"
 
-before_all do |lane, options|
-  if lane == :setup_repo
-    puts "Setup repo..."
-  else
-    load_env_file
-  end
-end
-
-lane :setup_repo do |options|
-  sh "git clone -b v2.1.0 https://github.com/elasticdog/transcrypt.git transcrypt"
-  sh "./transcrypt/transcrypt -c aes-256-cbc -p '#{ENV['TRANSCRYPT_PASSWORD']}' -y"
-end
-
 private_lane :load_env_file do |lane, options|
   env_name = lane_context[SharedValues::ENVIRONMENT]
   Dotenv.overload(".env.#{env_name}.secret")
