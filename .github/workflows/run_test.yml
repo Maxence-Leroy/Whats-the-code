@@ -40,6 +40,11 @@ jobs:
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
 
+      - name: Setup transcrypt
+        run: |
+          git clone -b v2.1.0 https://github.com/elasticdog/transcrypt.git transcrypt
+          ./transcrypt/transcrypt -c aes-256-cbc -p '${{ secrets.TRANSCRYPT_PASSWORD }}}' -y
+
       # Runs a single command using the runners shell
       - name: Execute unit tests
         run: gradle runUnitTests
