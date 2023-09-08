@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode.feature.main.about
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,9 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import org.koin.compose.koinInject
@@ -58,12 +59,17 @@ internal object About {
                 Column(
                     modifier = Modifier
                         .padding(paddingValues)
+                        .padding(
+                            horizontal = Spacing.single * 2,
+                            vertical = Spacing.single
+                        )
                         .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.single * 3)
+                    verticalArrangement = Arrangement.spacedBy(Spacing.single * 3),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
+                        modifier = Modifier.fillMaxWidth(),
                         text = stringResource(R.string.about_content),
-                        textAlign = TextAlign.Justify
                     )
 
                     Button(onClick = { /*TODO*/ }) {
@@ -71,6 +77,7 @@ internal object About {
                     }
 
                     Text(
+                        modifier = Modifier.align(Alignment.Start),
                         text = version,
                         style = MaterialTheme.typography.labelMedium
                     )

@@ -38,7 +38,7 @@
     <string name="modifyContact_code_addIconDescription">Add a new code</string>
     <string name="about_title">About</string>
     <string name="about_backButtonDescription">Back</string>
-    <string name="about_content" />
+    <string name="about_content">I made this app on my free time. If you have any suggestion, improved translation (I am not a native english speaker), or want to report a bug, don\'t hesitate to contact me using the button below.</string>
     <string name="about_emailButton">Send an email</string>
     <string name="contactList_dropDownMenu_about">About</string>
 </resources>
