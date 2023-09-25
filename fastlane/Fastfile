@@ -14,7 +14,17 @@ end
 
 private_lane :update_version do
   version_number = 0
-  if ENV['DEPLOY_TARGET'] == 'appcenter'
+  if ENV['DEPLOY_TARGET'] == 'playstore'
+    begin
+        version_number = (google_play_track_version_codes(
+          package_name: ENV['PACKAGE_NAME'],
+          json_key: ENV['GOOGLE_PLAY_STORE_SERVICE_ACCOUNT_CREDENTIALS'],
+          track: 'internal'
+        )[0].to_i + 1)
+    rescue Exception
+        version_number = 1
+    end
+  elsif ENV['DEPLOY_TARGET'] == 'appcenter'
     old_version_number = appcenter_fetch_version_number()
     version_number = old_version_number['build_number'].to_i + 1
   end
@@ -48,6 +58,8 @@ end
 lane :deploy do
   if ENV['DEPLOY_TARGET'] == 'appcenter'
     deploy_appcenter
+  elsif ENV['DEPLOY_TARGET'] == 'playstore'
+    deploy_playstore
   end
 end
 
