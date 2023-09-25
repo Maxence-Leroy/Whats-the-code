@@ -9,7 +9,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -44,7 +44,10 @@ dependencies {
     implementation(Koin.core)
     implementation(Koin.android)
     implementation("com.google.code.gson:gson:_")
+    implementation("net.zetetic:android-database-sqlcipher:4.5.4@aar")
     testImplementation(Testing.junit4)
     testImplementation(Testing.mockK)
     testImplementation(KotlinX.coroutines.test)
+
+    implementation(project(":core:coreHelpers"))
 }
