@@ -3,8 +3,10 @@ package com.ragicorp.whatsthecode.feature.main.contactDetail
 import android.os.Bundle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -156,6 +158,8 @@ object ContactDetail {
                             .padding(Spacing.screen),
                         verticalArrangement = Arrangement.spacedBy(Spacing.single * 4)
                     ) {
+                        Spacer(modifier = Modifier.height(Spacing.single * -2))
+
                         if (contactValue.name.isNotBlank()) {
                             ContactImageAndName(
                                 name = contactValue.name,

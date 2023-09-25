@@ -27,7 +27,7 @@ import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 import kotlin.math.min
 
 enum class InitialsViewSize(val circleSize: Dp, val fontSize: TextUnit) {
-    Big(200.dp, 75.sp),
+    Big(150.dp, 56.sp),
     Small(40.dp, 12.sp)
 }
 

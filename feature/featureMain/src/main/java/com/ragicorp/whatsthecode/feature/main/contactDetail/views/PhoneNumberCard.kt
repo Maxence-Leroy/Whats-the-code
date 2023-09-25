@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -26,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import com.ragicorp.whatsthecode.feature.main.R
+import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -52,7 +54,10 @@ fun PhoneNumberCard(
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.spacedBy(
+                Spacing.single * 4,
+                alignment = Alignment.CenterHorizontally
+            )
         ) {
             FilledIconButton(onClick = {
                 val dialIntent = Intent(Intent.ACTION_DIAL)
