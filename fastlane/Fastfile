@@ -28,8 +28,8 @@ private_lane :update_version do
     old_version_number = appcenter_fetch_version_number()
     version_number = old_version_number['build_number'].to_i + 1
   end
-  sh "sed -E -i \"s/0.0.0-development/$(git describe --abbrev=7 --tags --always --first-parent)/\" ../app/build.gradle.kts"
-  sh "sed -E -i \"s/versionCode \= 1/versionCode \= #{version_number.to_s}/\" ../app/build.gradle.kts"
+  sh "sed -i -E \"s/0.0.0-development/$(git describe --abbrev=7 --tags --always --first-parent)/\" ../app/build.gradle.kts"
+  sh "sed -i -E \"s/versionCode \= 1/versionCode \= #{version_number.to_s}/\" ../app/build.gradle.kts"
 end
 
 lane :build do
