@@ -21,7 +21,8 @@ internal object EditContact {
 
     // Wrapper for type-safety
     fun NavGraphBuilder.editContactNavigationEntry(
-        navigateBack: () -> Unit
+        navigateBack: () -> Unit,
+        navigateToAddressSelection: () -> Unit
     ) {
         composable(
             Route,
@@ -38,7 +39,8 @@ internal object EditContact {
                 editContactViewModel = getViewModel(
                     parameters = { parametersOf(UUID.fromString(contactId)) }
                 ),
-                navigateBack = navigateBack
+                navigateBack = navigateBack,
+                navigateToAddressSelection = navigateToAddressSelection
             )
         }
     }
@@ -56,12 +58,14 @@ internal object EditContact {
     fun Screen(
         editContactViewModel: EditContactViewModel = getViewModel(),
         navigateBack: () -> Unit,
+        navigateToAddressSelection: () -> Unit
     ) {
         ContactModificationScreen(
             title = stringResource(R.string.editContact_titleScreen),
             viewModel = editContactViewModel,
             navigateBack = navigateBack,
-            navigateToContactDetail = { _ -> navigateBack() }
+            navigateToContactDetail = { _ -> navigateBack() },
+            navigateToAddressSelection = navigateToAddressSelection
         )
     }
 }

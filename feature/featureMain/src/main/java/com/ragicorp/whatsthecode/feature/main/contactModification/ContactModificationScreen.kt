@@ -16,7 +16,8 @@ fun ContactModificationScreen(
     title: String,
     viewModel: ContactModificationViewModel,
     navigateBack: () -> Unit,
-    navigateToContactDetail: (contactId: UUID) -> Unit
+    navigateToContactDetail: (contactId: UUID) -> Unit,
+    navigateToAddressSelection: () -> Unit
 ) {
     val hasSomethingBeenFilled: Boolean by viewModel.hasSomethingChanged.collectAsStateWithLifecycle()
     var showAlertDialog: Boolean by remember { mutableStateOf(false) }
@@ -53,6 +54,7 @@ fun ContactModificationScreen(
         setPhoneNumber = viewModel.setPhoneNumber,
         address = viewModel.address,
         setAddress = viewModel.setAddress,
+        openAddressSelection = navigateToAddressSelection,
         codes = viewModel.codes,
         addCode = viewModel.addCode,
         removeCode = viewModel.removeCode,

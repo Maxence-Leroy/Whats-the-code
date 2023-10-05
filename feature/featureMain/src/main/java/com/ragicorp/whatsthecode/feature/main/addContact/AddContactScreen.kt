@@ -14,13 +14,15 @@ internal object AddContact {
     fun Screen(
         addContactViewModel: AddContactViewModel = getViewModel(),
         navigateBack: () -> Unit,
-        navigateToContactDetail: (contactId: UUID) -> Unit
+        navigateToContactDetail: (contactId: UUID) -> Unit,
+        navigateToAddressSelection: () -> Unit
     ) {
         ContactModificationScreen(
             title = stringResource(R.string.addContact_titleScreen),
             viewModel = addContactViewModel,
             navigateBack = navigateBack,
-            navigateToContactDetail = navigateToContactDetail
+            navigateToContactDetail = navigateToContactDetail,
+            navigateToAddressSelection = navigateToAddressSelection
         )
     }
 }

@@ -16,6 +16,7 @@ import com.ragicorp.whatsthecode.corehelpers.ActivityProvider
 import com.ragicorp.whatsthecode.corehelpers.PermissionsManager
 import com.ragicorp.whatsthecode.feature.main.about.About
 import com.ragicorp.whatsthecode.feature.main.addContact.AddContact
+import com.ragicorp.whatsthecode.feature.main.addressSelection.AddressSelection
 import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetail.contactDetailNavigationEntry
 import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetail.navigateToContactDetail
 import com.ragicorp.whatsthecode.feature.main.contactList.ContactList
@@ -70,7 +71,8 @@ class MainActivity : ComponentActivity() {
                                 navController.navigateToContactDetail(contactId.toString()) {
                                     popUpTo(ContactList.Route)
                                 }
-                            }
+                            },
+                            navigateToAddressSelection = { navController.navigate(AddressSelection.Route) }
                         )
                     }
 
@@ -81,12 +83,23 @@ class MainActivity : ComponentActivity() {
                         }
                     )
 
-                    editContactNavigationEntry(navigateBack = { navController.popBackStack() })
+                    editContactNavigationEntry(
+                        navigateBack = { navController.popBackStack() },
+                        navigateToAddressSelection = { navController.navigate(AddressSelection.Route) }
+                    )
 
                     composable(
                         route = About.Route
                     ) {
                         About.Screen(
+                            onBack = { navController.popBackStack() }
+                        )
+                    }
+
+                    composable(
+                        route = AddressSelection.Route
+                    ) {
+                        AddressSelection.Screen(
                             onBack = { navController.popBackStack() }
                         )
                     }

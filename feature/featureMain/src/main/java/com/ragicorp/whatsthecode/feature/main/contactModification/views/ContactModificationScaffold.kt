@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -64,6 +65,7 @@ fun ContactModificationScaffold(
     setPhoneNumber: (TextFieldValue) -> Unit,
     address: StateFlow<TextFieldValue>,
     setAddress: (TextFieldValue) -> Unit,
+    openAddressSelection: () -> Unit,
     codes: StateFlow<List<Pair<String, String>>>,
     addCode: () -> Unit,
     removeCode: (Int) -> Unit,
@@ -143,6 +145,11 @@ fun ContactModificationScaffold(
                     keyboardType = KeyboardType.Phone
                 )
                 WtcTextField(
+                    modifier = Modifier.onFocusChanged {
+                        if (it.isFocused) {
+                            openAddressSelection()
+                        }
+                    },
                     value = address.collectAsStateWithLifecycle().value,
                     onValueChanged = setAddress,
                     label = stringResource(R.string.contact_address)
@@ -238,6 +245,7 @@ fun FilledContactModificationScaffoldPreview() {
             setPhoneNumber = {},
             address = MutableStateFlow(TextFieldValue("55 Rue du Faubourg Saint-Honoré, 75008 Paris")),
             setAddress = {},
+            openAddressSelection = {},
             codes = MutableStateFlow(
                 listOf(
                     Pair("Fence", "1234"),
@@ -271,6 +279,7 @@ fun EmptyContactModificationScaffoldPreview() {
             setPhoneNumber = {},
             address = MutableStateFlow(TextFieldValue("")),
             setAddress = {},
+            openAddressSelection = {},
             codes = MutableStateFlow(emptyList()),
             addCode = {},
             removeCode = {},
