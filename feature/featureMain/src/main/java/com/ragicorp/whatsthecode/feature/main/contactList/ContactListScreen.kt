@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,6 +17,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -49,6 +53,7 @@ internal object ContactList {
         navigateToAboutScreen: () -> Unit
     ) {
         val contactList = contactListViewModel.contacts.collectAsStateWithLifecycle(emptyList())
+        val contactSearch = contactListViewModel.contactSearch.collectAsStateWithLifecycle("")
         var isDropDownMenuExpanded by remember { mutableStateOf(false) }
         val context = LocalContext.current
 
@@ -56,7 +61,21 @@ internal object ContactList {
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                    title = {},
+                    modifier = Modifier.padding(vertical = Spacing.single),
+                    title = {
+                        OutlinedTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            value = contactSearch.value,
+                            onValueChange = contactListViewModel.setContactSearch,
+                            textStyle = MaterialTheme.typography.bodyLarge,
+                            placeholder = { Text(text = stringResource(R.string.contactList_filterPlaceholder)) },
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
+                            )
+                        )
+                    },
                     actions = {
                         IconButton(onClick = { isDropDownMenuExpanded = !isDropDownMenuExpanded }) {
                             Icon(

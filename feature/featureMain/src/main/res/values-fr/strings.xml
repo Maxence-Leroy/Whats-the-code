@@ -41,4 +41,5 @@
     <string name="about_content">J\'ai réalisé cette application sur mon temps libre. Si vous avez une suggestion ou un bug à signaler, vous pouvez m\'envoyer un courriel à l\'aide du bouton ci-dessous.</string>
     <string name="about_emailButton">Envoyer un courriel</string>
     <string name="contactList_dropDownMenu_about">À propos</string>
+    <string name="contactList_filterPlaceholder">Chercher un contact</string>
 </resources>

@@ -41,4 +41,5 @@
     <string name="about_content">I made this app on my free time. If you have any suggestion, improved translation (I am not a native english speaker), or want to report a bug, don\'t hesitate to contact me using the button below.</string>
     <string name="about_emailButton">Send an email</string>
     <string name="contactList_dropDownMenu_about">About</string>
+    <string name="contactList_filterPlaceholder">Search a contact</string>
 </resources>
