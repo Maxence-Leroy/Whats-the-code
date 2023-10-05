@@ -2,6 +2,7 @@ package com.ragicorp.whatsthecode.feature.main.addContact
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationScreen
 import org.koin.androidx.compose.getViewModel
@@ -15,14 +16,16 @@ internal object AddContact {
         addContactViewModel: AddContactViewModel = getViewModel(),
         navigateBack: () -> Unit,
         navigateToContactDetail: (contactId: UUID) -> Unit,
-        navigateToAddressSelection: () -> Unit
+        navigateToAddressSelection: () -> Unit,
+        addressViewModel: AddressViewModel
     ) {
         ContactModificationScreen(
             title = stringResource(R.string.addContact_titleScreen),
             viewModel = addContactViewModel,
             navigateBack = navigateBack,
             navigateToContactDetail = navigateToContactDetail,
-            navigateToAddressSelection = navigateToAddressSelection
+            navigateToAddressSelection = navigateToAddressSelection,
+            addressViewModel = addressViewModel
         )
     }
 }

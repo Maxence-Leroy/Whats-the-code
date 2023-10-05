@@ -10,7 +10,7 @@ import java.util.UUID
 
 val featureMainModule = module {
     viewModel { ContactListViewModel(get()) }
-    viewModel { AddContactViewModel(get()) }
+    viewModel { AddContactViewModel(get(), get()) }
     viewModel { (contactId: UUID) ->
         ContactDetailViewModel(
             contactId = contactId,
@@ -20,7 +20,9 @@ val featureMainModule = module {
     viewModel { (contactId: UUID) ->
         EditContactViewModel(
             contactId = contactId,
-            libContact = get()
+            libContact = get(),
+            addressViewModel = get()
         )
     }
+    single { AddressViewModel() }
 }

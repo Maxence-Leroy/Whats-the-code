@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationScreen
 import org.koin.androidx.compose.getViewModel
@@ -22,7 +23,8 @@ internal object EditContact {
     // Wrapper for type-safety
     fun NavGraphBuilder.editContactNavigationEntry(
         navigateBack: () -> Unit,
-        navigateToAddressSelection: () -> Unit
+        navigateToAddressSelection: () -> Unit,
+        addressViewModel: AddressViewModel
     ) {
         composable(
             Route,
@@ -40,7 +42,8 @@ internal object EditContact {
                     parameters = { parametersOf(UUID.fromString(contactId)) }
                 ),
                 navigateBack = navigateBack,
-                navigateToAddressSelection = navigateToAddressSelection
+                navigateToAddressSelection = navigateToAddressSelection,
+                addressViewModel = addressViewModel
             )
         }
     }
@@ -58,14 +61,16 @@ internal object EditContact {
     fun Screen(
         editContactViewModel: EditContactViewModel = getViewModel(),
         navigateBack: () -> Unit,
-        navigateToAddressSelection: () -> Unit
+        navigateToAddressSelection: () -> Unit,
+        addressViewModel: AddressViewModel
     ) {
         ContactModificationScreen(
             title = stringResource(R.string.editContact_titleScreen),
             viewModel = editContactViewModel,
             navigateBack = navigateBack,
             navigateToContactDetail = { _ -> navigateBack() },
-            navigateToAddressSelection = navigateToAddressSelection
+            navigateToAddressSelection = navigateToAddressSelection,
+            addressViewModel = addressViewModel
         )
     }
 }

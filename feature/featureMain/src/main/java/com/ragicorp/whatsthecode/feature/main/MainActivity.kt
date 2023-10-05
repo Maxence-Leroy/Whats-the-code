@@ -72,7 +72,8 @@ class MainActivity : ComponentActivity() {
                                     popUpTo(ContactList.Route)
                                 }
                             },
-                            navigateToAddressSelection = { navController.navigate(AddressSelection.Route) }
+                            navigateToAddressSelection = { navController.navigate(AddressSelection.Route) },
+                            addressViewModel = get()
                         )
                     }
 
@@ -85,7 +86,8 @@ class MainActivity : ComponentActivity() {
 
                     editContactNavigationEntry(
                         navigateBack = { navController.popBackStack() },
-                        navigateToAddressSelection = { navController.navigate(AddressSelection.Route) }
+                        navigateToAddressSelection = { navController.navigate(AddressSelection.Route) },
+                        addressViewModel = get()
                     )
 
                     composable(
@@ -100,7 +102,8 @@ class MainActivity : ComponentActivity() {
                         route = AddressSelection.Route
                     ) {
                         AddressSelection.Screen(
-                            onBack = { navController.popBackStack() }
+                            onBack = { navController.popBackStack() },
+                            addressViewModel = get()
                         )
                     }
                 }

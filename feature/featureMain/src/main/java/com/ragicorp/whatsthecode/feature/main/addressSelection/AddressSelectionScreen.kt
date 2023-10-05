@@ -15,11 +15,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
+import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 
@@ -29,9 +34,11 @@ object AddressSelection {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Screen(
-        onBack: () -> Unit
+        onBack: () -> Unit,
+        addressViewModel: AddressViewModel
     ) {
         val focusRequester = remember { FocusRequester() }
+        var address: TextFieldValue by remember { mutableStateOf(addressViewModel.address.value) }
 
         LaunchedEffect(null) {
             focusRequester.requestFocus()
@@ -60,8 +67,11 @@ object AddressSelection {
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(focusRequester),
-                    value = "",
-                    onValueChange = {},
+                    value = address,
+                    onValueChange = { value ->
+                        address = value
+                        addressViewModel.setAddress(value)
+                    },
                     label = { Text(stringResource(R.string.contact_address)) },
                     textStyle = MaterialTheme.typography.bodyLarge,
                     singleLine = true

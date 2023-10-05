@@ -20,10 +20,6 @@ abstract class ContactModificationViewModel : ViewModel() {
     val setPhoneNumber: (TextFieldValue) -> Unit =
         { viewModelScope.launch { _phoneNumber.emit(it) } }
 
-    private val _address = MutableStateFlow(TextFieldValue(""))
-    val address = _address.asStateFlow()
-    val setAddress: (TextFieldValue) -> Unit = { viewModelScope.launch { _address.emit(it) } }
-
     private val _codes = MutableStateFlow(listOf(Pair("", "")))
     val codes = _codes.asStateFlow()
     val addCode: () -> Unit = {

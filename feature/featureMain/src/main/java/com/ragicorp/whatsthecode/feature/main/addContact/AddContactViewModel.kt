@@ -1,6 +1,8 @@
 package com.ragicorp.whatsthecode.feature.main.addContact
 
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
+import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.LibContact
@@ -12,10 +14,17 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class AddContactViewModel(private val libContact: LibContact) :
+class AddContactViewModel(
+    private val libContact: LibContact,
+    private val addressViewModel: AddressViewModel
+) :
     ContactModificationViewModel() {
+    init {
+        addressViewModel.setAddress(TextFieldValue(""))
+    }
+
     override val isButtonSaveEnabled =
-        combine(name, address) { mName, mAddress ->
+        combine(name, addressViewModel.address) { mName, mAddress ->
             mName.text.isNotBlank() || mAddress.text.isNotBlank()
         }
             .stateIn(viewModelScope, SharingStarted.Eagerly, false)
@@ -23,7 +32,13 @@ class AddContactViewModel(private val libContact: LibContact) :
     override val hasSomethingChanged: StateFlow<Boolean>
         get() {
             val allButCodesHasChanged =
-                combine(name, phoneNumber, address, apartmentDescription, freeText) { array ->
+                combine(
+                    name,
+                    phoneNumber,
+                    addressViewModel.address,
+                    apartmentDescription,
+                    freeText
+                ) { array ->
                     array.any { it.text.isNotBlank() }
                 }
 
@@ -47,7 +62,7 @@ class AddContactViewModel(private val libContact: LibContact) :
             id = contactId,
             name = name.value.text.trim(),
             phoneNumber = phoneNumber.value.text.trim(),
-            address = address.value.text.trim(),
+            address = addressViewModel.address.value.text.trim(),
             codes = trimCodes(),
             apartmentDescription = apartmentDescription.value.text.trim(),
             freeText = freeText.value.text.trim(),
