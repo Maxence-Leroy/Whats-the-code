@@ -52,7 +52,8 @@ internal object ContactList {
         navigateToContactDetail: (ContactDomain) -> Unit,
         navigateToAboutScreen: () -> Unit
     ) {
-        val contactList = contactListViewModel.contacts.collectAsStateWithLifecycle(emptyList())
+        val contactList =
+            contactListViewModel.filteredContacts.collectAsStateWithLifecycle(emptyList())
         val contactSearch = contactListViewModel.contactSearch.collectAsStateWithLifecycle("")
         var isDropDownMenuExpanded by remember { mutableStateOf(false) }
         val context = LocalContext.current

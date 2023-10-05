@@ -38,4 +38,5 @@ dependencies {
     implementation(Koin.core)
     implementation(Koin.android)
     implementation(AndroidX.security.crypto)
+    testImplementation(Testing.junit4)
 }
