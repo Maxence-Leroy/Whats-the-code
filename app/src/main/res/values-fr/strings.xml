@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">C\'quoi le code ?</string>
+    <string name="app_name_prod">C\'quoi le code ?</string>
+    <string name="app_name_dev">CQLC-dev</string>
+    <string name="app_name_staging">CQLC-staging</string>
 </resources>

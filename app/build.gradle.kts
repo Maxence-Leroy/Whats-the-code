@@ -61,16 +61,17 @@ android {
         create("dev") {
             dimension = "distribute"
             applicationIdSuffix = ".dev"
-            resValue("string", "app_name", "WTC-dev")
+            resValue("string", "app_name", "@string/app_name_dev")
         }
         create("staging") {
             dimension = "distribute"
             applicationIdSuffix = ".staging"
-            resValue("string", "app_name", "WTC-staging")
+            resValue("string", "app_name", "@string/app_name_staging")
         }
         create("prod") {
             dimension = "distribute"
             applicationIdSuffix = ".prod"
+            resValue("string", "app_name", "@string/app_name_prod")
         }
     }
 
