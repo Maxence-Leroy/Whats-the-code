@@ -45,6 +45,8 @@ dependencies {
     implementation(Koin.android)
     implementation("com.google.code.gson:gson:_")
     implementation("net.zetetic:android-database-sqlcipher:4.5.4@aar")
+    implementation(Square.retrofit2.retrofit)
+    implementation(Square.retrofit2.converter.gson)
     testImplementation(Testing.junit4)
     testImplementation(Testing.mockK)
     testImplementation(KotlinX.coroutines.test)
