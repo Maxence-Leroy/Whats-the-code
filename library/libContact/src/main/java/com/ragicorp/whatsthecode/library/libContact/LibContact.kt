@@ -12,4 +12,5 @@ class LibContact : KoinComponent {
     suspend fun addContact(contact: ContactDomain) = contactRepository.addContact(contact)
     suspend fun editContact(contact: ContactDomain) = contactRepository.editContact(contact)
     suspend fun deleteContact(contact: ContactDomain) = contactRepository.deleteContact(contact)
+    suspend fun getAddressSuggestion(query: String) = contactRepository.getAddressSuggestion(query)
 }

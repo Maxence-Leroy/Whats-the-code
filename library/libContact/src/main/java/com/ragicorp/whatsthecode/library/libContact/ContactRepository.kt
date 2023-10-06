@@ -1,12 +1,17 @@
 package com.ragicorp.whatsthecode.library.libContact
 
+import com.ragicorp.whatsthecode.library.libContact.api.AddressApiService
+import com.ragicorp.whatsthecode.library.libContact.api.AddressDomainApiConverters
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDao
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDbDomainAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.UUID
 
-internal class ContactRepository(private val contactDao: ContactDao) {
+internal class ContactRepository(
+    private val contactDao: ContactDao,
+    private val addressApiService: AddressApiService
+) {
     fun getContacts(): Flow<List<ContactDomain>> {
         return contactDao
             .getContacts()
@@ -37,5 +42,10 @@ internal class ContactRepository(private val contactDao: ContactDao) {
         contactDao.deleteContact(
             ContactDbDomainAdapter.contactDb(contact)
         )
+    }
+
+    suspend fun getAddressSuggestion(query: String): List<String> {
+        val response = addressApiService.searchAddressNoCoordinates(query)
+        return AddressDomainApiConverters.addressResultFromApi(response)
     }
 }
