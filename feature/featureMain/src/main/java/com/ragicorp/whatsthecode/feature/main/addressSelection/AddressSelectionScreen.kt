@@ -1,8 +1,11 @@
 package com.ragicorp.whatsthecode.feature.main.addressSelection
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,9 +27,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
+import com.ragicorp.whatsthecode.feature.main.addressSelection.views.AddressSuggestion
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
+import org.koin.androidx.compose.getViewModel
 
 object AddressSelection {
     const val Route = "addressSelection"
@@ -35,10 +41,14 @@ object AddressSelection {
     @Composable
     fun Screen(
         onBack: () -> Unit,
-        addressViewModel: AddressViewModel
+        addressViewModel: AddressViewModel,
+        addressSelectionViewModel: AddressSelectionViewModel = getViewModel()
     ) {
         val focusRequester = remember { FocusRequester() }
-        var address: TextFieldValue by remember { mutableStateOf(addressViewModel.address.value) }
+        var enteredAddress: TextFieldValue by remember { mutableStateOf(addressViewModel.address.value) }
+        val suggestions = addressSelectionViewModel.contactSuggestions.collectAsStateWithLifecycle(
+            emptyList()
+        )
 
         LaunchedEffect(null) {
             focusRequester.requestFocus()
@@ -61,21 +71,37 @@ object AddressSelection {
             Column(
                 modifier = Modifier
                     .padding(it)
-                    .padding(Spacing.screen)
+                    .padding(Spacing.screen),
+                verticalArrangement = Arrangement.spacedBy(Spacing.single * 2)
             ) {
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(focusRequester),
-                    value = address,
+                    value = enteredAddress,
                     onValueChange = { value ->
-                        address = value
+                        enteredAddress = value
                         addressViewModel.setAddress(value)
                     },
                     label = { Text(stringResource(R.string.contact_address)) },
                     textStyle = MaterialTheme.typography.bodyLarge,
                     singleLine = true
                 )
+
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(Spacing.single)
+                ) {
+                    items(suggestions.value) { suggestion ->
+                        AddressSuggestion(
+                            address = suggestion,
+                            onClick = { address ->
+                                enteredAddress = TextFieldValue(address)
+                                addressViewModel.setAddress(TextFieldValue(address))
+                                onBack()
+                            }
+                        )
+                    }
+                }
             }
         }
     }

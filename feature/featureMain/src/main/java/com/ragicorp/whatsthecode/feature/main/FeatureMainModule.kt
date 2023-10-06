@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode.feature.main
 
 import com.ragicorp.whatsthecode.feature.main.addContact.AddContactViewModel
+import com.ragicorp.whatsthecode.feature.main.addressSelection.AddressSelectionViewModel
 import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetailViewModel
 import com.ragicorp.whatsthecode.feature.main.contactList.ContactListViewModel
 import com.ragicorp.whatsthecode.feature.main.editContact.EditContactViewModel
@@ -24,5 +25,6 @@ val featureMainModule = module {
             addressViewModel = get()
         )
     }
+    viewModel { AddressSelectionViewModel(get(), get()) }
     single { AddressViewModel() }
 }
