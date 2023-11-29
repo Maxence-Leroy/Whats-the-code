@@ -95,8 +95,9 @@ object AddressSelection {
                         AddressSuggestion(
                             address = suggestion,
                             onClick = { address ->
-                                enteredAddress = TextFieldValue(address)
-                                addressViewModel.setAddress(TextFieldValue(address))
+                                val oneLineAddress = address.replace("\n", ", ")
+                                enteredAddress = TextFieldValue(oneLineAddress)
+                                addressViewModel.setAddress(TextFieldValue(oneLineAddress))
                                 onBack()
                             }
                         )
