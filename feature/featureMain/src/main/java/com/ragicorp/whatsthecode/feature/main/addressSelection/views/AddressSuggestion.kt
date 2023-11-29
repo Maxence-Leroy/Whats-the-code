@@ -15,11 +15,11 @@ import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 @Composable
 fun AddressSuggestion(
     address: String,
-    onClick: (String) -> Unit
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        onClick = { onClick(address) }
+        onClick = { onClick() }
     ) {
         Text(
             modifier = Modifier.padding(
