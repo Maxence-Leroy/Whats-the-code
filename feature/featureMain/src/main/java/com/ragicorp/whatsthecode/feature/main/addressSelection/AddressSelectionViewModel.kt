@@ -16,7 +16,7 @@ class AddressSelectionViewModel(
         .address
         .sample(1000)
         .map {
-            val text = it.text
+            val text = it.address
             if (text.length >= 4) {
                 libContact.getAddressSuggestion(text)
             } else {

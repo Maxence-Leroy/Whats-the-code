@@ -7,7 +7,12 @@ data class AddressApiResponse(
 )
 
 data class FeatureResponse(
+    val geometry: GeometryResponse,
     val properties: PropertiesResponse
+)
+
+data class GeometryResponse(
+    val coordinates: List<Float>
 )
 
 data class PropertiesResponse(

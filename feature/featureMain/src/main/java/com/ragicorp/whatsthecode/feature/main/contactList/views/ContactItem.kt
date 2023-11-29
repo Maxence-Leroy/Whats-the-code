@@ -21,6 +21,7 @@ import com.ragicorp.whatsthecode.feature.main.ui.InitialsViewSize
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import com.ragicorp.whatsthecode.library.libContact.stubContact
 
 @Composable
@@ -51,9 +52,9 @@ internal fun ContactItem(
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
-                if (contact.address.isNotBlank()) {
+                if (contact.address.address.isNotBlank()) {
                     Text(
-                        text = contact.address,
+                        text = contact.address.address,
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -83,7 +84,7 @@ internal fun ContactWithoutAddressPreview() {
     WhatsTheCodeTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             ContactItem(
-                contact = stubContact.copy(address = ""),
+                contact = stubContact.copy(address = PlaceDomain("", null, null)),
                 onClick = {}
             )
         }

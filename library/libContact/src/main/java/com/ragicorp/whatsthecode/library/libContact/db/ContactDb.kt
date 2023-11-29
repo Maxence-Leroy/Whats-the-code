@@ -11,6 +11,8 @@ internal data class ContactDb(
     val name: String,
     val phoneNumber: String,
     val address: String,
+    val addressLong: Float? = null,
+    val addressLat: Float? = null,
     val codes: Codes,
     val apartmentDescription: String,
     val freeText: String,

@@ -26,12 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.addressSelection.views.AddressSuggestion
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import org.koin.androidx.compose.getViewModel
 
 object AddressSelection {
@@ -45,7 +45,7 @@ object AddressSelection {
         addressSelectionViewModel: AddressSelectionViewModel = getViewModel()
     ) {
         val focusRequester = remember { FocusRequester() }
-        var enteredAddress: TextFieldValue by remember { mutableStateOf(addressViewModel.address.value) }
+        var enteredAddress: String by remember { mutableStateOf(addressViewModel.address.value.address) }
         val suggestions = addressSelectionViewModel.contactSuggestions.collectAsStateWithLifecycle(
             emptyList()
         )
@@ -81,7 +81,7 @@ object AddressSelection {
                     value = enteredAddress,
                     onValueChange = { value ->
                         enteredAddress = value
-                        addressViewModel.setAddress(value)
+                        addressViewModel.setAddress(PlaceDomain(value, null, null))
                     },
                     label = { Text(stringResource(R.string.contact_address)) },
                     textStyle = MaterialTheme.typography.bodyLarge,
@@ -93,11 +93,17 @@ object AddressSelection {
                 ) {
                     items(suggestions.value) { suggestion ->
                         AddressSuggestion(
-                            address = suggestion,
+                            address = suggestion.address,
                             onClick = {
-                                val oneLineAddress = suggestion.replace("\n", ", ")
-                                enteredAddress = TextFieldValue(oneLineAddress)
-                                addressViewModel.setAddress(TextFieldValue(oneLineAddress))
+                                val oneLineAddress = suggestion.address.replace("\n", ", ").trim()
+                                enteredAddress = oneLineAddress
+                                addressViewModel.setAddress(
+                                    PlaceDomain(
+                                        oneLineAddress,
+                                        suggestion.long,
+                                        suggestion.lat
+                                    )
+                                )
                                 onBack()
                             }
                         )

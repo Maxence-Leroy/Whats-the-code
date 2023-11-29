@@ -6,6 +6,7 @@ import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.LibContact
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -29,7 +30,7 @@ class EditContactViewModel(
                 if (contact != null) {
                     setName(TextFieldValue(contact.name))
                     setPhoneNumber(TextFieldValue(contact.phoneNumber))
-                    addressViewModel.setAddress(TextFieldValue(contact.address))
+                    addressViewModel.setAddress(contact.address)
                     setCodes(contact.codes)
                     if (contact.codes.isEmpty()) {
                         addCode()
@@ -54,13 +55,13 @@ class EditContactViewModel(
                 val mContact = array[0] as ContactDomain?
                 val mName = (array[1] as TextFieldValue).text.trim()
                 val mPhoneNumber = (array[2] as TextFieldValue).text.trim()
-                val mAddress = (array[3] as TextFieldValue).text.trim()
+                val mAddress = (array[3] as PlaceDomain)
                 val mApartmentDescription = (array[4] as TextFieldValue).text.trim()
                 val mFreeText = (array[5] as TextFieldValue).text.trim()
 
                 ((mContact?.name ?: "") != mName) || ((mContact?.phoneNumber
                     ?: "") != mPhoneNumber) || ((mContact?.address
-                    ?: "") != mAddress) || ((mContact?.apartmentDescription
+                    ?: PlaceDomain("", null, null)) != mAddress) || ((mContact?.apartmentDescription
                     ?: "") != mApartmentDescription) || ((mContact?.freeText ?: "") != mFreeText)
             }
 
@@ -81,7 +82,7 @@ class EditContactViewModel(
             name,
             addressViewModel.address
         ) { mHasSomethingChanged, mName, mAddress ->
-            mHasSomethingChanged && (mName.text.isNotBlank() || mAddress.text.isNotBlank())
+            mHasSomethingChanged && (mName.text.isNotBlank() || mAddress.address.isNotBlank())
         }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
     override fun save(color: Int?): UUID {
@@ -90,7 +91,7 @@ class EditContactViewModel(
         val newContact = contactValue.copy(
             name = name.value.text.trim(),
             phoneNumber = phoneNumber.value.text.trim(),
-            address = addressViewModel.address.value.text.trim(),
+            address = addressViewModel.address.value,
             codes = trimCodes(),
             apartmentDescription = apartmentDescription.value.text.trim(),
             freeText = freeText.value.text.trim()

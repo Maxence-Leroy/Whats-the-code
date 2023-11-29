@@ -1,11 +1,11 @@
 package com.ragicorp.whatsthecode.feature.main.addContact
 
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationViewModel
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.LibContact
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -20,12 +20,12 @@ class AddContactViewModel(
 ) :
     ContactModificationViewModel() {
     init {
-        addressViewModel.setAddress(TextFieldValue(""))
+        addressViewModel.setAddress(PlaceDomain("", null, null))
     }
 
     override val isButtonSaveEnabled =
         combine(name, addressViewModel.address) { mName, mAddress ->
-            mName.text.isNotBlank() || mAddress.text.isNotBlank()
+            mName.text.isNotBlank() || mAddress.address.isNotBlank()
         }
             .stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
@@ -33,13 +33,13 @@ class AddContactViewModel(
         get() {
             val allButCodesHasChanged =
                 combine(
-                    name,
-                    phoneNumber,
-                    addressViewModel.address,
-                    apartmentDescription,
-                    freeText
+                    name.map { it.text },
+                    phoneNumber.map { it.text },
+                    addressViewModel.address.map { it.address },
+                    apartmentDescription.map { it.text },
+                    freeText.map { it.text }
                 ) { array ->
-                    array.any { it.text.isNotBlank() }
+                    array.any { it.isNotBlank() }
                 }
 
             val hasCodesChanged = codes
@@ -62,7 +62,7 @@ class AddContactViewModel(
             id = contactId,
             name = name.value.text.trim(),
             phoneNumber = phoneNumber.value.text.trim(),
-            address = addressViewModel.address.value.text.trim(),
+            address = addressViewModel.address.value,
             codes = trimCodes(),
             apartmentDescription = apartmentDescription.value.text.trim(),
             freeText = freeText.value.text.trim(),

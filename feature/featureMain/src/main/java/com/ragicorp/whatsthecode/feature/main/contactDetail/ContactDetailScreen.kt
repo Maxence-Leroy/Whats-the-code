@@ -171,9 +171,9 @@ object ContactDetail {
                             PhoneNumberCard(phoneNumber = contactValue.phoneNumber)
                         }
 
-                        if (contactValue.address.isNotBlank() or contactValue.codes.isNotEmpty() or contactValue.apartmentDescription.isNotBlank()) {
+                        if (contactValue.address.address.isNotBlank() or contactValue.codes.isNotEmpty() or contactValue.apartmentDescription.isNotBlank()) {
                             AddressCard(
-                                address = contactValue.address,
+                                address = contactValue.address.address,
                                 apartmentDescription = contactValue.apartmentDescription,
                                 codes = contactValue.codes
                             )

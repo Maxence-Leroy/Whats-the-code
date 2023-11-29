@@ -44,7 +44,7 @@ internal class ContactRepository(
         )
     }
 
-    suspend fun getAddressSuggestion(query: String): List<String> {
+    suspend fun getAddressSuggestion(query: String): List<PlaceDomain> {
         val response = addressApiService.searchAddressNoCoordinates(query)
         return AddressDomainApiConverters.addressResultFromApi(response)
     }

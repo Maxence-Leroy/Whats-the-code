@@ -47,6 +47,7 @@ import com.ragicorp.whatsthecode.feature.main.ui.CodeTextField
 import com.ragicorp.whatsthecode.feature.main.ui.WtcTextField
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -63,8 +64,8 @@ fun ContactModificationScaffold(
     setName: (TextFieldValue) -> Unit,
     phoneNumber: StateFlow<TextFieldValue>,
     setPhoneNumber: (TextFieldValue) -> Unit,
-    address: StateFlow<TextFieldValue>,
-    setAddress: (TextFieldValue) -> Unit,
+    address: StateFlow<PlaceDomain>,
+    setAddress: (PlaceDomain) -> Unit,
     openAddressSelection: () -> Unit,
     codes: StateFlow<List<Pair<String, String>>>,
     addCode: () -> Unit,
@@ -150,8 +151,8 @@ fun ContactModificationScaffold(
                             openAddressSelection()
                         }
                     },
-                    value = address.collectAsStateWithLifecycle().value,
-                    onValueChanged = setAddress,
+                    value = TextFieldValue(address.collectAsStateWithLifecycle().value.address),
+                    onValueChanged = { setAddress(PlaceDomain(it.text, null, null)) },
                     label = stringResource(R.string.contact_address)
                 )
 
@@ -243,7 +244,13 @@ fun FilledContactModificationScaffoldPreview() {
             setName = {},
             phoneNumber = MutableStateFlow(TextFieldValue("+33123456789")),
             setPhoneNumber = {},
-            address = MutableStateFlow(TextFieldValue("55 Rue du Faubourg Saint-Honoré, 75008 Paris")),
+            address = MutableStateFlow(
+                PlaceDomain(
+                    "55 Rue du Faubourg Saint-Honoré, 75008 Paris",
+                    null,
+                    null
+                )
+            ),
             setAddress = {},
             openAddressSelection = {},
             codes = MutableStateFlow(
@@ -277,7 +284,7 @@ fun EmptyContactModificationScaffoldPreview() {
             setName = {},
             phoneNumber = MutableStateFlow(TextFieldValue("")),
             setPhoneNumber = {},
-            address = MutableStateFlow(TextFieldValue("")),
+            address = MutableStateFlow(PlaceDomain("", null, null)),
             setAddress = {},
             openAddressSelection = {},
             codes = MutableStateFlow(emptyList()),

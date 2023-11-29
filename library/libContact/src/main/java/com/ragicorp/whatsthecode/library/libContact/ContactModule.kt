@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.ragicorp.whatsthecode.corehelpers.MasterKey
 import com.ragicorp.whatsthecode.library.libContact.api.AddressApiService
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDatabase
+import com.ragicorp.whatsthecode.library.libContact.db.MIGRATION_1_2
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import org.koin.android.ext.koin.androidContext
@@ -23,6 +24,7 @@ val contactModule = module {
                 context,
                 ContactDatabase::class.java, "contacts"
             )
+            .addMigrations(MIGRATION_1_2)
             .openHelperFactory(encryptionFactory)
             .build()
     }

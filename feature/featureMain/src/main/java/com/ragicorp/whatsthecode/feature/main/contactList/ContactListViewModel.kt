@@ -16,7 +16,7 @@ class ContactListViewModel(libContact: LibContact) : ViewModel() {
     private val contacts: Flow<List<ContactDomain>> = libContact
         .getContacts()
         .map { contacts ->
-            contacts.sortedBy { it.address }.sortedBy { it.name }
+            contacts.sortedBy { it.address.address }.sortedBy { it.name }
         }
 
     private val _contactSearch = MutableStateFlow("")
@@ -31,7 +31,7 @@ class ContactListViewModel(libContact: LibContact) : ViewModel() {
         val lowerCasedSearch = search.lowercase().removeDiacritics()
         contacts.filter {
             it.name.lowercase().removeDiacritics().contains(lowerCasedSearch) ||
-                    it.address.lowercase().removeDiacritics().contains(lowerCasedSearch)
+                    it.address.address.lowercase().removeDiacritics().contains(lowerCasedSearch)
         }
     }
 }

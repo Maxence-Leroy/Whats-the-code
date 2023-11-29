@@ -3,10 +3,11 @@ package com.ragicorp.whatsthecode.library.libContact.api
 import com.google.i18n.addressinput.common.AddressData
 import com.google.i18n.addressinput.common.FormOptions
 import com.google.i18n.addressinput.common.FormatInterpreter
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 
 
 internal object AddressDomainApiConverters {
-    internal fun addressResultFromApi(result: AddressApiResponse): List<String> =
+    internal fun addressResultFromApi(result: AddressApiResponse): List<PlaceDomain> =
         result.features.map { feature ->
             var address = ""
 
@@ -34,6 +35,10 @@ internal object AddressDomainApiConverters {
 
             val addressFragments = formatInterpreter.getEnvelopeAddress(addressData)
 
-            addressFragments.joinToString("\n")
+            PlaceDomain(
+                addressFragments.joinToString("\n"),
+                feature.geometry.coordinates[0],
+                feature.geometry.coordinates[1]
+            )
         }
 }

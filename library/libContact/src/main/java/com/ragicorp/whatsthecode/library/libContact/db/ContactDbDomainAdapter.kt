@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode.library.libContact.db
 
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import java.util.UUID
 
 internal object ContactDbDomainAdapter {
@@ -9,7 +10,7 @@ internal object ContactDbDomainAdapter {
             id = UUID.fromString(contactDb.id),
             name = contactDb.name,
             phoneNumber = contactDb.phoneNumber,
-            address = contactDb.address,
+            address = PlaceDomain(contactDb.address, contactDb.addressLong, contactDb.addressLat),
             codes = contactDb.codes,
             apartmentDescription = contactDb.apartmentDescription,
             freeText = contactDb.freeText,
@@ -21,7 +22,9 @@ internal object ContactDbDomainAdapter {
             id = contact.id.toString(),
             name = contact.name,
             phoneNumber = contact.phoneNumber,
-            address = contact.address,
+            address = contact.address.address,
+            addressLong = contact.address.long,
+            addressLat = contact.address.lat,
             codes = contact.codes,
             apartmentDescription = contact.apartmentDescription,
             freeText = contact.freeText,
