@@ -43,4 +43,6 @@
     <string name="contactList_dropDownMenu_about">À propos</string>
     <string name="contactList_filterPlaceholder">Chercher un contact</string>
     <string name="addressSelection_backButtonDescription">Retour</string>
+    <string name="contactList_orderByDistance">Trier par distance</string>
+    <string name="contactList_orderByName">Trier par nom</string>
 </resources>

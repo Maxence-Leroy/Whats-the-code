@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,6 +57,7 @@ internal object ContactList {
         val contactList =
             contactListViewModel.filteredContacts.collectAsStateWithLifecycle(emptyList())
         val contactSearch = contactListViewModel.contactSearch.collectAsStateWithLifecycle("")
+        val order = contactListViewModel.order.collectAsStateWithLifecycle(OrderBy.Name)
         var isDropDownMenuExpanded by remember { mutableStateOf(false) }
         val context = LocalContext.current
 
@@ -78,6 +81,19 @@ internal object ContactList {
                         )
                     },
                     actions = {
+                        IconButton(onClick = contactListViewModel.changeOrder) {
+                            if (order.value == OrderBy.Name) {
+                                Icon(
+                                    Icons.Outlined.Person,
+                                    contentDescription = stringResource(R.string.contactList_orderByDistance)
+                                )
+                            } else {
+                                Icon(
+                                    Icons.Outlined.Place,
+                                    contentDescription = stringResource(R.string.contactList_orderByName)
+                                )
+                            }
+                        }
                         IconButton(onClick = { isDropDownMenuExpanded = !isDropDownMenuExpanded }) {
                             Icon(
                                 Icons.Default.MoreVert,
