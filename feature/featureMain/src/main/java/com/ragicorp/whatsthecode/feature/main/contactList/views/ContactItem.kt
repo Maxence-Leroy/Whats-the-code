@@ -16,20 +16,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.ragicorp.whatsthecode.feature.main.contactList.ContactWithDistance
 import com.ragicorp.whatsthecode.feature.main.ui.InitialsView
 import com.ragicorp.whatsthecode.feature.main.ui.InitialsViewSize
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
-import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import com.ragicorp.whatsthecode.library.libContact.stubContact
 
 @Composable
 internal fun ContactItem(
     modifier: Modifier = Modifier,
-    contact: ContactDomain,
+    contactWithDistance: ContactWithDistance,
     onClick: () -> Unit
 ) {
+    val contact = contactWithDistance.contact
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.background,
@@ -70,7 +71,7 @@ internal fun FullContactItemPreview() {
     WhatsTheCodeTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             ContactItem(
-                contact = stubContact,
+                contactWithDistance = ContactWithDistance(stubContact, null),
                 onClick = {}
             )
         }
@@ -84,7 +85,15 @@ internal fun ContactWithoutAddressPreview() {
     WhatsTheCodeTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             ContactItem(
-                contact = stubContact.copy(address = PlaceDomain("", null, null)),
+                contactWithDistance = ContactWithDistance(
+                    stubContact.copy(
+                        address = PlaceDomain(
+                            "",
+                            null,
+                            null
+                        )
+                    ), null
+                ),
                 onClick = {}
             )
         }
@@ -98,7 +107,7 @@ internal fun ContactWithoutNamePreview() {
     WhatsTheCodeTheme {
         Box(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
             ContactItem(
-                contact = stubContact.copy(name = ""),
+                contactWithDistance = ContactWithDistance(stubContact.copy(name = ""), null),
                 onClick = {}
             )
         }

@@ -3,7 +3,6 @@ package com.ragicorp.whatsthecode.feature.main.contactList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.corehelpers.removeDiacritics
-import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import com.ragicorp.whatsthecode.library.libContact.LibContact
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,11 +28,13 @@ class ContactListViewModel(libContact: LibContact) : ViewModel() {
         }
     }
 
-    private val contacts: Flow<List<ContactDomain>> = libContact.getContacts()
+    private val contacts: Flow<List<ContactWithDistance>> = libContact.getContacts()
         .combine(order) { contacts, order ->
             when (order) {
                 OrderBy.Name -> contacts.sortedBy { it.address.address }.sortedBy { it.name }
-                OrderBy.Distance -> contacts // TODO
+                    .map { ContactWithDistance(it, null) }
+
+                OrderBy.Distance -> contacts.map { ContactWithDistance(it, null) } // TODO
             }
         }
 
@@ -48,8 +49,9 @@ class ContactListViewModel(libContact: LibContact) : ViewModel() {
     val filteredContacts = contacts.combine(contactSearch) { contacts, search ->
         val lowerCasedSearch = search.lowercase().removeDiacritics()
         contacts.filter {
-            it.name.lowercase().removeDiacritics().contains(lowerCasedSearch) ||
-                    it.address.address.lowercase().removeDiacritics().contains(lowerCasedSearch)
+            it.contact.name.lowercase().removeDiacritics().contains(lowerCasedSearch) ||
+                    it.contact.address.address.lowercase().removeDiacritics()
+                        .contains(lowerCasedSearch)
         }
     }
 }

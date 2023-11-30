@@ -124,12 +124,12 @@ internal object ContactList {
                         LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(
                                 contactList.value,
-                                key = { contact -> contact.id }
+                                key = { contact -> contact.contact.id }
                             ) { contact ->
                                 ContactItem(
                                     modifier = Modifier.animateItemPlacement(),
-                                    contact = contact,
-                                    onClick = { navigateToContactDetail(contact) }
+                                    contactWithDistance = contact,
+                                    onClick = { navigateToContactDetail(contact.contact) }
                                 )
                             }
                         }
