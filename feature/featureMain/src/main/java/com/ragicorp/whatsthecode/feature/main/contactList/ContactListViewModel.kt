@@ -42,7 +42,7 @@ class ContactListViewModel(libContact: LibContact, application: Application) :
                         application.applicationContext
                     )
                     ContactWithDistance(it, distance)
-                }
+                }.sortedWith(compareBy(nullsLast()) { it.distance })
             }
         }
 
