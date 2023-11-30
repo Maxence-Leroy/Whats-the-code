@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode.feature.main.contactList
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.ragicorp.whatsthecode.corehelpers.removeDiacritics
 import com.ragicorp.whatsthecode.library.libContact.LibContact
@@ -15,7 +16,8 @@ enum class OrderBy {
     Distance
 }
 
-class ContactListViewModel(libContact: LibContact) : ViewModel() {
+class ContactListViewModel(libContact: LibContact, application: Application) :
+    AndroidViewModel(application) {
     private val _order = MutableStateFlow(OrderBy.Name)
     val order = _order.asStateFlow()
 
@@ -34,7 +36,13 @@ class ContactListViewModel(libContact: LibContact) : ViewModel() {
                 OrderBy.Name -> contacts.sortedBy { it.address.address }.sortedBy { it.name }
                     .map { ContactWithDistance(it, null) }
 
-                OrderBy.Distance -> contacts.map { ContactWithDistance(it, null) } // TODO
+                OrderBy.Distance -> contacts.map {
+                    val distance = libContact.getDistanceFromCurrentPosition(
+                        it,
+                        application.applicationContext
+                    )
+                    ContactWithDistance(it, distance)
+                }
             }
         }
 

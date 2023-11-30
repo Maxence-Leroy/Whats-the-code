@@ -45,4 +45,6 @@
     <string name="addressSelection_backButtonDescription">Retour</string>
     <string name="contactList_orderByDistance">Trier par distance</string>
     <string name="contactList_orderByName">Trier par nom</string>
+    <string name="contactDistance_meters">%s m</string>
+    <string name="contactDistance_kilometers">%s km</string>
 </resources>

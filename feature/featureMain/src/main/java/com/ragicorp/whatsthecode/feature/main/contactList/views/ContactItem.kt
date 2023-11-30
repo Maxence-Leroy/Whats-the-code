@@ -13,8 +13,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.ragicorp.whatsthecode.feature.main.contactList.ContactWithDistance
 import com.ragicorp.whatsthecode.feature.main.ui.InitialsView
@@ -41,11 +43,20 @@ internal fun ContactItem(
             horizontalArrangement = Arrangement.spacedBy(Spacing.single * 2),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            InitialsView(
-                name = contact.name,
-                color = Color(contact.color),
-                size = InitialsViewSize.Small
-            )
+            Column {
+                InitialsView(
+                    name = contact.name,
+                    color = Color(contact.color),
+                    size = InitialsViewSize.Small
+                )
+                if (contactWithDistance.distance != null) {
+                    Text(
+                        modifier = Modifier.align(CenterHorizontally),
+                        text = contactWithDistance.printDistance(LocalContext.current) ?: "",
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
             Column {
                 if (contact.name.isNotBlank()) {
                     Text(

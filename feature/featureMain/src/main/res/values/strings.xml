@@ -45,4 +45,6 @@
     <string name="addressSelection_backButtonDescription">Back</string>
     <string name="contactList_orderByDistance">Order by distance</string>
     <string name="contactList_orderByName">Order by name</string>
+    <string name="contactDistance_meters">%sm</string>
+    <string name="contactDistance_kilometers">%skm</string>
 </resources>
