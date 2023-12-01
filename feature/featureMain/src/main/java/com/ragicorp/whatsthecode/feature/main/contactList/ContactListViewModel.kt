@@ -3,6 +3,7 @@ package com.ragicorp.whatsthecode.feature.main.contactList
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.ragicorp.whatsthecode.corehelpers.PermissionsManager
 import com.ragicorp.whatsthecode.corehelpers.removeDiacritics
 import com.ragicorp.whatsthecode.library.libContact.LibContact
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,11 @@ enum class OrderBy {
     Distance
 }
 
-class ContactListViewModel(libContact: LibContact, application: Application) :
+class ContactListViewModel(
+    libContact: LibContact,
+    application: Application,
+    private val permissionManager: PermissionsManager
+) :
     AndroidViewModel(application) {
     private val _order = MutableStateFlow(OrderBy.Name)
     val order = _order.asStateFlow()
@@ -24,9 +29,15 @@ class ContactListViewModel(libContact: LibContact, application: Application) :
     val changeOrder: () -> Unit = {
         viewModelScope.launch {
             when (_order.value) {
-                OrderBy.Name -> _order.emit(OrderBy.Distance)
+                OrderBy.Name -> tryToSortByDistance()
                 OrderBy.Distance -> _order.emit(OrderBy.Name)
             }
+        }
+    }
+
+    private suspend fun tryToSortByDistance() {
+        if (permissionManager.requestFineLocationPermission()) {
+            _order.emit(OrderBy.Distance)
         }
     }
 

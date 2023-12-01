@@ -4,4 +4,8 @@
     <string name="permissionDeniedDialog_message">Sans les permissions, certaines fonctionnalités de l\'application peuvent ne pas marcher. Vous pouvez changer les permissions de l\'applications dans les paramètres, sous-menu \"Permissions\".</string>
     <string name="permissionDeniedDialog_positive">Paramètres</string>
     <string name="permissionDeniedDialog_negative">Plus tard</string>
+    <string name="permission_location_title">Activer la localisation</string>
+    <string name="permission_location_content">Pour trier les contacts par distance, l\'application a besoin que la localisation de l\'appareil soit activée.\nMerci d\'activer cette dernière dans les paramètres de votre appareil pour continuer</string>
+    <string name="permission_location_no">Non</string>
+    <string name="permission_location_yes">Oui</string>
 </resources>

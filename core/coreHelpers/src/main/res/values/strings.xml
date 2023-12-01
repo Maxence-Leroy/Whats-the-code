@@ -4,4 +4,8 @@
     <string name="permissionDeniedDialog_message">Without the permissions, some features of the app can\'t work. You can modify the permissions of the application in the settings of the app, in the \"Permissions\" sub-menu.</string>
     <string name="permissionDeniedDialog_positive">Settings</string>
     <string name="permissionDeniedDialog_negative">Later</string>
+    <string name="permission_location_title">Enable location</string>
+    <string name="permission_location_content">In order to sort contacts by distance, the app needs the location to be enabled. Please enable it in your device settings to contine</string>
+    <string name="permission_location_no">No</string>
+    <string name="permission_location_yes">Yes</string>
 </resources>

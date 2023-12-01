@@ -11,7 +11,7 @@ import org.koin.dsl.module
 import java.util.UUID
 
 val featureMainModule = module {
-    viewModel { ContactListViewModel(get(), androidApplication()) }
+    viewModel { ContactListViewModel(get(), androidApplication(), get()) }
     viewModel { AddContactViewModel(get(), get()) }
     viewModel { (contactId: UUID) ->
         ContactDetailViewModel(
