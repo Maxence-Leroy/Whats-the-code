@@ -1,5 +1,6 @@
 package com.ragicorp.whatsthecode.library.libContact
 
+import com.ragicorp.whatsthecode.library.libContact.api.AddressApiService
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDao
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDbDomainAdapter
 import io.mockk.coEvery
@@ -22,7 +23,8 @@ class ContactRepositoryTest {
     fun `Can get the list of contacts`() = runTest {
         // Given
         val mockDao = generateMockDao(listContacts = listOf(stubContact))
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         val contacts = repository.getContacts().take(1).toList()
@@ -38,7 +40,8 @@ class ContactRepositoryTest {
     fun `Can get single contact`() = runTest {
         // Given
         val mockDao = generateMockDao(singleContact = stubContact)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
         val id = UUID.randomUUID()
 
         // When
@@ -55,7 +58,8 @@ class ContactRepositoryTest {
     fun `Contact addition success is propagated`() = runTest {
         // Given
         val mockDao = generateMockDao(addSuccess = true)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         repository.addContact(stubContact)
@@ -70,7 +74,8 @@ class ContactRepositoryTest {
     fun `Contact addition error is propagated`() = runTest {
         // Given
         val mockDao = generateMockDao(addSuccess = false)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         val error = try {
@@ -92,7 +97,8 @@ class ContactRepositoryTest {
     fun `Contact edit success is propagated`() = runTest {
         // Given
         val mockDao = generateMockDao(editSuccess = true)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         repository.editContact(stubContact)
@@ -107,7 +113,8 @@ class ContactRepositoryTest {
     fun `Contact edit error is propagated`() = runTest {
         // Given
         val mockDao = generateMockDao(editSuccess = false)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         val error = try {
@@ -128,7 +135,8 @@ class ContactRepositoryTest {
     fun `Contact deletion success is propagated`() = runTest {
         // Given
         val mockDao = generateMockDao(deleteSuccess = true)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         repository.deleteContact(stubContact)
@@ -143,7 +151,8 @@ class ContactRepositoryTest {
     fun `Contact deletion error is propagated`() = runTest {
         // Given
         val mockDao = generateMockDao(deleteSuccess = false)
-        val repository = ContactRepository(mockDao)
+        val mockAddressApi = mockk<AddressApiService>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi)
 
         // When
         val error = try {

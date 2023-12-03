@@ -20,7 +20,6 @@ class ContactModificationViewModelTest {
 
         assertEquals("", viewModel.name.value.text)
         assertEquals("", viewModel.phoneNumber.value.text)
-        assertEquals("", viewModel.address.value.text)
         assertEquals(listOf(Pair("", "")), viewModel.codes.value)
         assertEquals("", viewModel.apartmentDescription.value.text)
         assertEquals("", viewModel.freeText.value.text)
@@ -28,20 +27,17 @@ class ContactModificationViewModelTest {
         // When
         val newName = "Emmanuel Macron"
         val newPhoneNumber = "+33123456789"
-        val newAddress = "55 Rue du Faubourg Saint-Honoré, 75008 Paris"
         val newApartmentDescription = "Biggest room of the palace"
         val newFreeText = "Because he is the boss"
 
         viewModel.setName(TextFieldValue(newName))
         viewModel.setPhoneNumber(TextFieldValue(newPhoneNumber))
-        viewModel.setAddress(TextFieldValue(newAddress))
         viewModel.setApartmentDescription(TextFieldValue(newApartmentDescription))
         viewModel.setFreeText(TextFieldValue(newFreeText))
 
         // Then
         assertEquals(newName, viewModel.name.value.text)
         assertEquals(newPhoneNumber, viewModel.phoneNumber.value.text)
-        assertEquals(newAddress, viewModel.address.value.text)
         assertEquals(listOf(Pair("", "")), viewModel.codes.value)
         assertEquals(newApartmentDescription, viewModel.apartmentDescription.value.text)
         assertEquals(newFreeText, viewModel.freeText.value.text)

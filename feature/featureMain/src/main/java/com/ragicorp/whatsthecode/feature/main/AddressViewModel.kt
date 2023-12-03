@@ -10,5 +10,9 @@ import kotlinx.coroutines.launch
 class AddressViewModel : ViewModel() {
     private val _address = MutableStateFlow(PlaceDomain("", null, null))
     val address = _address.asStateFlow()
-    val setAddress: (PlaceDomain) -> Unit = { viewModelScope.launch { _address.emit(it) } }
+    val setAddress: (PlaceDomain) -> Unit = { newAddress ->
+        viewModelScope.launch {
+            _address.emit(newAddress.copy(address = newAddress.address.trim()))
+        }
+    }
 }

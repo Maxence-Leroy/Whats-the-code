@@ -1,8 +1,10 @@
 package com.ragicorp.whatsthecode.feature.main.editContact
 
 import androidx.compose.ui.text.input.TextFieldValue
+import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.MainDispatcherRule
 import com.ragicorp.whatsthecode.library.libContact.LibContact
+import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
 import com.ragicorp.whatsthecode.library.libContact.stubContact
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -28,10 +30,13 @@ class EditContactViewModelTest {
         coEvery { editContact(any()) } returns Unit
     }
 
+    private fun generateMockAddressViewModel() = AddressViewModel()
+
     @Test
     fun `contact is retrieved from library at start`() {
         // Given
-        val viewModel = EditContactViewModel(contactId, libContact)
+        val addressViewModel = generateMockAddressViewModel()
+        val viewModel = EditContactViewModel(contactId, libContact, addressViewModel)
 
         // When
 
@@ -39,7 +44,7 @@ class EditContactViewModelTest {
         verify(exactly = 1) { libContact.getContactById(contactId) }
         assertEquals(stubContact.name, viewModel.name.value.text)
         assertEquals(stubContact.phoneNumber, viewModel.phoneNumber.value.text)
-        assertEquals(stubContact.address, viewModel.address.value.text)
+        assertEquals(stubContact.address, addressViewModel.address.value)
         assertEquals(stubContact.codes, viewModel.codes.value)
         assertEquals(stubContact.apartmentDescription, viewModel.apartmentDescription.value.text)
         assertEquals(stubContact.freeText, viewModel.freeText.value.text)
@@ -48,7 +53,7 @@ class EditContactViewModelTest {
     @Test
     fun `By default, nothing has changed and it can't be saved`() = runTest {
         // Given
-        val viewModel = EditContactViewModel(contactId, libContact)
+        val viewModel = EditContactViewModel(contactId, libContact, generateMockAddressViewModel())
 
         // When
 
@@ -61,7 +66,8 @@ class EditContactViewModelTest {
     fun `if the name changes with things other than spaces, then something has changed`() =
         runTest {
             // Given
-            val viewModel = EditContactViewModel(contactId, libContact)
+            val viewModel =
+                EditContactViewModel(contactId, libContact, generateMockAddressViewModel())
 
             // When
             viewModel.setName(TextFieldValue("Hello"))
@@ -75,10 +81,11 @@ class EditContactViewModelTest {
     fun `if the name address with things other than spaces, then something has changed`() =
         runTest {
             // Given
-            val viewModel = EditContactViewModel(contactId, libContact)
+            val addressViewModel = generateMockAddressViewModel()
+            val viewModel = EditContactViewModel(contactId, libContact, addressViewModel)
 
             // When
-            viewModel.setAddress(TextFieldValue("Hello"))
+            addressViewModel.setAddress(PlaceDomain("Hello", null, null))
 
             // Then
             TestCase.assertTrue(viewModel.hasSomethingChanged.value)
@@ -88,12 +95,13 @@ class EditContactViewModelTest {
     @Test
     fun `if spaces are added, nothing has changed and it can't be save`() = runTest {
         // Given
-        val viewModel = EditContactViewModel(contactId, libContact)
+        val addressViewModel = generateMockAddressViewModel()
+        val viewModel = EditContactViewModel(contactId, libContact, addressViewModel)
 
         // When
         viewModel.setName(TextFieldValue("${stubContact.name}        "))
         viewModel.setPhoneNumber(TextFieldValue("      ${stubContact.phoneNumber}"))
-        viewModel.setAddress(TextFieldValue("  ${stubContact.address}    "))
+        addressViewModel.setAddress(PlaceDomain("  ${stubContact.address.address}    ", null, null))
         viewModel.setApartmentDescription(TextFieldValue("    ${stubContact.apartmentDescription} "))
         viewModel.setFreeText(TextFieldValue("  ${stubContact.freeText}  "))
 
@@ -105,7 +113,7 @@ class EditContactViewModelTest {
     @Test
     fun `if spaces or empty codes are added, nothing has changed`() = runTest {
         // Given
-        val viewModel = EditContactViewModel(contactId, libContact)
+        val viewModel = EditContactViewModel(contactId, libContact, generateMockAddressViewModel())
 
         // When
         viewModel.addCode()
@@ -120,7 +128,7 @@ class EditContactViewModelTest {
     @Test
     fun `if real code is added something has changed and it is savable`() = runTest {
         // Given
-        val viewModel = EditContactViewModel(contactId, libContact)
+        val viewModel = EditContactViewModel(contactId, libContact, generateMockAddressViewModel())
 
         // When
         viewModel.setCodes(0, Pair("a", "b"))
@@ -134,7 +142,8 @@ class EditContactViewModelTest {
     fun `if real content other than name or address is added, something has changed and it can be saved`() =
         runTest {
             // Given
-            val viewModel = EditContactViewModel(contactId, libContact)
+            val viewModel =
+                EditContactViewModel(contactId, libContact, generateMockAddressViewModel())
 
             // When
             viewModel.setPhoneNumber(TextFieldValue("YOLO"))
@@ -147,7 +156,7 @@ class EditContactViewModelTest {
     @Test
     fun `contact is saved according to what has been filled but trimmed`() = runTest {
         // Given
-        val viewModel = EditContactViewModel(contactId, libContact)
+        val viewModel = EditContactViewModel(contactId, libContact, generateMockAddressViewModel())
 
         // When
         viewModel.setName(TextFieldValue("  a   "))

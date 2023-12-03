@@ -60,8 +60,8 @@ class EditContactViewModel(
                 val mFreeText = (array[5] as TextFieldValue).text.trim()
 
                 ((mContact?.name ?: "") != mName) || ((mContact?.phoneNumber
-                    ?: "") != mPhoneNumber) || ((mContact?.address
-                    ?: PlaceDomain("", null, null)) != mAddress) || ((mContact?.apartmentDescription
+                    ?: "") != mPhoneNumber) || ((mContact?.address?.address
+                    ?: "") != mAddress.address) || ((mContact?.apartmentDescription
                     ?: "") != mApartmentDescription) || ((mContact?.freeText ?: "") != mFreeText)
             }
 
