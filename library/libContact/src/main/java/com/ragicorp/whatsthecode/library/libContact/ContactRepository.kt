@@ -15,7 +15,6 @@ import com.ragicorp.whatsthecode.library.libContact.file.FileDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
-import java.net.URI
 import java.util.UUID
 
 internal class ContactRepository(
@@ -82,6 +81,8 @@ internal class ContactRepository(
         return result[0]
     }
 
-    suspend fun exportContactInFile(contact: ContactDomain): URI =
-        fileDataSource.exportContactInFile(contact)
+    suspend fun shareContact(contact: ContactDomain) {
+        val file = fileDataSource.exportContactInFile(contact) ?: return
+        fileDataSource.shareFile(file)
+    }
 }
