@@ -44,5 +44,5 @@ val contactModule = module {
 
     factory { LibContact() }
 
-    factory { FileDataSource(androidContext()) }
+    factory { FileDataSource(androidContext(), get()) }
 }
