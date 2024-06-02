@@ -5,6 +5,7 @@ import com.ragicorp.whatsthecode.corehelpers.MasterKey
 import com.ragicorp.whatsthecode.library.libContact.api.AddressApiService
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDatabase
 import com.ragicorp.whatsthecode.library.libContact.db.MIGRATION_1_2
+import com.ragicorp.whatsthecode.library.libContact.file.FileDataSource
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import org.koin.android.ext.koin.androidContext
@@ -39,7 +40,9 @@ val contactModule = module {
 
     factory { get<ContactDatabase>().contactDao() }
 
-    factory { ContactRepository(get(), get()) }
+    factory { ContactRepository(get(), get(), get()) }
 
     factory { LibContact() }
+
+    factory { FileDataSource(androidContext()) }
 }

@@ -11,14 +11,17 @@ import com.ragicorp.whatsthecode.library.libContact.api.AddressApiService
 import com.ragicorp.whatsthecode.library.libContact.api.AddressDomainApiConverters
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDao
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDbDomainAdapter
+import com.ragicorp.whatsthecode.library.libContact.file.FileDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
+import java.net.URI
 import java.util.UUID
 
 internal class ContactRepository(
     private val contactDao: ContactDao,
-    private val addressApiService: AddressApiService
+    private val addressApiService: AddressApiService,
+    private val fileDataSource: FileDataSource
 ) {
     fun getContacts(): Flow<List<ContactDomain>> {
         return contactDao
@@ -78,4 +81,7 @@ internal class ContactRepository(
         )
         return result[0]
     }
+
+    suspend fun exportContactInFile(contact: ContactDomain): URI =
+        fileDataSource.exportContactInFile(contact)
 }
