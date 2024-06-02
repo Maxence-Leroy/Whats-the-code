@@ -55,6 +55,7 @@ dependencies {
 
     implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.play.services)
+    implementation(libs.gson)
 
     implementation(project(":core:coreHelpers"))
 }
