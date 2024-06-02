@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,7 +43,7 @@ import com.ragicorp.whatsthecode.feature.main.contactDetail.views.DeleteContactC
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.FreeTextCard
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.PhoneNumberCard
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
 
@@ -69,7 +69,7 @@ object ContactDetail {
             val args: Bundle = it.arguments ?: throw IllegalArgumentException()
             val contactId = args.getString(ContactArgument) ?: throw IllegalStateException()
             Screen(
-                contactDetailViewModel = getViewModel(
+                contactDetailViewModel = koinViewModel(
                     parameters = { parametersOf(UUID.fromString(contactId)) }
                 ),
                 navigateBack = navigateBack,
@@ -119,7 +119,7 @@ object ContactDetail {
                     navigationIcon = {
                         IconButton(onClick = { navigateBack() }) {
                             Icon(
-                                Icons.Default.ArrowBack,
+                                Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = stringResource(R.string.contactDetail_leaveButtonDescription)
                             )
                         }

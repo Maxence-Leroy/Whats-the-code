@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationScreen
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
 
@@ -38,7 +38,7 @@ internal object EditContact {
             val args: Bundle = it.arguments ?: throw IllegalArgumentException()
             val contactId = args.getString(ContactArgument) ?: throw IllegalStateException()
             Screen(
-                editContactViewModel = getViewModel(
+                editContactViewModel = koinViewModel(
                     parameters = { parametersOf(UUID.fromString(contactId)) }
                 ),
                 navigateBack = navigateBack,
@@ -59,7 +59,7 @@ internal object EditContact {
 
     @Composable
     fun Screen(
-        editContactViewModel: EditContactViewModel = getViewModel(),
+        editContactViewModel: EditContactViewModel,
         navigateBack: () -> Unit,
         navigateToAddressSelection: () -> Unit,
         addressViewModel: AddressViewModel

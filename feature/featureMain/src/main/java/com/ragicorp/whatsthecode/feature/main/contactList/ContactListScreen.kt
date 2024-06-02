@@ -41,7 +41,7 @@ import com.ragicorp.whatsthecode.feature.main.contactList.views.ContactItem
 import com.ragicorp.whatsthecode.feature.main.contactList.views.NoContactPlaceholder
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.library.libContact.ContactDomain
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 internal object ContactList {
     const val Route = "contactList"
@@ -49,7 +49,7 @@ internal object ContactList {
     @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
     @Composable
     fun Screen(
-        contactListViewModel: ContactListViewModel = getViewModel(),
+        contactListViewModel: ContactListViewModel = koinViewModel(),
         navigateToAddContact: () -> Unit,
         navigateToContactDetail: (ContactDomain) -> Unit,
         navigateToAboutScreen: () -> Unit

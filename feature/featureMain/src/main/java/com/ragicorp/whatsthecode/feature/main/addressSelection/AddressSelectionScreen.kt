@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,7 +32,7 @@ import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.addressSelection.views.AddressSuggestion
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
 import com.ragicorp.whatsthecode.library.libContact.PlaceDomain
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 object AddressSelection {
     const val Route = "addressSelection"
@@ -42,7 +42,7 @@ object AddressSelection {
     fun Screen(
         onBack: () -> Unit,
         addressViewModel: AddressViewModel,
-        addressSelectionViewModel: AddressSelectionViewModel = getViewModel()
+        addressSelectionViewModel: AddressSelectionViewModel = koinViewModel()
     ) {
         val focusRequester = remember { FocusRequester() }
         var enteredAddress: String by remember { mutableStateOf(addressViewModel.address.value.address) }
@@ -60,7 +60,7 @@ object AddressSelection {
                     navigationIcon = {
                         IconButton(onClick = onBack) {
                             Icon(
-                                Icons.Default.ArrowBack,
+                                Icons.AutoMirrored.Default.ArrowBack,
                                 contentDescription = stringResource(R.string.addressSelection_backButtonDescription)
                             )
                         }

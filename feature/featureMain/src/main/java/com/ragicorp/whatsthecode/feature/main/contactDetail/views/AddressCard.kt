@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.Divider
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -122,7 +122,7 @@ private fun ContentWithDividers(
         value()
 
         if (index != content.size - 1) {
-            Divider(color = MaterialTheme.colorScheme.onSecondaryContainer)
+            HorizontalDivider(color = MaterialTheme.colorScheme.onSecondaryContainer)
         }
     }
 }
