@@ -9,12 +9,17 @@ import java.net.URI
 
 class FileDataSource(private val context: Context) {
     private val gson = Gson()
+    private val contactsDir: File = File(context.filesDir, "contacts")
 
-    suspend fun exportContactInFile(contact: ContactDomain): URI = with(Dispatchers.IO) {
+    init {
+        contactsDir.mkdirs()
+    }
+
+    suspend fun exportContactInFile(contact: ContactDomain): Uri? = with(Dispatchers.IO) {
         val id = contact.id.toString()
-        val file = File(context.filesDir, "$id.json")
+        val file = File(contactsDir, "$id.json")
         val jsonContent = gson.toJson(contact)
         file.writeText(jsonContent)
-        return file.toURI()
+        return getUriForFile(context, "com.ragicorp.whatsthecode.fileprovider", file)
     }
 }
