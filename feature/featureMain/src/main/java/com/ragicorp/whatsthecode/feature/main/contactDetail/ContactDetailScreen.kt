@@ -43,6 +43,7 @@ import com.ragicorp.whatsthecode.feature.main.contactDetail.views.DeleteContactC
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.FreeTextCard
 import com.ragicorp.whatsthecode.feature.main.contactDetail.views.PhoneNumberCard
 import com.ragicorp.whatsthecode.feature.main.ui.theme.Spacing
+import com.ragicorp.whatsthecode.library.libContact.ContactDomain
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
@@ -94,15 +95,31 @@ object ContactDetail {
         navigateBack: () -> Unit,
         navigateToEditContact: (contactId: UUID) -> Unit
     ) {
-        val contact = contactDetailViewModel.contact.collectAsStateWithLifecycle(null)
-        var showDeleteContactDialog: Boolean by remember { mutableStateOf(false) }
-        val contactValue = contact.value
+        val contact by contactDetailViewModel.contact.collectAsStateWithLifecycle(null)
 
-        if (showDeleteContactDialog) {
+        Screen(
+            contact = contact,
+            deleteContact = { contactDetailViewModel.deleteContact(it) },
+            navigateBack = navigateBack,
+            navigateToEditContact = navigateToEditContact
+        )
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun Screen(
+        contact: ContactDomain?,
+        deleteContact: (contact: ContactDomain) -> Unit,
+        navigateBack: () -> Unit,
+        navigateToEditContact: (contactId: UUID) -> Unit
+    ) {
+        var showDeleteContactDialog: Boolean by remember { mutableStateOf(false) }
+
+        if (showDeleteContactDialog && contact != null) {
             DeleteContactConfirmationDialog(
                 onConfirm = {
                     showDeleteContactDialog = false
-                    contactDetailViewModel.deleteContact(contact.value)
+                    deleteContact(contact)
                     navigateBack()
                 },
                 onDismiss = { showDeleteContactDialog = false })
@@ -126,8 +143,8 @@ object ContactDetail {
                     },
                     title = {},
                     actions = {
-                        if (contactValue != null) {
-                            IconButton(onClick = { navigateToEditContact(contactValue.id) }) {
+                        if (contact != null) {
+                            IconButton(onClick = { navigateToEditContact(contact.id) }) {
                                 Icon(
                                     Icons.Default.Create,
                                     contentDescription = stringResource(R.string.contactDetail_eidtButtonDescription)
@@ -144,7 +161,7 @@ object ContactDetail {
                 )
             }
         ) {
-            if (contactValue != null) {
+            if (contact != null) {
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -160,27 +177,27 @@ object ContactDetail {
                     ) {
                         Spacer(modifier = Modifier.height(Spacing.single * -2))
 
-                        if (contactValue.name.isNotBlank()) {
+                        if (contact.name.isNotBlank()) {
                             ContactImageAndName(
-                                name = contactValue.name,
-                                color = contactValue.color
+                                name = contact.name,
+                                color = contact.color
                             )
                         }
 
-                        if (contactValue.phoneNumber.isNotBlank()) {
-                            PhoneNumberCard(phoneNumber = contactValue.phoneNumber)
+                        if (contact.phoneNumber.isNotBlank()) {
+                            PhoneNumberCard(phoneNumber = contact.phoneNumber)
                         }
 
-                        if (contactValue.address.address.isNotBlank() or contactValue.codes.isNotEmpty() or contactValue.apartmentDescription.isNotBlank()) {
+                        if (contact.address.address.isNotBlank() or contact.codes.isNotEmpty() or contact.apartmentDescription.isNotBlank()) {
                             AddressCard(
-                                address = contactValue.address.address,
-                                apartmentDescription = contactValue.apartmentDescription,
-                                codes = contactValue.codes
+                                address = contact.address.address,
+                                apartmentDescription = contact.apartmentDescription,
+                                codes = contact.codes
                             )
                         }
 
-                        if (contactValue.freeText.isNotBlank()) {
-                            FreeTextCard(freeText = contactValue.freeText)
+                        if (contact.freeText.isNotBlank()) {
+                            FreeTextCard(freeText = contact.freeText)
                         }
                     }
                 }
