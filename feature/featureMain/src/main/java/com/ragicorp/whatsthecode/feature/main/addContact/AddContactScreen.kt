@@ -5,7 +5,7 @@ import androidx.compose.ui.res.stringResource
 import com.ragicorp.whatsthecode.feature.main.AddressViewModel
 import com.ragicorp.whatsthecode.feature.main.R
 import com.ragicorp.whatsthecode.feature.main.contactModification.ContactModificationScreen
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.util.UUID
 
 internal object AddContact {
@@ -13,7 +13,7 @@ internal object AddContact {
 
     @Composable
     fun Screen(
-        addContactViewModel: AddContactViewModel = getViewModel(),
+        addContactViewModel: AddContactViewModel = koinViewModel(),
         navigateBack: () -> Unit,
         navigateToContactDetail: (contactId: UUID) -> Unit,
         navigateToAddressSelection: () -> Unit,

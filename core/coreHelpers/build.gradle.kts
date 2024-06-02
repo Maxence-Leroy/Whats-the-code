@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
 android {
@@ -33,10 +33,12 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.core.ktx)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
-    implementation(AndroidX.core.ktx)
-    implementation(Koin.core)
-    implementation(Koin.android)
-    implementation(AndroidX.security.crypto)
-    testImplementation(Testing.junit4)
+    implementation(libs.androidx.security.crypto)
+
+    testImplementation(libs.junit)
 }

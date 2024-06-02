@@ -2,8 +2,8 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -104,28 +104,32 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
 
-    implementation(AndroidX.core.ktx)
-    implementation(AndroidX.lifecycle.runtime.ktx)
-    implementation(AndroidX.activity.compose)
-    implementation(platform(AndroidX.compose.bom))
-    implementation(AndroidX.compose.ui)
-    implementation(AndroidX.compose.ui.graphics)
-    implementation(AndroidX.compose.ui.toolingPreview)
-    implementation(AndroidX.compose.material3)
-    implementation(AndroidX.navigation.compose)
-    implementation(AndroidX.lifecycle.runtime.compose)
-    implementation(Koin.core)
-    implementation(Koin.android)
-    implementation(Koin.compose)
-    implementation(Google.android.playServices.openSourceLicenses)
-    "stagingImplementation"("com.microsoft.appcenter:appcenter-distribute:_")
-    testImplementation(Testing.junit4)
-    androidTestImplementation(AndroidX.test.ext.junit)
-    androidTestImplementation(AndroidX.test.runner)
-    androidTestImplementation(AndroidX.test.uiAutomator)
-    debugImplementation(AndroidX.compose.ui.tooling)
-    debugImplementation(AndroidX.compose.ui.testManifest)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+
+    implementation(libs.play.services.oss.licenses)
+
+    "stagingImplementation"(libs.appcenter.distribute)
+
+    testImplementation(libs.junit)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.uiautomator)
+
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(project(":core:coreHelpers"))
     implementation(project(":feature:featureMain"))
