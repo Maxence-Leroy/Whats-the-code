@@ -9,6 +9,8 @@ import org.junit.Rule
 abstract class SnapshotComponentTest(
     @get:Rule val paparazziRule: Paparazzi = defaultPaparazziRule,
 ) {
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     companion object {
         val defaultPaparazziRule: Paparazzi
@@ -31,6 +33,8 @@ abstract class SnapshotComponentTest(
 abstract class SnapshotVerticalComponentTest(
     @get:Rule val paparazziRule: Paparazzi = defaultPaparazziRule,
 ) {
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     companion object {
         val defaultPaparazziRule: Paparazzi
@@ -49,6 +53,8 @@ abstract class SnapshotVerticalComponentTest(
 abstract class SnapshotUiTest(
     @get:Rule val paparazziRule: Paparazzi = defaultPaparazziRule,
 ) {
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     companion object {
         val defaultPaparazziRule: Paparazzi
