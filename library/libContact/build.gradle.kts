@@ -1,7 +1,7 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -34,25 +34,27 @@ android {
 }
 
 dependencies {
-    implementation(AndroidX.core.ktx)
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.room.runtime)
-    implementation(AndroidX.room.ktx)
-    implementation(KotlinX.coroutines.android)
-    implementation(KotlinX.coroutines.playServices)
-    annotationProcessor(AndroidX.room.compiler)
-    ksp(AndroidX.room.compiler)
-    implementation(Koin.core)
-    implementation(Koin.android)
-    implementation("com.google.code.gson:gson:_")
-    implementation("net.zetetic:android-database-sqlcipher:4.5.4@aar")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation(libs.androidx.core.ktx)
 
-    implementation(Square.retrofit2.retrofit)
-    implementation(Square.retrofit2.converter.gson)
-    testImplementation(Testing.junit4)
-    testImplementation(Testing.mockK)
-    testImplementation(KotlinX.coroutines.test)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
+    implementation(libs.android.database.sqlcipher)
+
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation(libs.play.services.location)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     implementation(project(":core:coreHelpers"))
 }
