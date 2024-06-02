@@ -16,4 +16,10 @@ class ContactDetailViewModel(contactId: UUID, private val libContact: LibContact
             libContact.deleteContact(contact)
         }
     }
+
+    fun shareContact(contact: ContactDomain) {
+        viewModelScope.launch {
+            libContact.shareContact(contact)
+        }
+    }
 }

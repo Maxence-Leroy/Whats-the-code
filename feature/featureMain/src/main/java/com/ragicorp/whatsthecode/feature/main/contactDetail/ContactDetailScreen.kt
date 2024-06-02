@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -100,6 +101,7 @@ object ContactDetail {
         Screen(
             contact = contact,
             deleteContact = { contactDetailViewModel.deleteContact(it) },
+            shareContact = { contactDetailViewModel.shareContact(it) },
             navigateBack = navigateBack,
             navigateToEditContact = navigateToEditContact
         )
@@ -109,6 +111,7 @@ object ContactDetail {
     @Composable
     private fun Screen(
         contact: ContactDomain?,
+        shareContact: (contact: ContactDomain) -> Unit,
         deleteContact: (contact: ContactDomain) -> Unit,
         navigateBack: () -> Unit,
         navigateToEditContact: (contactId: UUID) -> Unit
@@ -144,6 +147,12 @@ object ContactDetail {
                     title = {},
                     actions = {
                         if (contact != null) {
+                            IconButton(onClick = { shareContact(contact) }) {
+                                Icon(
+                                    Icons.Default.Share,
+                                    contentDescription = stringResource(R.string.contactDetail_shareButtonDescription)
+                                )
+                            }
                             IconButton(onClick = { navigateToEditContact(contact.id) }) {
                                 Icon(
                                     Icons.Default.Create,

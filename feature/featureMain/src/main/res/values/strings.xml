@@ -47,4 +47,5 @@
     <string name="contactList_orderByName">Order by name</string>
     <string name="contactDistance_meters">%sm</string>
     <string name="contactDistance_kilometers">%skm</string>
+    <string name="contactDetail_shareButtonDescription">Share</string>
 </resources>
