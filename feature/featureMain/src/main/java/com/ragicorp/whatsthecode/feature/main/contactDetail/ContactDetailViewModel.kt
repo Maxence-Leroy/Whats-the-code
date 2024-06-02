@@ -11,9 +11,7 @@ class ContactDetailViewModel(contactId: UUID, private val libContact: LibContact
     ViewModel() {
     val contact = libContact.getContactById(contactId)
 
-    fun deleteContact(contact: ContactDomain?) {
-        if (contact == null) throw IllegalStateException()
-
+    fun deleteContact(contact: ContactDomain) {
         viewModelScope.launch {
             libContact.deleteContact(contact)
         }
