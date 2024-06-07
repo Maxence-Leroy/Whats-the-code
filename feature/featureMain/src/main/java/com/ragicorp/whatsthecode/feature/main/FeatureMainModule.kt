@@ -5,6 +5,7 @@ import com.ragicorp.whatsthecode.feature.main.addressSelection.AddressSelectionV
 import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetailViewModel
 import com.ragicorp.whatsthecode.feature.main.contactList.ContactListViewModel
 import com.ragicorp.whatsthecode.feature.main.editContact.EditContactViewModel
+import com.ragicorp.whatsthecode.feature.main.importContact.ImportContactViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -27,5 +28,6 @@ val featureMainModule = module {
         )
     }
     viewModel { AddressSelectionViewModel(get(), get()) }
+    viewModel { ImportContactViewModel(get()) }
     single { AddressViewModel() }
 }
