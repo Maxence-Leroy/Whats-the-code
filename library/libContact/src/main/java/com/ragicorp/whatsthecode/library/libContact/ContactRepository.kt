@@ -3,6 +3,7 @@ package com.ragicorp.whatsthecode.library.libContact
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.net.Uri
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.LocationServices
@@ -12,9 +13,11 @@ import com.ragicorp.whatsthecode.library.libContact.api.AddressDomainApiConverte
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDao
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDbDomainAdapter
 import com.ragicorp.whatsthecode.library.libContact.file.FileDataSource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 internal class ContactRepository(
@@ -85,4 +88,22 @@ internal class ContactRepository(
         val file = fileDataSource.exportContactInFile(contact) ?: return
         fileDataSource.shareFile(file)
     }
+
+    suspend fun replaceContact(contact: ContactDomain) {
+        contactDao.replaceContact(
+            ContactDbDomainAdapter.contactDb(contact)
+        )
+    }
+
+    suspend fun importContact(file: Uri) = withContext(Dispatchers.IO) {
+        val contact = fileDataSource.importContact(file) ?: return@withContext null
+        try {
+            addContact(contact)
+            contact.id
+        } catch (e: Exception) {
+            throw ContactAlreadyExistingException(contact)
+        }
+    }
 }
+
+class ContactAlreadyExistingException(val contact: ContactDomain) : Exception()

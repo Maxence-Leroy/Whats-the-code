@@ -20,7 +20,7 @@ class FileDataSource(private val context: Context, private val activityProvider:
 
     suspend fun exportContactInFile(contact: ContactDomain): Uri? = with(Dispatchers.IO) {
         val id = contact.id.toString()
-        val file = File(contactsDir, "$id.json")
+        val file = File(contactsDir, "$id.wtc")
         val jsonContent = gson.toJson(contact)
         file.writeText(jsonContent)
         return getUriForFile(context, "com.ragicorp.whatsthecode.fileprovider", file)
@@ -30,8 +30,19 @@ class FileDataSource(private val context: Context, private val activityProvider:
         val shareIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_STREAM, file)
-            type = "text/json"
         }
         activityProvider.getActivity().startActivity(Intent.createChooser(shareIntent, null))
+    }
+
+    fun importContact(file: Uri): ContactDomain? {
+        try {
+            val fileContent = context
+                .contentResolver.openInputStream(file)?.bufferedReader()
+                ?.use { it.readText() } ?: return null
+            val contact = gson.fromJson(fileContent, ContactDomain::class.java)
+            return contact
+        } catch (e: Exception) {
+            return null
+        }
     }
 }

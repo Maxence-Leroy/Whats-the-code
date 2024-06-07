@@ -1,6 +1,7 @@
 package com.ragicorp.whatsthecode.library.libContact
 
 import android.content.Context
+import android.net.Uri
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.UUID
@@ -14,6 +15,8 @@ class LibContact : KoinComponent {
     suspend fun editContact(contact: ContactDomain) = contactRepository.editContact(contact)
     suspend fun deleteContact(contact: ContactDomain) = contactRepository.deleteContact(contact)
     suspend fun shareContact(contact: ContactDomain) = contactRepository.shareContact(contact)
+    suspend fun importContact(file: Uri) = contactRepository.importContact(file)
+    suspend fun replaceContact(contact: ContactDomain) = contactRepository.replaceContact(contact)
     suspend fun getAddressSuggestion(query: String) = contactRepository.getAddressSuggestion(query)
     suspend fun getDistanceFromCurrentPosition(contact: ContactDomain, context: Context) =
         contactRepository.getDistanceFromCurrentPosition(contact, context)

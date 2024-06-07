@@ -3,6 +3,7 @@ package com.ragicorp.whatsthecode.library.libContact.db
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,9 @@ internal interface ContactDao {
 
     @Insert
     suspend fun addContact(contact: ContactDb)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun replaceContact(contact: ContactDb)
 
     @Update
     suspend fun editContact(contact: ContactDb)

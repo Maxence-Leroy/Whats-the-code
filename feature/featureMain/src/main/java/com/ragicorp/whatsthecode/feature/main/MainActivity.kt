@@ -22,13 +22,15 @@ import com.ragicorp.whatsthecode.feature.main.contactDetail.ContactDetail.naviga
 import com.ragicorp.whatsthecode.feature.main.contactList.ContactList
 import com.ragicorp.whatsthecode.feature.main.editContact.EditContact.editContactNavigationEntry
 import com.ragicorp.whatsthecode.feature.main.editContact.EditContact.navigateToEditContact
+import com.ragicorp.whatsthecode.feature.main.importContact.HandleImportContact
 import com.ragicorp.whatsthecode.feature.main.ui.theme.WhatsTheCodeTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
+import org.koin.core.component.KoinComponent
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), KoinComponent {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +39,17 @@ class MainActivity : ComponentActivity() {
         val activityProvider: ActivityProvider = get()
         activityProvider.setActivity(this)
 
+        val intentData = intent.data
+
         setContent {
             WhatsTheCodeTheme {
                 val navController = rememberNavController()
+
+                HandleImportContact(
+                    intentData = intentData,
+                    navigateToContactDetail = { navController.navigateToContactDetail(it) }
+                )
+
                 NavHost(
                     navController = navController,
                     startDestination = ContactList.Route,

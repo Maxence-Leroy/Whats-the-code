@@ -48,4 +48,9 @@
     <string name="contactDistance_meters">%sm</string>
     <string name="contactDistance_kilometers">%skm</string>
     <string name="contactDetail_shareButtonDescription">Share</string>
+    <string name="importContact_importFailed">Unable to import the file, it is probably not in the right format</string>
+    <string name="importContact_contactAlreadyExisting">Contact already existing</string>
+    <string name="importContact_text">A contact with the same id is already on your phone. You can either add the new contact or keep the old one.</string>
+    <string name="importContact_confirm">Add new contact</string>
+    <string name="importContact_cancel">Keep old contact</string>
 </resources>

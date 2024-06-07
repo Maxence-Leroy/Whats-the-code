@@ -47,4 +47,10 @@
     <string name="contactList_orderByName">Trier par nom</string>
     <string name="contactDistance_meters">%s m</string>
     <string name="contactDistance_kilometers">%s km</string>
+    <string name="contactDetail_shareButtonDescription">Partager</string>
+    <string name="importContact_contactAlreadyExisting">Contact existant</string>
+    <string name="importContact_text">Un contact avec le même id existe déjà sur votre téléphone. Vous pouvez soit ajouter le nouveau contact ou garder l\'ancien</string>
+    <string name="importContact_confirm">Ajouter le nouveau contact</string>
+    <string name="importContact_cancel">Supprimer l\'ancien contact</string>
+    <string name="importContact_importFailed">Impossible d\'importer le fichier, il n\'est probablement pas au bon format</string>
 </resources>
