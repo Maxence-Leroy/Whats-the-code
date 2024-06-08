@@ -3,6 +3,7 @@ package com.ragicorp.whatsthecode.library.libContact
 import com.ragicorp.whatsthecode.library.libContact.api.AddressApiService
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDao
 import com.ragicorp.whatsthecode.library.libContact.db.ContactDbDomainAdapter
+import com.ragicorp.whatsthecode.library.libContact.file.FileDataSource
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -24,7 +25,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(listContacts = listOf(stubContact))
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         val contacts = repository.getContacts().take(1).toList()
@@ -41,7 +43,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(singleContact = stubContact)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
         val id = UUID.randomUUID()
 
         // When
@@ -59,7 +62,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(addSuccess = true)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         repository.addContact(stubContact)
@@ -75,7 +79,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(addSuccess = false)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         val error = try {
@@ -98,7 +103,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(editSuccess = true)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         repository.editContact(stubContact)
@@ -114,7 +120,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(editSuccess = false)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         val error = try {
@@ -136,7 +143,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(deleteSuccess = true)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         repository.deleteContact(stubContact)
@@ -152,7 +160,8 @@ class ContactRepositoryTest {
         // Given
         val mockDao = generateMockDao(deleteSuccess = false)
         val mockAddressApi = mockk<AddressApiService>(relaxed = true)
-        val repository = ContactRepository(mockDao, mockAddressApi)
+        val fileDataSource = mockk<FileDataSource>(relaxed = true)
+        val repository = ContactRepository(mockDao, mockAddressApi, fileDataSource)
 
         // When
         val error = try {
